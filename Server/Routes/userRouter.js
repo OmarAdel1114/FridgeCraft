@@ -98,7 +98,22 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Edit your profile
+// Delete your profile
+  router.delete("/:userId", verifyToken, async (req, res) => {
+    const userId = req.params.userId;
 
+    try {
+      const deletedUser = await User.findByIdAndDelete(userId);
+
+      if (!deletedUser) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      // not showing a message here cause I am using 204 status code which indicated that No content to show
+      res.status(204).json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 module.exports = router;
