@@ -20,7 +20,7 @@ router.get("/", verifyToken, async (req, res) => {
       .skip(skipCount)
       .limit(perPage);
 
-    res.json({ Status: "Success", data: { users } });
+    res.status(200).json({ Status: "Success", data: { users } });
   } catch (error) {
     console.error("Error fetching users:", error);
     res
@@ -99,21 +99,21 @@ router.post("/login", async (req, res) => {
 });
 
 // Delete your profile
-  router.delete("/:userId", verifyToken, async (req, res) => {
-    const userId = req.params.userId;
+router.delete("/:userId", verifyToken, async (req, res) => {
+  const userId = req.params.userId;
 
-    try {
-      const deletedUser = await User.findByIdAndDelete(userId);
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
 
-      if (!deletedUser) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      // not showing a message here cause I am using 204 status code which indicated that No content to show
-      res.status(204).json({ message: "User deleted successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
     }
-  });
+    // not showing a message here cause I am using 204 status code which indicated that No content to show
+    res.status(204).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;
