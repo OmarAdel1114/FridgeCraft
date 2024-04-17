@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const verifyToken = require("../Middlewares/auth.middleware");
 
-// get all users
+// Get all users
 router.get("/", verifyToken, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -113,6 +113,45 @@ router.delete("/:userId", verifyToken, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Edit your profile
+router.patch("/profile/:userId", verifyToken, async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const { firstName, lastName, userName, email, password } = req.body;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // Only allow the owner to edit their own profile
+    if (user._id.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to edit this profile" });
+    }
+
+    // Update only the specified fields using object destructuring
+    const updatedFields = {
+      ...(firstName && { firstName }),
+      ...(lastName && { lastName }),
+      ...(userName && { userName }),
+      ...(email && { email }),
+      ...(password && { password }),
+    };
+    // Apply the updated fields to the user object
+    Object.assign(user, updatedFields);
+
+    // Save the updated user
+    await user.save();
+    res.json({ message: "Profile updated successfully", data: { user } });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
