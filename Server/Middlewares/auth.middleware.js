@@ -3,6 +3,7 @@ require("dotenv").config();
 
 function verifyToken(req, res, next) {
   const authHeader = req.header("Authorization");
+  
   if (!authHeader) {
     return res.status(401).json("Access denied");
   }
