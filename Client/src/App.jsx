@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import React from 'react'
 import Navbar from'./Components/Navbar'
+import UserNavbar from './Components/UserNavbar'
+import Footer from'./Components/Footer'
+import AuthenticateNavbar from './Components/AuthenticateNavbar'
 import './index.css'
 
 const App = () => {
@@ -8,7 +11,8 @@ const App = () => {
     <>
     <Navbar/>
     
-    <h1 className='text-DarkGreen my-32 lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
+    
+    <h1 className='lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
     <h2 className='my-32 lg:text-5xl md:text-4xl text-2xl font-semibold'>Hello World</h2>
     <h3 className='my-32 lg:text-4xl md:text-3xl text-2xl font-semibold'>Hello World</h3>
     <h4 className='my-32 lg:text-3xl md:text-2xl text-xl font-semibold'>Hello World</h4>
@@ -25,6 +29,8 @@ const App = () => {
       <a href="#"><button className="rounded-full border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
         Button
       </button></a> {/*White Border Button*/}
+      
+      <Footer/>
     </>
   )
 }
