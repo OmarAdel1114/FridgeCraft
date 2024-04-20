@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
     <Navbar/>
-    
+  
     
     <h1 className='lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
     <h2 className='my-32 lg:text-5xl md:text-4xl text-2xl font-semibold'>Hello World</h2>
