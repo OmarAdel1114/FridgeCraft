@@ -26,4 +26,31 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/add", verifyToken, async (req, res) => {
+  try {
+    const { recipeTitle, recipeDescription, photo, recipeOverview } = req.body;
+    // Check if any required attribute is missing or empty
+    if (!recipeTitle || !recipeDescription || !photo || !recipeOverview) {
+      throw new Error("All attributes must be provided.");
+    }
+    const recipe = new Recipe({
+      recipeTitle,
+      recipeDescription,
+      recipeOverview,
+      photo,
+    });
+    const newRecipe = await recipe.save();
+
+    res.status(200).json({
+      status: "Recipe Added successfully",
+      data: { newRecipe },
+    });
+  } catch (error) {
+    console.error("Adding Recipe Failed", error);
+    res
+      .status(400)
+      .json({ error: "Adding Recipe Failed", message: error.message });
+  }
+});
+
 module.exports = router;
