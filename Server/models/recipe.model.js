@@ -14,6 +14,10 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    recipeOverview: {
+      type: String,
+      required: [true, "Overview is required"],
+    },
   },
   {
     timestamps: true,
