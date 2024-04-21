@@ -1,4 +1,5 @@
 import React from 'react'
+import React, { useState } from 'react';
 import CoverImage from './assets/cover_image.jpeg'
 import LoginLogo from './assets/login_logo.jpg'
 import GOOGLE_ICON from './assets/google-icon-logo.svg'
@@ -40,6 +41,7 @@ const Login = () => {
           <div className='w-full flex flex-col'>
 
             <input 
+            
             type="email"
             placeholder="Email"
             className='w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
