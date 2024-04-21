@@ -37,6 +37,11 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdAt = new Date(); //This let the server create the timestamp
 
+    // Check if any required attribute is missing or empty
+    if (!firstName || !lastName || !userName || !email || !password) {
+      throw new Error("All attributes must be provided.");
+    }
+
     const user = new User({
       firstName,
       lastName,
@@ -72,12 +77,12 @@ router.post("/register", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
   try {
-    const { userName, password } = req.body;
-    const user = await User.findOne({ userName });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-    // checks if the userName in the database
+    // checks if the email in the database
     if (!user) {
-      return res.status(401).json("Wrong userName");
+      return res.status(401).json("Wrong email");
     }
 
     // compare the sent password with the password in the database
