@@ -6,10 +6,8 @@ import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
     let Links =[
-        {name:"Home",link:"/"},
-        {name:"About",link:"/"},
-        {name:"Generate",link:"/"},
         {name:"Recipes",link:"/"},
+        {name:"Generate",link:"/"},
         {name:"Contact",link:"/"},
       ];
       let [open, setOpen] =useState(false);
