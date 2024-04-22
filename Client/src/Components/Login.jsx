@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://fridge-craft-server.vercel.app/api/users/login', {
+      const response = await fetch('https://fridge-craft-server.vercel.app//api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
