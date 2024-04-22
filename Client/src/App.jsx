@@ -5,14 +5,13 @@ import Navbar from'./Components/Navbar'
 import UserNavbar from './Components/UserNavbar'
 import Footer from'./Components/Footer'
 import AuthenticateNavbar from './Components/AuthenticateNavbar'
-import Login from './Components/Login'
 import './index.css'
 
 const App = () => {
   return (
     <>
     <UserNavbar/>
-    <Login/>
+    
   
     
     <h1 className='lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
