@@ -21,5 +21,5 @@ app.use("/api/recipes", recipeRoutes);
 
 
 app.listen(port, () => {
-  console.log(`Listening on Port ${port}`);
+  console.log(`listening on Port ${port}`);
 });
