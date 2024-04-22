@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { BookOpenIcon, Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import logo from '../assets/logo.png'
 import { FaSearch } from "react-icons/fa";
+import { CiBookmark } from "react-icons/ci";
+import { PiUserCircleLight } from "react-icons/pi";
+
+
+
 
 
 const Header = () => {
@@ -34,17 +39,28 @@ const Header = () => {
                 }
             </div>
 
-            <ul className={`shadow-md lg:shadow-none lg:flex lg:items-center lg:pb-0 pb-6 absolute lg:static bg-White md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${open ? 'top-20' : 'top-[-490px]'}`}>
+            <ul className={`shadow-md lg:shadow-none lg:flex lg:items-center lg:pb-0 absolute lg:static bg-White md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${open ? 'top-20' : 'top-[-490px]'}`}>
                 {
                     Links.map((link) => (
                     <li className='lg:ml-5 lg:py-0 py-4 text-base font-medium border-b lg:border-0'>
                         <a href={link.link} className='text-LightBlack hover:text-DarkGreen duration-500'>{link.name}</a>
                     </li>))
+
+                    
                 }
-                
-                <button className="mt-6 lg:mt-0 rounded-full bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen">
-                    Login/Signup
-                </button>
+                <li className='lg:hidden py-4 text-base font-medium border-b'>
+                    <a href='#' className='text-LightBlack hover:text-DarkGreen duration-500'>Favorites</a>
+                </li>
+                <li className='lg:hidden py-4 text-base font-medium border-b'>
+                    <a href='#' className='text-LightBlack hover:text-DarkGreen duration-500'>Profile</a>
+                </li>
+                <li className='lg:hidden py-4 text-base font-medium'>
+                    <a href='#' className='text-LightBlack hover:text-DarkGreen duration-500'>Signout</a>
+                </li>
+                <CiBookmark className='hidden lg:block cursor-pointer w-7 h-7 lg:ml-5' />
+                <PiUserCircleLight className='hidden lg:block cursor-pointer w-8 h-8 lg:ml-2' />
+
+
                 
             </ul>
             {/* button */}

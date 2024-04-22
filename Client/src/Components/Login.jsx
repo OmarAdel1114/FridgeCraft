@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+import React from 'react'
+=======
 
 import React, { useState } from 'react';
+>>>>>>> 8706742edc7919ff2b9a6fcb3d91eb43c5f8aa2c
 import CoverImage from '../assets/cover_image.jpeg'
 import LoginLogo from '../assets/login_logo.jpg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
