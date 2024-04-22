@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Login from './Components/Login'
 import React from 'react'
 import Navbar from'./Components/Navbar'
 import UserNavbar from './Components/UserNavbar'
@@ -20,6 +21,11 @@ const App = () => {
     <h4 className='my-32 lg:text-3xl md:text-2xl text-xl font-semibold'>Hello World</h4>
     <h5 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h5>
     <h6 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h6>
+
+    <Login/>
+
+   
+    
     <a href="#"><button className="rounded-full bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen">
         Button
       </button></a> {/*Primary Button*/}
