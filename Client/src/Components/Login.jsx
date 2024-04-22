@@ -1,10 +1,38 @@
-import React from 'react'
+
 import React, { useState } from 'react';
-import CoverImage from './assets/cover_image.jpeg'
-import LoginLogo from './assets/login_logo.jpg'
-import GOOGLE_ICON from './assets/google-icon-logo.svg'
+import CoverImage from '../assets/cover_image.jpeg'
+import LoginLogo from '../assets/login_logo.jpg'
+import GOOGLE_ICON from '../assets/google-icon-logo.svg'
 const Login = () => {
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('https://fridge-craft-server.vercel.app/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // Redirect or update state accordingly upon successful login
+        console.log('Login successful');
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred while logging in. Please try again later.');
+    }
+  };
 
 
 
@@ -12,6 +40,7 @@ const Login = () => {
   return (
 
     <>  
+    <form onSubmit={handleLogin}>   
     
     <div className="w-full h-screen  flex items-start">
 
@@ -44,12 +73,16 @@ const Login = () => {
             
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e)=> setEmail(e.target.value)}
             className='w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
              />
 
              <input 
             type="password"
             placeholder="password"
+            value={password}
+            onChange={(e)=> setPassword(e.target.value)}
             className='w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
              />
 
@@ -73,7 +106,7 @@ const Login = () => {
 
           <div className='w-full flex flex-col my-4'>
 
-            <button className='w-full text-white my-2 font-semibold bg-[#2E5834] rounded-md p-4 text-center justify-center cursor-pointer hover:bg-black hover:text-white'>
+            <button type='submit' className='w-full text-white my-2 font-semibold bg-[#2E5834] rounded-md p-4 text-center justify-center cursor-pointer hover:bg-black hover:text-white'>
              
              login
 
@@ -118,6 +151,10 @@ const Login = () => {
         </div> 
       
       </div>
+
+      {error && <p>{error}</p>}
+
+      </form>
   </>
   )
 }
