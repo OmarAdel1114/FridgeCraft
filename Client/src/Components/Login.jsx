@@ -1,7 +1,7 @@
 import React from 'react'
-import CoverImage from './assets/cover_image.jpeg'
-import LoginLogo from './assets/login_logo.jpg'
-import GOOGLE_ICON from './assets/google-icon-logo.svg'
+import CoverImage from '../assets/cover_image.jpeg'
+import LoginLogo from '../assets/login_logo.jpg'
+import GOOGLE_ICON from '../assets/google-icon-logo.svg'
 const Login = () => {
 
 
