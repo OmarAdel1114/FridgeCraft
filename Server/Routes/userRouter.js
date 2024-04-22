@@ -93,10 +93,26 @@ router.post("/login", async (req, res) => {
     }
 
     //generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
+    const accessToken = jwt.sign({ user }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "5s",
     });
-    res.status(200).json({ Status: "Successful Login", data: { token, user } });
+
+    const refreshToken = jwt.sign({ user }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1y",
+    });
+
+    res
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        sameSite: "strict",
+      })
+      .header("Authorization", accessToken)
+      .send(user);
+
+    res
+      .status(200)
+      .json({ Status: "Successful Login", data: { accessToken, user } });
+      
   } catch (error) {
     console.log("Login failed", error);
     res.status(500).json({ error: "login failed", message: error.message });
@@ -157,6 +173,24 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
   } catch (error) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.post('/refresh', (req, res) => {
+  const refreshToken = req.cookies['refreshToken'];
+  if (!refreshToken) {
+    return res.status(401).send('Access Denied. No refresh token provided.');
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET_KEY);
+    const accessToken = jwt.sign({ user: decoded.user }, process.env.JWT_SECRET_KEY, { expiresIn: '1y' });
+
+    res
+      .header('Authorization', accessToken)
+      .send(decoded.user);
+  } catch (error) {
+    return res.status(400).send('Invalid refresh token.');
   }
 });
 
