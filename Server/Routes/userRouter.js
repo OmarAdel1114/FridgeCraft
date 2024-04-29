@@ -6,7 +6,11 @@ require("dotenv").config();
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const verifyToken = require("../Middlewares/auth.middleware");
+
+// Set up cookie parser middleware
+router.use(cookieParser());
 
 // Get all users
 router.get("/", verifyToken, async (req, res) => {
@@ -60,10 +64,15 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ Id: user._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1h",
     });
+    res.cookie("token", token, { httpOnly: true });
+
+    // Save the token in the user document in the database
+    user.token = token;
+    await user.save();
 
     res.status(201).json({
       status: "User Registered successfully",
-      data: { token, newUser },
+      user: newUser,
     });
   } catch (error) {
     // Log and handle registration errors
@@ -91,12 +100,17 @@ router.post("/login", async (req, res) => {
     if (!matchedPassword) {
       return res.status(401).json("Wrong Password");
     }
-
     //generate JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1h",
     });
-    res.status(200).json({ Status: "Successful Login", data: { token, user } });
+    res.cookie("token", token, { httpOnly: true });
+
+    // Save  the token in the user document in the database
+    user.token = token;
+    await user.save();
+
+    res.status(200).json({ Status: "Successful Login", data: user });
   } catch (error) {
     console.log("Login failed", error);
     res.status(500).json({ error: "login failed", message: error.message });
