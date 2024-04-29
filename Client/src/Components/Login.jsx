@@ -1,13 +1,17 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CoverImage from '../assets/cover_image.jpeg'
 import LoginLogo from '../assets/login_logo.jpg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
+import { AuthenticationContext } from './AuthenticationProvider'
+
+
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { isLoggedIn, setIsLoggedIn} = useContext(AuthenticationContext)
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,6 +28,7 @@ const Login = () => {
       if (response.ok) {
         // Redirect or update state accordingly upon successful login
         console.log('Login successful');
+        const [isLoggedIn, setIsLoggedIn] = useState(true);
       } else {
         const data = await response.json();
         setError(data.message);
