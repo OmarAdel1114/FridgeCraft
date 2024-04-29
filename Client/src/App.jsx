@@ -2,6 +2,7 @@ import { useState } from 'react'
 import React from 'react'
 import Navbar from'./Components/Navbar'
 import UserNavbar from './Components/UserNavbar'
+import Login from './Components/Login'
 import Footer from'./Components/Footer'
 import './index.css'
 import AuthenticationProvider from './Components/AuthenticationProvider'
@@ -11,7 +12,7 @@ const App = () => {
   return (
     <>
     <UserNavbar/>
-    <Login/>
+   
   
     
     <h1 className='lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
@@ -21,7 +22,7 @@ const App = () => {
     <h5 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h5>
     <h6 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h6>
 
-    <Login/>
+   
 
    
     
