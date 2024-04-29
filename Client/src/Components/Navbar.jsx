@@ -43,8 +43,7 @@ const Header = () => {
                         <a href={link.link} className='text-LightBlack hover:text-DarkGreen duration-500'>{link.name}</a>
                     </li>))
                 }
-                
-                <button className="mt-6 lg:mt-0 rounded-full bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen">
+                <button className="mt-6 lg:mt-0 rounded border border-DarkGreen bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
                     Login/Signup
                 </button>
                 
