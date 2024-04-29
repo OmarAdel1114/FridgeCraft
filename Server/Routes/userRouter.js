@@ -106,7 +106,7 @@ router.post("/login", async (req, res) => {
     });
     res.cookie("token", token, { httpOnly: true });
 
-    // Save the token in the user document in the database
+    // Save  the token in the user document in the database
     user.token = token;
     await user.save();
 
