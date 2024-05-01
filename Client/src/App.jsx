@@ -11,7 +11,7 @@ import NavbarLogic from './Components/NavbarLogic'
 const App = () => {
   return (
     <>
-    <UserNavbar/>
+    
    
   
     
@@ -23,7 +23,7 @@ const App = () => {
     <h6 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h6>
 
    
-
+      <Login/>
    
     
     <a href="#"><button className="rounded-full bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen">

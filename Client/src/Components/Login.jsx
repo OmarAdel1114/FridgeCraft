@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import CoverImage from '../assets/cover_image.jpeg'
 import LoginLogo from '../assets/login_logo.jpg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
@@ -8,49 +8,38 @@ import { AuthenticationContext } from './AuthenticationProvider'
 
 const Login = () => {
 
-   // State to store email and password
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [error, setError] = useState(null);
- 
-   // Function to handle email input change
-   const handleEmailChange = (event) => {
-     setEmail(event.target.value);
-   };
- 
-   // Function to handle password input change
-   const handlePasswordChange = (event) => {
-     setPassword(event.target.value);
-   };
- 
-   // Function to handle form submission
-   const handleSubmit = async (event) => {
-     event.preventDefault(); // Prevent the default form submission behavior
- 
-     // Call your API here, passing the email and password
-     try {
-       const response = await fetch('https://your-api-endpoint.com/login', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({ email, password }),
-       });
-       const data = await response.json();
-       console.log('API response:', data);
-       // Handle the API response accordingly (e.g., redirect user on successful login)
-     } catch (error) {
-       console.error('Error:', error);
-       // Handle errors
-       if (error.message.includes('email')) {
-         setError('Error in email: ' + error.message);
-       } else if (error.message.includes('password')) {
-         setError('Error in password: ' + error.message);
-       } else {
-         setError('An error occurred. Please try again.');
-       }
-     }
+  
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     
+    try {
+      const response = await fetch('https://fridge-craft-server.vercel.app/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      console.log('API response:', data);
+      // Handle the API response accordingly (e.g., redirect user on successful login)
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors
+      if (error.message.includes('email')) {
+        setError('Error in email: ' + error.message);
+      } else if (error.message.includes('password')) {
+        setError('Error in password: ' + error.message);
+      } else {
+        setError('An error occurred. Please try again.');
+      }
+    }
   };
 
 
