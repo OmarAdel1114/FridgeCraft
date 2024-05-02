@@ -1,10 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import CoverImage from '../assets/cover_image.jpeg'
 import LoginLogo from '../assets/login_logo.jpg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
+import { AuthenticationContext } from './AuthenticationProvider'
+
+
 const Login = () => {
 
+  
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,16 +26,19 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        // Redirect or update state accordingly upon successful login
-        console.log('Login successful');
-      } else {
-        const data = await response.json();
-        setError(data.message);
-      }
+      const data = await response.json();
+      console.log('API response:', data);
+      // Handle the API response accordingly (e.g., redirect user on successful login)
     } catch (error) {
       console.error('Error:', error);
-      setError('An error occurred while logging in. Please try again later.');
+      // Handle errors
+      if (error.message.includes('email')) {
+        setError('Error in email: ' + error.message);
+      } else if (error.message.includes('password')) {
+        setError('Error in password: ' + error.message);
+      } else {
+        setError('An error occurred. Please try again.');
+      }
     }
   };
 

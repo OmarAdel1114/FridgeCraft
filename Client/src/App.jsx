@@ -1,17 +1,18 @@
 import { useState } from 'react'
-import Login from './Components/Login'
 import React from 'react'
 import Navbar from'./Components/Navbar'
 import UserNavbar from './Components/UserNavbar'
+import Login from './Components/Login'
 import Footer from'./Components/Footer'
-import AuthenticateNavbar from './Components/AuthenticateNavbar'
 import './index.css'
+import AuthenticationProvider from './Components/AuthenticationProvider'
+import NavbarLogic from './Components/NavbarLogic'
 
 const App = () => {
   return (
     <>
-    <UserNavbar/>
     
+   
   
     
     <h1 className='lg:text-6xl md:text-5xl text-4xl font-semibold'>Hello World</h1>
@@ -21,8 +22,8 @@ const App = () => {
     <h5 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h5>
     <h6 className='my-32 lg:text-2xl md:text-xl text-lg font-semibold'>Hello World</h6>
 
-    <Login/>
-
+   
+      <Login/>
    
     
     <a href="#"><button className="rounded-full bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen">
