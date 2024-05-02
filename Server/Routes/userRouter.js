@@ -61,9 +61,7 @@ router.post("/register", async (req, res) => {
     /* We generate the token after the user is saved the DB 
         to make sure that token is generated only for the saved users */
 
-    const token = jwt.sign({ Id: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ Id: user._id }, process.env.JWT_SECRET_KEY);
     res.cookie("token", token, { httpOnly: true });
 
     // Save the token in the user document in the database
@@ -101,9 +99,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json("Wrong Password");
     }
     //generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
     res.cookie("token", token, { httpOnly: true });
 
     // Save  the token in the user document in the database
