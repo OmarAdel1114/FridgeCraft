@@ -13,6 +13,7 @@ const recipeSchema = new mongoose.Schema(
     photo: {
       type: String,
       required: true,
+      default:'uploads/Profile.png'
     },
     recipeOverview: {
       type: String,

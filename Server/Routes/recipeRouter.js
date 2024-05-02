@@ -1,6 +1,31 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
+const multer = require("multer");
+const diskStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+    const filename = `recipe-${Date.now()}.${ext}`;
+    cb(null, filename);
+  },
+});
+const fileFilter = (req, file, cb) => {
+  const imageType = file.mimetype.split("/")[0];
+  if (imageType === "image") {
+    return cb(null, true);
+  } else {
+    return cb("must be an image", false);
+  }
+};
+
+const upload = multer({
+  storage: diskStorage,
+  fileFilter,
+});
+// const cloudinary = require('../utils/cloudinary');
 const mongoose = require("mongoose");
 require("dotenv").config();
 const Recipe = require("../models/recipe.model");
@@ -26,9 +51,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/add", verifyToken, async (req, res) => {
+router.post("/add", upload.single("photo"), async (req, res) => {
   try {
-    const { recipeTitle, recipeDescription, photo, recipeOverview } = req.body;
+    const { recipeTitle, recipeDescription, recipeOverview } = req.body;
+    const photo = req.file;
     // Check if any required attribute is missing or empty
     if (!recipeTitle || !recipeDescription || !photo || !recipeOverview) {
       throw new Error("All attributes must be provided.");
@@ -36,8 +62,8 @@ router.post("/add", verifyToken, async (req, res) => {
     const recipe = new Recipe({
       recipeTitle,
       recipeDescription,
+      photo: photo.path,
       recipeOverview,
-      photo,
     });
     const newRecipe = await recipe.save();
 
