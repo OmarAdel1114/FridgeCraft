@@ -1,0 +1,10 @@
+# Users
+   Register :
+        https = Post
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/users/register'
+----------------------
+
+#Recipes
+    AddNewRecipe :
+        https = Post
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes/add'
