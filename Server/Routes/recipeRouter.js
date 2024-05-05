@@ -40,7 +40,8 @@ router.get("/", async (req, res) => {
     const skipCount = (page - 1) * perPage;
 
     // getting all recipes
-    const recipes = await Recipe.find().skip(skipCount).limit(perPage);
+    const recipes = await Recipe.find();
+    // .skip(skipCount).limit(perPage);
 
     res.status(200).json({ Status: "Success", data: { recipes } });
   } catch (error) {
