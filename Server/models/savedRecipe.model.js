@@ -3,13 +3,13 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const savedRecipeSchema = new mongoose.Schema(
   {
-    savedRecipeOwner: {
+    user: {
       type: ObjectId,
-      ref: "users",
+      ref: "User",
     },
-    savedRecipes: {
+    recipe: {
       type: ObjectId,
-      ref: "recipes",
+      ref: "Recipe",
     },
   },
   {
