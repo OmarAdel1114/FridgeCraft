@@ -1,0 +1,39 @@
+# Users
+   Register :
+        https = Post
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/users/register'
+        Attributes {
+            firstName,
+            lastName,
+            userName,
+            email,
+            password
+        }
+----------------------
+
+#Recipes
+    AddNewRecipe :
+        https = Post
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes/add'
+        Attributes {
+           recipeTitle,
+           recipeDescription,
+           photo,
+           recipeOverview
+        }
+
+#Saved Recipes 
+    Add a recipe to saved:
+    https = Post
+    ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes'
+    Attributes {
+        savedRecipeOwner,
+        savedRecipes,
+    }
+
+    View saved recipes:
+    https = Get
+    ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes/id'
+    Attributes {
+       savedRecipe Id
+    }
