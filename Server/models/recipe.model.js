@@ -13,6 +13,7 @@ const recipeSchema = new mongoose.Schema(
     photo: {
       type: String,
       required: true,
+      default: "uploads/Profile.png",
     },
     recipeOverview: {
       type: String,
@@ -24,4 +25,4 @@ const recipeSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("recipes", recipeSchema);
+module.exports = mongoose.model("Recipe", recipeSchema);

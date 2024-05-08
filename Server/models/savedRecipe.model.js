@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
-const savedRecipeSchema = new mongoose.Schema({
-  savedRecipeOwner: {
-    type: mongoose.Types.ObjectId,
-    ref: "users",
+const savedRecipeSchema = new mongoose.Schema(
+  {
+    user: {
+      type: ObjectId,
+      ref: "User",
+    },
+    recipe: {
+      type: ObjectId,
+      ref: "Recipe",
+    },
   },
-  savedRecipes: {
-    type: mongoose.Types.ObjectId,
-    ref: "recipes",
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("savedRecipes", savedRecipeSchema);
