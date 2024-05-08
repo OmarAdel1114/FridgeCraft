@@ -7,6 +7,7 @@ import Footer from'./Components/Footer'
 import './index.css'
 import AuthenticationProvider from './Components/AuthenticationProvider'
 import NavbarLogic from './Components/NavbarLogic'
+import Landingpage from './Components/LandingPage'
 
 
 const App = () => {
@@ -44,6 +45,10 @@ const App = () => {
      
       
       <Footer/>
+
+
+
+      <Landingpage/>
   
     
    
