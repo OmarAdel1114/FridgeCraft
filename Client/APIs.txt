@@ -27,8 +27,7 @@
     https = Post
     ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes'
     Attributes {
-        savedRecipeOwner,
-        savedRecipes,
+        req.body (recipe(recipeTitle),user(userName))
     }
 
     View saved recipes:

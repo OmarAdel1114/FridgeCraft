@@ -5,9 +5,9 @@ const Recipe = require("../models/recipe.model");
 const User = require("../models/user.model");
 
 //This is the route for saving a recipe in saved Recipes
-router.post("/:recipe/:user", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { recipe, user } = req.params;
+    const { recipe, user } = req.body;
 
     const savRecipes = await Recipe.findOne({ recipeTitle: recipe });
     const Owner = await User.findOne({ userName: user });
@@ -31,7 +31,7 @@ router.post("/:recipe/:user", async (req, res) => {
 });
 
 //Route for viewing saved Recipes that show the userName & all recipe attributes
-router.get("/recipes/:user", async (req, res) => {
+router.get("/:user", async (req, res) => {
   try {
     // const id = req.params.id;
     const savedRecipe = await SavedRecipe.find({ user: req.params.user })
