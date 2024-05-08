@@ -17,9 +17,10 @@
         ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes/add'
         Attributes {
            recipeTitle,
-           recipeDescription,
            photo,
-           recipeOverview
+           recipeOverview,
+           ingredients: Type:array of strings must have at least 3 ingredients,
+           instructions,
         }
 
 #Saved Recipes 

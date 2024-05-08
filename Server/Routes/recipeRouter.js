@@ -54,8 +54,9 @@ router.get("/", async (req, res) => {
 
 router.post("/add", upload.single("photo"), async (req, res) => {
   try {
-    const { recipeTitle, recipeOverview, ingredients, instructions } = req.body;
+    const { recipeTitle, recipeOverview, instructions } = req.body;
     const photo = req.file;
+    const ingredients = req.body.ingredients.split(","); // Split ingredients string into an array
     // Check if any required attribute is missing or empty
     if (
       !recipeTitle ||
@@ -64,6 +65,7 @@ router.post("/add", upload.single("photo"), async (req, res) => {
       !ingredients ||
       !instructions
     ) {
+      console.log(req.body);
       throw new Error("All attributes must be provided.");
     }
     const recipe = new Recipe({
