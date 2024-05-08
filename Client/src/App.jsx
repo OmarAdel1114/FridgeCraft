@@ -7,7 +7,8 @@ import Footer from'./Components/Footer'
 import './index.css'
 import AuthenticationProvider from './Components/AuthenticationProvider'
 import NavbarLogic from './Components/NavbarLogic'
-import Landingpage from './Components/LandingPage'
+
+//import SavedRecipes from './Components/SavedRecipes'
 
 
 const App = () => {
@@ -47,10 +48,6 @@ const App = () => {
       <Footer/>
 
 
-
-      <Landingpage/>
-  
-    
    
     </>
   )
