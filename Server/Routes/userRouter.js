@@ -15,14 +15,14 @@ router.use(cookieParser());
 // Get all users
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 3; // Default to 3 users per page
-    const skipCount = (page - 1) * perPage;
+    // const page = parseInt(req.query.page) || 1;
+    // const perPage = parseInt(req.query.perPage) || 3; // Default to 3 users per page
+    // const skipCount = (page - 1) * perPage;
 
     // getting all users
-    const users = await User.find({}, { __v: 0, password: 0 }) // Excluding __v and password fields
-      .skip(skipCount)
-      .limit(perPage);
+    const users = await User.find({}, { __v: 0, password: 0 }); // Excluding __v and password fields
+    // .skip(skipCount)
+    // .limit(perPage);
 
     res.status(200).json({ Status: "Success", data: { users } });
   } catch (error) {
@@ -115,10 +115,18 @@ router.post("/login", async (req, res) => {
 
 // Delete your profile
 router.delete("/:userId", verifyToken, async (req, res) => {
-  const userId = req.params.userId;
+  const requestUserId = req.params.userId;
+  const tokenUserId = req.user.userId;
 
   try {
-    const deletedUser = await User.findByIdAndDelete(userId);
+    // Check if the user making the request matches the user ID in the token
+    if (requestUserId !== tokenUserId) {
+      return res.status(403).json({
+        error: "Unauthorized: You are not allowed to delete this user",
+      });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(requestUserId);
 
     if (!deletedUser) {
       return res.status(404).json({ error: "User not found" });
@@ -133,21 +141,22 @@ router.delete("/:userId", verifyToken, async (req, res) => {
 
 // Edit your profile
 router.patch("/profile/:userId", verifyToken, async (req, res) => {
-  const userId = req.params.userId;
+  const requestUserId = req.params.userId;
+  const tokenUserId = req.user.userId;
 
   try {
     const { firstName, lastName, userName, email, password } = req.body;
 
     // Check if the user exists
-    const user = await User.findById(userId);
+    const user = await User.findById(requestUserId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     // Only allow the owner to edit their own profile
-    if (user._id.toString() !== userId) {
+    if (requestUserId !== tokenUserId) {
       return res
         .status(403)
-        .json({ message: "Unauthorized to edit this profile" });
+        .json({ error: "Unauthorized: You are not allowed to edit this user" });
     }
 
     // Update only the specified fields using object destructuring
@@ -165,7 +174,7 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
     await user.save();
     res.json({ message: "Profile updated successfully", data: { user } });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 });
