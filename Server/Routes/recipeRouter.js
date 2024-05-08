@@ -89,5 +89,29 @@ router.post("/add", upload.single("photo"), async (req, res) => {
   }
 });
 
+router.get("/search", async (req, res) => {
+  const { recipeTitle, ingredients } = req.query;
+  try {
+    let query = {};
+
+    // If recipeTitle is provided, add it to the query
+    if (recipeTitle) {
+      query.recipeTitle = { $regex: recipeTitle, $options: "i" }; // Case-insensitive search
+    }
+
+    // If ingredients is provided, add it to the query
+    if (ingredients) {
+      query.ingredients = { $all: ingredients.split(",") }; // Search for recipes containing all provided ingredients
+    }
+
+    const recipes = await Recipe.find(query);
+    if (recipes.length === 0) {
+      return res.status(404).json({ message: "No recipes found" });
+    }
+  } catch (error) {
+    console.log("cannot find recipe");
+    res.status(500).json(error.message);
+  }
+});
 
 module.exports = router;
