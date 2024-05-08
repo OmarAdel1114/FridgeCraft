@@ -54,17 +54,26 @@ router.get("/", async (req, res) => {
 
 router.post("/add", upload.single("photo"), async (req, res) => {
   try {
-    const { recipeTitle, recipeDescription, recipeOverview } = req.body;
+    const { recipeTitle, recipeOverview, instructions } = req.body;
     const photo = req.file;
+    const ingredients = req.body.ingredients.split(","); // Split ingredients string into an array
     // Check if any required attribute is missing or empty
-    if (!recipeTitle || !recipeDescription || !photo || !recipeOverview) {
+    if (
+      !recipeTitle ||
+      !photo ||
+      !recipeOverview ||
+      !ingredients ||
+      !instructions
+    ) {
+      console.log(req.body);
       throw new Error("All attributes must be provided.");
     }
     const recipe = new Recipe({
       recipeTitle,
-      recipeDescription,
-      photo: photo.path,
       recipeOverview,
+      photo: photo.path,
+      ingredients,
+      instructions,
     });
     const newRecipe = await recipe.save();
 
@@ -79,5 +88,6 @@ router.post("/add", upload.single("photo"), async (req, res) => {
       .json({ error: "Adding Recipe Failed", message: error.message });
   }
 });
+
 
 module.exports = router;
