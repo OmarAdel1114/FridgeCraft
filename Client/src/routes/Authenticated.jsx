@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 // import Main from "../components/main/Main";
 // import Header from "../components/header/Header";
@@ -8,8 +8,6 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import UnAuthenticated from "./Unauthenticated";
 import { useEffect } from "react";
 import Main from "../Components/Main";
-import Header from "../Components/Navbar";
-import Footer from "../Components/Footer";
 import Profile from "../pages/profile";
 
 export default function Authenticated({ isLoggedIn }) {
@@ -19,7 +17,7 @@ export default function Authenticated({ isLoggedIn }) {
 
   useEffect(() => {
     if (!auth || !authTOKEN) {
-      navigate("/login");
+      navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth, authTOKEN, navigate]);
@@ -32,14 +30,9 @@ export default function Authenticated({ isLoggedIn }) {
 
   return (
     <Main>
-      <Header />
       <Routes>
-        <Route exact path="/profile" element={<Profile />} />
+        <Route  path="/profile" element={<Profile />} />
       </Routes>
-      {/* <SideBar /> */}
-
-      <Routes></Routes>
-      <Footer />
     </Main>
   );
 }

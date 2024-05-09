@@ -28,7 +28,6 @@ const App = () => {
 
   return (
     <>
-      <Routes>
         {/* <Route path='/' exact element={<Login/>}/>
         <Route path='/register' exact element={<Register/>}/> */}
 
@@ -37,7 +36,6 @@ const App = () => {
         ) : (
           <UnAuthenticated isLoggedIn={auth} />
         )}
-      </Routes>
     </>
   );
 };

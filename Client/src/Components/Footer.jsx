@@ -31,7 +31,7 @@ const items = [
 
 const Footer = () => {
   return (
-    <div className="w-full bg-DarkGreen text-White py-10 lg:pt-20 lg:pb-10">
+    <div className="w-full bg-DarkGreen text-White py-10 lg:pt-20 lg:pb-10 ">
       <div className="max-w-[1240px] mx-auto px-6 md:px-8 lg:px-0 grid justify-between grid-cols-3 gap-5 md:gap-x-8 lg:gap-x-16 md:grid-cols-5 border-b border-White pb-5 md:pb-10">
       <div className="md:col-span-2 col-span-3">
           <p className="font-bold uppercase">Subscribe to our newsletter</p>

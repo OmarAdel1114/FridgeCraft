@@ -14,6 +14,7 @@ export default {
         'LightGreen': '#D7E0D8',
         'LightGrey': '#FBFBFB',
         'White': '#FFFFFF',
+         'borderColor':'rgba(111, 111, 111, 0.3)'
       },
     },
   },
