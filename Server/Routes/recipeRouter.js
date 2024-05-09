@@ -1,31 +1,38 @@
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-const multer = require("multer");
-const diskStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split("/")[1];
-    const filename = `recipe-${Date.now()}.${ext}`;
-    cb(null, filename);
-  },
-});
-const fileFilter = (req, file, cb) => {
-  const imageType = file.mimetype.split("/")[0];
-  if (imageType === "image") {
-    return cb(null, true);
-  } else {
-    return cb("must be an image", false);
-  }
-};
+// const multer = require("multer");
+// const diskStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     const ext = file.mimetype.split("/")[1];
+//     const filename = `recipe-${Date.now()}.${ext}`;
+//     cb(null, filename);
+//   },
+// });
+// const fileFilter = (req, file, cb) => {
+//   const imageType = file.mimetype.split("/")[0];
+//   if (imageType === "image") {
+//     return cb(null, true);
+//   } else {
+//     return cb("must be an image", false);
+//   }
+// };
 
-const upload = multer({
-  storage: diskStorage,
-  fileFilter,
-});
+// const upload = multer({
+//   storage: diskStorage,
+//   fileFilter,
+// });
 // const cloudinary = require('../utils/cloudinary');
+
+const upload = require("../Middlewares/upload");
+const {
+  uploadToCloudinary,
+  removeFromCloudinary,
+} = require("../utils/cloudinary");
+
 const mongoose = require("mongoose");
 require("dotenv").config();
 const Recipe = require("../models/recipe.model");
@@ -52,26 +59,21 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/add", upload.single("photo"), async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
-    const { recipeTitle, recipeOverview, instructions } = req.body;
-    const photo = req.file;
-    const ingredients = req.body.ingredients.split(","); // Split ingredients string into an array
+    const { recipeTitle, recipeOverview, instructions, ingredients } = req.body;
+    const ingredientsArray = Array.isArray(ingredients)
+      ? ingredients
+      : ingredients.split(","); // Split ingredients string into an array
+
     // Check if any required attribute is missing or empty
-    if (
-      !recipeTitle ||
-      !photo ||
-      !recipeOverview ||
-      !ingredients ||
-      !instructions
-    ) {
+    if (!recipeTitle || !recipeOverview || !ingredients || !instructions) {
       console.log(req.body);
       throw new Error("All attributes must be provided.");
     }
     const recipe = new Recipe({
       recipeTitle,
       recipeOverview,
-      photo: photo.path,
       ingredients,
       instructions,
     });
@@ -89,14 +91,41 @@ router.post("/add", upload.single("photo"), async (req, res) => {
   }
 });
 
+router.post("/image/:id", upload.single("recipeImage"), async (req, res) => {
+  try {
+    // Upload Image to Cloudinary
+    const data = await uploadToCloudinary(req.file.path, "recipe-images");
+    // Save Image Url and publicId to the database
+    const savedImg = await Recipe.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          imageUrl: data.url,
+          publicId: data.public_id,
+        },
+      }
+    );
+    console.log(data);
+    res.status(200).send("Recipe image uploaded successfully!");
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    res.status(400).send("Error uploading image: " + error.message);
+  }
+});
+
 router.get("/search", async (req, res) => {
-  const { recipeTitle } = req.query;
+  const { recipeTitle, ingredients } = req.query;
   try {
     let query = {};
 
     // If recipeTitle is provided, add it to the query
     if (recipeTitle) {
       query.recipeTitle = { $regex: recipeTitle, $options: "i" }; // Case-insensitive search
+    }
+
+    // If ingredients is provided, add it to the query
+    if (ingredients) {
+      query.ingredients = { $all: ingredients.split(",") }; // Search for recipes containing all provided ingredients
     }
 
     const recipes = await Recipe.find(query);

@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema(
   {
-    photo: {
-      type: String,
-      required: true,
-      default: "uploads/Profile.png",
-    },
+    // photo: {
+    //   type: String,
+    //   required: true,
+    //   default: "uploads/Profile.png",
+    // },
     recipeTitle: {
       type: String,
       required: [true, "Title is required"],
@@ -37,6 +37,13 @@ const recipeSchema = new mongoose.Schema(
     instructions: {
       type: String,
       required: [true, "Instructions is required"],
+    },
+    publicId: {
+      type: String,
+    },
+    imageUrl: {
+      type: String,
+      required: false,
     },
   },
   {
