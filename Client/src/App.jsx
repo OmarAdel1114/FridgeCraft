@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import React from 'react'
-import Navbar from'./Components/Navbar'
-import UserNavbar from './Components/UserNavbar'
-import Login from './Components/Login'
-import Footer from'./Components/Footer'
+// import { useState } from 'react'
+// import React from 'react'
+// import Navbar from'./Components/Navbar'
+// import UserNavbar from './Components/UserNavbar'
+import Login from './pages/auth/Login'
 import './index.css'
-import AuthenticationProvider from './Components/AuthenticationProvider'
-import NavbarLogic from './Components/NavbarLogic'
+import { Route, Routes } from 'react-router-dom'
+import Register from './pages/auth/Register'
+import 'react-toastify/dist/ReactToastify.css';
 
 //import SavedRecipes from './Components/SavedRecipes'
 
@@ -14,9 +14,11 @@ import NavbarLogic from './Components/NavbarLogic'
 const App = () => {
   return (
     <>
-    <Login/>
-    
-   
+      <Routes>
+        <Route path='/' exact element={<Login/>}/>
+        <Route path='/register' exact element={<Register/>}/>
+
+      </Routes>
     </>
   )
 }
