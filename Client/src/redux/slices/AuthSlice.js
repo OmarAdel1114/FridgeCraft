@@ -4,7 +4,7 @@ import { loginUser } from "../../api/services/auth.service";
 const initialState = {
   data: [],
   loading: false,
-  error: null,
+  error: false,
   auth: false,
   token: "",
   status:""
@@ -28,6 +28,7 @@ const AuthSlice = createSlice({
       state.error = null;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
+      console.log("action payload", action.payload.data);
       state.loading = false;
       state.data = action.payload.data;
       state.error = action.payload.data?.message;
@@ -37,9 +38,10 @@ const AuthSlice = createSlice({
  
     });
     builder.addCase(loginUser.rejected, (state, action) => {
-      state.error = action.payload;
+      state.error = true;
       state.loading = false;
       state.data = [];
+      console.log(action.payload, state.error);
     });
   },
 });

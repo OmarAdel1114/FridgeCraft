@@ -6,7 +6,7 @@ import GOOGLE_ICON from "../../assets/google-icon-logo.svg";
 // import { AuthenticationContext } from "../../Components/AuthenticationProvider";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../api/services/auth.service";
 
 const Login = () => {
@@ -15,9 +15,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
-
-  const handleLogin = async (e) => {
+  
+  const handleLogin =  (e) => {
     e.preventDefault();
 
     try {
@@ -34,7 +33,7 @@ const Login = () => {
 
       // const data = await response.json();
       // console.log("API response:", data);
-      await dispatch(loginUser({ email, password }));
+       dispatch(loginUser({ email, password }));
 
       toast.success("Signed in successfully", {
         position: "top-right",
@@ -43,15 +42,11 @@ const Login = () => {
       setTimeout(() => {
         setEmail("");
         setPassword("");
-      }, 2500);
-      console.log("status", status);
-      if (status == 200) {
-        navigate("/register");
-      }
+        navigate("/profile");
+      }, 2500);     
 
       // Handle the API response accordingly (e.g., redirect user on successful login)
     } catch (error) {
-      console.error("Error:", error);
       // Handle errors
       if (error.message.includes("email")) {
         setError("Error in email: " + error.message);
@@ -68,7 +63,6 @@ const Login = () => {
     }
   };
 
-  console.log(status);
   //method to navigate to register page by pressing register button
   const navigateToRegister = () => {
     navigate("/register");
