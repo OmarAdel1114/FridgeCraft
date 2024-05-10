@@ -38,7 +38,6 @@ const Register = () => {
         }
       );
       const data = await response.json();
-      console.log("API response:", data);
       toast.success("User registered successfully", {
         position: "top-right",
         autoClose: 3000,
@@ -49,13 +48,13 @@ const Register = () => {
         setUserName("");
         setFirstName("");
         setLastName("");
-      }, 2500);
+        navigate("/");
+      }, 1500);
 
       return data;
 
       // Handle the API response accordingly (e.g., redirect user on successful login)
     } catch (error) {
-      console.error("Error:", error);
       // Handle errors
       if (error.message.includes("email")) {
         setError("Error in email: " + error.message);

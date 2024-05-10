@@ -10,7 +10,7 @@ export const loginUser = createAsyncThunk(
       .post("/users/login", data)
       .then((response) => {
         
-        localStorage.setItem("token", response.data?.token);
+        localStorage.setItem("token", response.data?.data?.token);
         return response;
       })
 

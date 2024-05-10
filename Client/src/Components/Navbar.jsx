@@ -75,9 +75,11 @@ const Header = () => {
                 </a>
               </li>
             ))}
-            <button className="mt-6 lg:mt-0 rounded border border-DarkGreen bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
-              Login/Signup
-            </button>
+            {!auth && (
+              <button className="mt-6 lg:mt-0 rounded border border-DarkGreen bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
+                Login/Signup
+              </button>
+            )}
             {auth && (
               <>
                 <div
@@ -87,7 +89,7 @@ const Header = () => {
                 >
                   <div className="mr-2">
                     <Avatar
-                      sx={{ width: 56, height: 56, background: "#D7E0D8" }}
+                      sx={{ width: 56, height: 56, background: "#2E5834" }}
                     >
                       {data?.data?.firstName?.charAt(0)?.toUpperCase() +
                         " " +
