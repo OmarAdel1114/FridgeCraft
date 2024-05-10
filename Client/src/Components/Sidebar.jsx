@@ -36,17 +36,10 @@ const Sidebar = () => {
             bottom="20"
             sx={{
               "@media screen and (min-width:960px)": {
-                height: "100%",
+                height: "100vh",
                 position: "sticky",
               },
-              "@media screen and (min-width:1420px)": {
-                height: "80vh",
-                position: "sticky",
-              },
-              "@media screen and (min-width:1820px)": {
-                height: "85vh",
-                position: "sticky",
-              },
+            
             }}
           >
             <List>
@@ -55,7 +48,7 @@ const Sidebar = () => {
                   <ListItem key={item.id}>
                     <ListItemButton>
                       <Link
-                        href={item.path}
+                        to={item.path}
                         className={`lg:h-10 2xl:h-16 w-full lg:py-2 2xl:py-4 ${
                           item.path == pathName?.pathname
                             ? "bg-white rounded-lg"

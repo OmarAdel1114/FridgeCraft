@@ -1,9 +1,13 @@
+// import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Camera from "../../assets/camera.svg";
+import avatar from "../../assets/avatar.svg";
 
 const Profile = () => {
   const { data } = useSelector((state) => state?.auth);
 
+  console.log(data);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,12 +38,49 @@ const Profile = () => {
         Edit Your Profile
       </p>
 
-      <div className="flex mt-10">
-        <div>
+      <div className="flex flex-col mt-10">
+        <p className="mt-2 mb-5 text-[2rem]">Profile Photo</p>
+        <div className="personal-image">
+          <label className="label">
+            <input
+              type="file"
+              onChange={handleImageChange}
+              accept="image/jpeg, image/png"
+            />
+            <figure className="personal-figure">
+            <img
+                  src={(typeof file !== "undefined" && image) || avatar}
+                  className="personal-avatar"
+                  alt="avatar"
+                />
+              {/* {data?.image ? (
+                <img
+                  src={(typeof file !== "undefined" && image) || ""}
+                className="personal-avatar"
+                  alt="avatar"
+                />
+              ) 
+              : (
+                <Avatar style={{ width: "120px", height: "120px" }}>
+                  <p className="uppercase text-4xl">
+                    {data?.data?.firstName?.charAt(0) +
+                      "" +
+                      data?.data?.lastName?.charAt(0)}
+                  </p>
+                </Avatar>
+              )} */}
+              <figcaption className="personal-figcaption w-full">
+                <img alt="" src={Camera} className="flex justify-center"/>
+              </figcaption>
+            </figure>{" "}
+          </label>
+        </div>
+
+        <div className="mt-10">
           <p className="text-[2rem]">Profile Information</p>
           <div className="flex">
-            <div className="flex flex-col  xl:pt-5 lg:mt-5 mt-5">
-              <label className="mb-2 font-medium text-[1.4rem]">
+            <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
+              <label className="mb-2 font-normal text-[1.4rem]">
                 First Name
               </label>
               <input
@@ -48,12 +89,12 @@ const Profile = () => {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 placeholder="Enter First Name"
-                className="outline-none border-2 bg-secondary border-secondary50 xl:w-[600px]
-                lg:w-[14rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
+                lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
               />
             </div>
-            <div className="flex flex-col  xl:pt-5 lg:mt-5 mt-5 lg:ml-10">
-              <label className="mb-2 font-medium text-[1.4rem]">
+            <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5 lg:ml-10">
+              <label className="mb-2 font-normal text-[1.4rem]">
                 Last Name
               </label>
               <input
@@ -62,12 +103,12 @@ const Profile = () => {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 placeholder="Enter First Name"
-                className="outline-none border-2 bg-secondary border-secondary50  xl:w-[600px] lg:w-[14rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
               />
             </div>
           </div>
 
-          <div className="xl:w-80 lg:h-[3rem] block w-[10rem] mt-20">
+          <div className="xl:w-80 lg:h-[3rem] block w-[10rem] 2xl:mt-40 lg:mt-10">
             <button
               type="submit"
               className={`   ${
@@ -75,7 +116,7 @@ const Profile = () => {
               } lg:w-52  rounded-3xl  text-white text-lg px-5 py-3`}
               disabled={isSubmitDisabled}
             >
-              Save Changes
+              Update Profile
             </button>
           </div>
         </div>
