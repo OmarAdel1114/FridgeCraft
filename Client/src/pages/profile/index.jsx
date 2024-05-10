@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Camera from "../../assets/camera.svg";
-import avatar from "../../assets/avatar.svg";
+import avatar from "../../assets/user-avatar.svg";
 
 const Profile = () => {
   const { data } = useSelector((state) => state?.auth);
@@ -48,12 +48,8 @@ const Profile = () => {
               accept="image/jpeg, image/png"
             />
             <figure className="personal-figure">
-            <img
-                  src={(typeof file !== "undefined" && image) || avatar}
-                  className="personal-avatar"
-                  alt="avatar"
-                />
-              {/* {data?.image ? (
+           
+              {data?.image ? (
                 <img
                   src={(typeof file !== "undefined" && image) || ""}
                 className="personal-avatar"
@@ -61,14 +57,13 @@ const Profile = () => {
                 />
               ) 
               : (
-                <Avatar style={{ width: "120px", height: "120px" }}>
-                  <p className="uppercase text-4xl">
-                    {data?.data?.firstName?.charAt(0) +
-                      "" +
-                      data?.data?.lastName?.charAt(0)}
-                  </p>
-                </Avatar>
-              )} */}
+                <img
+                  src={(typeof file !== "undefined" && image) || avatar}
+                  className="personal-avatar bg-[#D9D9D9]"
+                  alt="avatar"
+
+                />
+              )}
               <figcaption className="personal-figcaption w-full">
                 <img alt="" src={Camera} className="flex justify-center"/>
               </figcaption>

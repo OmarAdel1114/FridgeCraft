@@ -18,6 +18,7 @@
     cursor: pointer;
     width: 220px;
     height: 120px;
+    padding: 10px;
     box-sizing: border-box;
     border-radius: 100%;
     border: 2px solid transparent;
