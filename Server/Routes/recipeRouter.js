@@ -73,9 +73,12 @@ router.get("/:recipeId", async (req, res) => {
       updatedAt: 0,
       __v: 0,
     });
-    if (!reqRecipeId) {
-      return res.status(404).json("Recipe Not available");
+
+    // Check if recipe exists
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe Not found" });
     }
+
     res.status(200).json(recipe);
   } catch (error) {
     console.error(error);
