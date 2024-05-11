@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:recipeId", async (req, res) => {
+router.get("/findById/:recipeId", async (req, res) => {
   const reqRecipeId = req.params.recipeId;
 
   try {
