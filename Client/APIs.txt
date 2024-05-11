@@ -37,6 +37,15 @@
   2-  GetAllRecipes:
         https = Get
         ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes'    
+  
+  3-  RecipePage:
+        https = Get
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes/findById/:recipeId'    
+
+  4- Search:
+        https = Get
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/recipes/search/params'
+        params = "recipeTitle" or "ingredients"  
 
 
 #Saved Recipes 
