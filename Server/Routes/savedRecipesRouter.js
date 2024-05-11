@@ -10,12 +10,12 @@ router.post("/", verifyToken, async (req, res) => {
   try {
     const { recipe, user } = req.body;
 
-    const savRecipe = await Recipe.findOne({ recipeTitle: recipe });
+    const savRecipe = await Recipe.findOne({ _id: recipe });
     if (!savRecipe) {
       return res.status(404).json({ error: "Recipe not found" });
     }
 
-    const Owner = await User.findOne({ userName: user });
+    const Owner = await User.findOne({ _id: user });
     if (!Owner) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -59,11 +59,11 @@ router.get("/:user", async (req, res) => {
     const savedRecipe = await SavedRecipe.find({ user: req.params.user })
       .populate({
         path: "recipe",
-        select: "recipeTitle recipeDescription photo recipeOverview",
+        select: "recipeTitle recipeOverview ingredients imageUrl",
       })
       .populate({ path: "user", select: "userName" });
 
-  res.status(200).json(savedRecipe);
+    res.status(200).json(savedRecipe);
   } catch (error) {
     console.log("Cannot find Saved Recipes", error);
     res.status(500).json({
