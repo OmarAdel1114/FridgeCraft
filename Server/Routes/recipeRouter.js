@@ -42,13 +42,17 @@ const verifyToken = require("../Middlewares/auth.middleware");
 // Get All Recipes
 router.get("/", async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 3; // Default to 3 users per page
-    const skipCount = (page - 1) * perPage;
-
     // getting all recipes
-    const recipes = await Recipe.find();
-    // .skip(skipCount).limit(perPage);
+    const recipes = await Recipe.find(
+      {},
+      {
+        ingredients: 0,
+        instructions: 0,
+        updatedAt: 0,
+        __v: 0,
+        publicId: 0,
+      }
+    );
 
     res.status(200).json({ Status: "Success", data: { recipes } });
   } catch (error) {
@@ -56,6 +60,26 @@ router.get("/", async (req, res) => {
     res
       .status(500)
       .json({ error: "Internal Server Error", message: error.message });
+  }
+});
+
+router.get("/:recipeId", async (req, res) => {
+  const reqRecipeId = req.params.recipeId;
+
+  try {
+    const recipe = await Recipe.findById(reqRecipeId, {
+      recipeOverview: 0,
+      publicId: 0,
+      updatedAt: 0,
+      __v: 0,
+    });
+    if (!reqRecipeId) {
+      return res.status(404).json("Recipe Not available");
+    }
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -117,7 +141,6 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
   try {
     // Extract data from the request body
     const { recipeTitle, recipeOverview, instructions, ingredients } = req.body;
-    console.log(ingredients);
 
     // Split ingredients string into an array
     const ingredientsArray = Array.isArray(ingredients)
@@ -173,7 +196,6 @@ router.get("/search", async (req, res) => {
       return res.status(404).json({ message: "No recipes found" });
     }
     res.status(200).json(recipes);
-    
   } catch (error) {
     console.log("cannot find recipe");
     res.status(500).json(error.message);
