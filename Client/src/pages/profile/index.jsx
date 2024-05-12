@@ -1,10 +1,11 @@
 // import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Camera from "../../assets/camera.svg";
-import avatar from "../../assets/user-avatar.svg";
+// import Camera from "../../assets/camera.svg";
+// import avatar from "../../assets/user-avatar.svg";
 import axiosInstance from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
+import Main from "../../Components/Main";
 
 const Profile = () => {
   //fetch the user details from the redux store
@@ -12,17 +13,12 @@ const Profile = () => {
 
   //variables for updating formData
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
+    firstName: data?.data?.firstName,
+    lastName: data?.data?.lastName,
+    userName: data?.data?.userName,
+    email: data?.data?.email,
     password: "",
-    avatar:""
   });
-
-  //variables for uploading Image
-  const [file, setFile] = useState();
-  const [image, setImage] = useState();
 
   //method for capturing form values
   const handleInputChange = (e) => {
@@ -30,20 +26,9 @@ const Profile = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  //method for uploading image
-  function handleImageChange(e) {
-    setFile(e.target.files[0]);
-    setImage(URL.createObjectURL(e.target.files[0]));
-    setFormData({
-      ...formData,
-      avatar: e.target.files[0]?.name,
-    });
-  }
-
-  //disable the submit button if all field values are empty
-  const isSubmitDisabled = Object.values(formData).every(
-    (value) => value === ""
-  );
+  //variables for uploading Image
+  // const [file, setFile] = useState();
+  // const [image, setImage] = useState();
 
   //methodd for updating profile
   const handleProfileUpdate = async (e) => {
@@ -58,15 +43,7 @@ const Profile = () => {
         autoClose: 1500,
         position: "top-right",
       });
-      setTimeout(() => {
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          userName: "",
-        });
-      }, 1500);
+   
       return responseData;
     } catch (e) {
       console.log("error", e);
@@ -78,14 +55,15 @@ const Profile = () => {
   };
 
   return (
-    <div className="mt-16 ml-12">
-      <ToastContainer />
-      <p className="lg:text-2xl 2xl:text-[36px] font-semibold py-6 border-b-4 border-borderColor">
-        Edit Your Profile
-      </p>
+    <Main>
+      <div className="mt-16 ml-12">
+        <ToastContainer />
+        <p className="lg:text-2xl 2xl:text-[36px] font-semibold py-6 border-b-4 border-borderColor">
+          Edit Your Profile
+        </p>
 
-      <form className="flex flex-col mt-10" onSubmit={handleProfileUpdate}>
-        <p className="mt-2 mb-5 text-[2rem]">Profile Photo</p>
+        <form className="flex flex-col mt-10" onSubmit={handleProfileUpdate}>
+          {/* <p className="mt-2 mb-5 text-[2rem]">Profile Photo</p>
         <div className="personal-image">
           <label className="label">
             <input
@@ -112,95 +90,92 @@ const Profile = () => {
               </figcaption>
             </figure>{" "}
           </label>
-        </div>
-
-        <div className="mt-10">
-          <p className="text-[2rem]">Profile Information</p>
-          <div className="flex">
+        </div> */}
+          <div className="mt-10">
+            <p className="text-[2rem]">Profile Information</p>
+            <div className="flex">
+              <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
+                <label className="mb-2 font-normal text-[1.4rem]">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  defaultValue={data?.data?.firstName}
+                  onChange={handleInputChange}
+                  placeholder="Enter First Name"
+                  className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
+                lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                />
+              </div>
+              <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5 lg:ml-10">
+                <label className="mb-2 font-normal text-[1.4rem]">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  defaultValue={data?.data?.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Enter First Name"
+                  className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                />
+              </div>
+            </div>
+            <div className="flex">
+              <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
+                <label className="mb-2 font-normal text-[1.4rem]">
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  name="userName"
+                  value={formData.userName}
+                  onChange={handleInputChange}
+                  placeholder="Enter User Name"
+                  className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
+                lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                />
+              </div>
+              <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5 lg:ml-10">
+                <label className="mb-2 font-normal text-[1.4rem]">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter Email"
+                  className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
+                />
+              </div>
+            </div>
             <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
-              <label className="mb-2 font-normal text-[1.4rem]">
-                First Name
-              </label>
+              <label className="mb-2 font-normal text-[1.4rem]">Password</label>
               <input
                 type="text"
-                name="firstName"
-                value={formData.firstName}
-                defaultValue={data?.data?.firstName}
+                name="password"
+                value={formData.password}
                 onChange={handleInputChange}
-                placeholder="Enter First Name"
+                placeholder="Enter Password"
                 className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
                 lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
               />
             </div>
-            <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5 lg:ml-10">
-              <label className="mb-2 font-normal text-[1.4rem]">
-                Last Name
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                defaultValue={data?.data?.lastName}
-                onChange={handleInputChange}
-                placeholder="Enter First Name"
-                className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
-              />
-            </div>
-          </div>
-          <div className="flex">
-            <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
-              <label className="mb-2 font-normal text-[1.4rem]">
-                User Name
-              </label>
-              <input
-                type="text"
-                name="userName"
-                value={formData.userName}
-                onChange={handleInputChange}
-                placeholder="Enter User Name"
-                className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
-                lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
-              />
-            </div>
-            <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5 lg:ml-10">
-              <label className="mb-2 font-normal text-[1.4rem]">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="Enter Email"
-                className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col  xl:pt-5 lg:mt-2 mt-5">
-            <label className="mb-2 font-normal text-[1.4rem]">Password</label>
-            <input
-              type="text"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter Password"
-              className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
-                lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
-            />
-          </div>
 
-          <div className="xl:w-80 lg:h-[3rem] block w-[10rem] 2xl:mt-20 lg:mt-10">
-            <button
-              type="submit"
-              className={`   ${
-                !isSubmitDisabled ? "bg-DarkGreen" : "bg-LightGreen"
-              } lg:w-52  rounded-3xl  text-white text-lg px-5 py-3`}
-              disabled={isSubmitDisabled}
-            >
-              Update Profile
-            </button>
+            <div className="xl:w-80 lg:h-[3rem] block w-[10rem] 2xl:mt-20 lg:mt-10 mb-10">
+              <button
+                type="submit"
+                className={`   ${"bg-DarkGreen"} lg:w-52  rounded-3xl  text-white text-lg px-5 py-3`}
+              >
+                Update Profile
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </Main>
   );
 };
 

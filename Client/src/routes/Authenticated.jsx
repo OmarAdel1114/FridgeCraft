@@ -9,6 +9,7 @@ import UnAuthenticated from "./Unauthenticated";
 import { useEffect } from "react";
 import Main from "../Components/Main";
 import Profile from "../pages/profile";
+import AddRecipe from "../pages/recipe/AddRecipe";
 
 export default function Authenticated({ isLoggedIn }) {
   const { auth } = useSelector((state) => state.auth);
@@ -29,10 +30,9 @@ export default function Authenticated({ isLoggedIn }) {
   }
 
   return (
-    <Main>
-      <Routes>
-        <Route  path="/profile" element={<Profile />} />
-      </Routes>
-    </Main>
+    <Routes>
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/add-a-recipe" element={<AddRecipe />} />
+    </Routes>
   );
 }
