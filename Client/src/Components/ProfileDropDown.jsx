@@ -33,6 +33,21 @@ const ProfileDropDown = ({ id, anchorEl, handleClose, open }) => {
             <Link to="/settings">Settings</Link>
           </Typography>
           <Typography
+            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
+          >
+            <Link to="/email-preferences">Email Preferences</Link>
+          </Typography>
+          <Typography
+            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
+          >
+            <Link to="/my-recipes">My Recipes</Link>
+          </Typography>
+          <Typography
+            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
+          >
+            <Link to="/favorites">My Favorites</Link>
+          </Typography>
+          <Typography
             onClick={signout}
             sx={{cursor: "pointer" }}
             className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"

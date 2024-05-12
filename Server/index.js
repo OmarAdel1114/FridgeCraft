@@ -14,6 +14,17 @@ const savedRecipesRoutes = require("./Routes/savedRecipesRouter");
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log(`MongoDB Server Started `);
+
+  // Create index on the 'recipeTitle' field of the 'recipes' collection
+  mongoose.connection.db
+    .collection("recipes")
+    .createIndex({ recipeTitle: 1 , ingredients : 1 }, (err, result) => {
+      if (err) {
+        console.error("Error creating index:", err);
+      } else {
+        console.log("Index created:", result);
+      }
+    });
 });
 
 const port = process.env.PORT;

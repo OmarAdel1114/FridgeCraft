@@ -1,65 +1,41 @@
-import { useState } from "react";
+import {  useState } from "react";
 //import {Link} from 'react-router-dom'
 import CoverImage from "../../assets/cover_image.jpeg";
 import LoginLogo from "../../assets/login_logo.jpg";
 import GOOGLE_ICON from "../../assets/google-icon-logo.svg";
 // import { AuthenticationContext } from "../../Components/AuthenticationProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../api/services/auth.service";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const { error} = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  const handleLogin =  (e) => {
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    try {
-      // const response = await fetch(
-      //   "https://fridge-craft-server.vercel.app/api/users/login",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ email, password }),
-      //   }
-      // );
-
-      // const data = await response.json();
-      // console.log("API response:", data);
-       dispatch(loginUser({ email, password }));
-
-      toast.success("Signed in successfully", {
+    if (email && password) {
+      dispatch(loginUser({ email, password }));
+    
+    } else {
+      toast.error("Please fill out all the fields", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
       });
-      setTimeout(() => {
-        setEmail("");
-        setPassword("");
-        navigate("/profile");
-      }, 2500);     
-
-      // Handle the API response accordingly (e.g., redirect user on successful login)
-    } catch (error) {
-      // Handle errors
-      if (error.message.includes("email")) {
-        setError("Error in email: " + error.message);
-      } else if (error.message.includes("password")) {
-        setError("Error in password: " + error.message);
-      } else {
-        setError("An error occurred. Please try again.");
+      if (!email) {
+        setEmailError(true);
       }
-      //show the error in a toast on top-right corner of the screen
-      toast.error(error?.message, {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      if (!password) {
+        setPasswordError(true);
+      }
+    
     }
   };
 
@@ -96,16 +72,26 @@ const Login = () => {
                   type="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError(false);
+                  }}
+                  className={`w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none 
+                    ${emailError && "border-b-2 border-red-600"}
+                  `}
                 />
 
                 <input
                   type="password"
                   placeholder="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setPasswordError(false);
+                  }}
+                  className={`w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none
+                  ${passwordError && "border-b-2 border-red-600"}
+                  `}
                 />
               </div>
 
@@ -156,9 +142,11 @@ const Login = () => {
             <div className="w-full flex items-center justify-center">
               <p className="text-sm font-normal text-[#060606] ">
                 Dont have an account?{" "}
-                <span className="font-semibold underline underline-offset-2 cursor-pointer  hover:text-white">
-                  sign up for free
-                </span>{" "}
+                <Link to="/register">
+                  <span className="font-semibold underline underline-offset-2 cursor-pointer  hover:text-white">
+                    sign up for free
+                  </span>{" "}
+                </Link>
               </p>
             </div>
           </div>

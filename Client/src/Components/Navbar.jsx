@@ -16,6 +16,7 @@ const Header = () => {
     { name: "Generate", link: "/" },
     { name: "Recipes", link: "/" },
     { name: "Contact", link: "/" },
+    {name:"Add a Recipe", link:"/add-a-recipe"}
   ];
   let [open, setOpen] = useState(false);
 
@@ -67,12 +68,12 @@ const Header = () => {
                 className="lg:ml-5 lg:py-0 py-4 text-base font-medium border-b lg:border-0"
                 key={index}
               >
-                <a
-                  href={link.link}
+                <Link
+                  to={link.link}
                   className="text-LightBlack hover:text-DarkGreen duration-500"
                 >
                   {link.name}
-                </a>
+                </Link>
               </li>
             ))}
             {!auth && (

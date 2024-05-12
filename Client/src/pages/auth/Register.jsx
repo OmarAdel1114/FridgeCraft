@@ -38,34 +38,36 @@ const Register = () => {
         }
       );
       const data = await response.json();
-      toast.success("User registered successfully", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      setTimeout(() => {
-        setEmail("");
-        setPassword("");
-        setUserName("");
-        setFirstName("");
-        setLastName("");
-        navigate("/");
-      }, 1500);
+
+      if (response.status == 201) {
+        setTimeout(() => {
+          setEmail("");
+          setPassword("");
+          setUserName("");
+          setFirstName("");
+          setLastName("");
+          toast.success("User registered successfully", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          navigate("/");
+        }, 1000);
+       
+      }
+      if (response.status == 400) {
+        toast.error("Registeration Failed", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
 
       return data;
 
       // Handle the API response accordingly (e.g., redirect user on successful login)
     } catch (error) {
-      // Handle errors
-      if (error.message.includes("email")) {
-        setError("Error in email: " + error.message);
-      } else if (error.message.includes("password")) {
-        setError("Error in password: " + error.message);
-      } else {
-        setError("An error occurred. Please try again.");
-      }
       //show the error in a toast on top-right corner of the screen
 
-      toast.error(error?.message, {
+      toast.error(error?.error, {
         position: "top-right",
         autoClose: 3000,
       });

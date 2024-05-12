@@ -1,18 +1,10 @@
-// import { useState } from 'react'
-// import React from 'react'
-// import Navbar from'./Components/Navbar'
-// import UserNavbar from './Components/UserNavbar'
-import Login from "./pages/auth/Login";
 import "./index.css";
-import { Route, Routes } from "react-router-dom";
-import Register from "./pages/auth/Register";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Authenticated from "./routes/Authenticated";
 import UnAuthenticated from "./routes/Unauthenticated";
-
-//import SavedRecipes from './Components/SavedRecipes'
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
   const { auth } = useSelector((state) => state.auth);
@@ -26,17 +18,20 @@ const App = () => {
     }
   }, [auth]);
 
+  console.log(auth);
   return (
-    <>
-        {/* <Route path='/' exact element={<Login/>}/>
+    <div className="App">
+      {/* <Route path='/' exact element={<Login/>}/>
         <Route path='/register' exact element={<Register/>}/> */}
 
+      <BrowserRouter>
         {authenticated ? (
           <Authenticated isLoggedIn={auth} />
         ) : (
           <UnAuthenticated isLoggedIn={auth} />
         )}
-    </>
+      </BrowserRouter>
+    </div>
   );
 };
 
