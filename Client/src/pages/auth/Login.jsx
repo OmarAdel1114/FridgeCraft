@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 //import {Link} from 'react-router-dom'
 import CoverImage from "../../assets/cover_image.jpeg";
 import LoginLogo from "../../assets/login_logo.jpg";
@@ -14,46 +14,28 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const { error, status } = useSelector((state) => state.auth);
+  const { error} = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(status);
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    try {
-      if (email && password) {
-        await dispatch(loginUser({ email, password }));
-
-        if (error) {
-          toast.error("Wrong Credentials", {
-            autoClose: 2200,
-            position: "top-right",
-          });
-        }
-
-        navigate("/profile");
-        
-      } else {
-        toast.error("Please fill out all the fields", {
-          position: "top-right",
-          autoClose: 1500,
-        });
-        setEmailError(true);
-        setPasswordError(true);
-        setTimeout(() => {
-          setEmailError(false);
-          setPasswordError(false);
-        }, 1500);
-      }
-
-      // Handle the API response accordingly (e.g., redirect user on successful login)
-    } catch (error) {
-      toast.error(error?.message, {
+    if (email && password) {
+      dispatch(loginUser({ email, password }));
+    
+    } else {
+      toast.error("Please fill out all the fields", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
       });
+      if (!email) {
+        setEmailError(true);
+      }
+      if (!password) {
+        setPasswordError(true);
+      }
+    
     }
   };
 
@@ -90,7 +72,10 @@ const Login = () => {
                   type="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError(false);
+                  }}
                   className={`w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none 
                     ${emailError && "border-b-2 border-red-600"}
                   `}
@@ -100,7 +85,10 @@ const Login = () => {
                   type="password"
                   placeholder="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setPasswordError(false);
+                  }}
                   className={`w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none
                   ${passwordError && "border-b-2 border-red-600"}
                   `}
