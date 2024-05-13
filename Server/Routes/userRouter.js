@@ -179,4 +179,22 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
   }
 });
 
+// Find By Id
+router.get("/:userId" , async (req, res) => {
+  const requestUserId = req.params.userId;
+
+  try {
+    const user = await User.findById(requestUserId);
+
+    if (!requestUserId) {
+      return res.status(404).json("Not Found");
+    }
+
+    res.status(200).json({ data: user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
