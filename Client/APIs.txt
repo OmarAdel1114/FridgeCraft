@@ -28,7 +28,7 @@
 
 #Forgot password
    1- SendOtp:
-        https = Get
+        https = Post
         ApiLink = 'https://fridge-craft-server.vercel.app/api/otps/sendOTP'  
         params = {email}      
 
