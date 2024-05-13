@@ -10,9 +10,9 @@ export default function UnAuthenticated({ isLoggedIn }) {
   const navigate = useNavigate();
   const { auth } = useSelector((state) => state.auth);
 
- 
+ console.log("it is unauthenticated");
   
-  if (isLoggedIn) {
+  if (auth) {
     return <Authenticated isLoggedIn={isLoggedIn} />;
   }
 

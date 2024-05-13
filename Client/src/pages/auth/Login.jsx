@@ -14,32 +14,35 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const { error, success } = useSelector((state) => state.auth);
+  const { success } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (email && password) {
-      dispatch(loginUser({ email, password }));
-      if (success) {
-        navigate("/profile");
+    try {
+      if (email && password) {
+        dispatch(loginUser({ email, password }));
+
+        console.log("authented", success);
+        if (success) {
+          navigate("/profile");
+        }
+      } else {
+        toast.error("Please fill out all the fields", {
+          position: "top-right",
+          autoClose: 1500,
+        });
+        if (!email) {
+          setEmailError(true);
+        }
+        if (!password) {
+          setPasswordError(true);
+        }
       }
-      else{
-        return
-      }
-    } else {
-      toast.error("Please fill out all the fields", {
-        position: "top-right",
-        autoClose: 1500,
-      });
-      if (!email) {
-        setEmailError(true);
-      }
-      if (!password) {
-        setPasswordError(true);
-      }
+    } catch (e) {
+      navigate("/");
     }
   };
 
@@ -155,8 +158,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-
-        {error && <p>{error}</p>}
       </form>
     </>
   );
