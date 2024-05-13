@@ -20,6 +20,10 @@
             email,
             password
         }  you can Edit on or more at the same time 
+
+  3-  Get User By Id :
+        https = Get
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/users/:userId'    
 ----------------------
 
 #Recipes
