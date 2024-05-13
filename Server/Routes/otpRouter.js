@@ -76,7 +76,9 @@ router.post("/resetPassword/:userId", async (req, res) => {
 
     // Check if newPassword exists and is not an empty string
     if (!newPassword || newPassword.trim() === "") {
-      return res.status(400).json({ success: false, error: "Invalid newPassword" });
+      return res
+        .status(400)
+        .json({ success: false, error: "Invalid newPassword" });
     }
 
     // Find user by ID
@@ -93,7 +95,9 @@ router.post("/resetPassword/:userId", async (req, res) => {
     user.password = hashedPassword;
     await user.save();
 
-    res.status(200).json({ success: true, message: "Password reset successful" });
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset successful" });
   } catch (error) {
     console.error("Error resetting password:", error);
     res.status(500).json({ success: false, error: "Internal server error" });

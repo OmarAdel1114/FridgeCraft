@@ -23,9 +23,28 @@
 
   3-  Get UserDetails By Id :
         https = Get
-        ApiLink = 'https://fridge-craft-server.vercel.app/api/users/:userId'    
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/users/:userId'         
 ----------------------
 
+#Forgot password
+   1- SendOtp:
+        https = Get
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/otps/sendOTP'  
+        params = {email}      
+
+
+   2- VerifyOtp:
+        https = Get
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/otps/verifyOTP'   
+        params = {email , otp}
+        response = token(required to extract userId)
+
+   3- ResetPassword:
+        https = Post
+        ApiLink = 'https://fridge-craft-server.vercel.app/api/otps/resetPassword/:userId'    
+        params = {userId}    
+        req.body = newPassword
+      
 #Recipes
   1-  AddNewRecipe :
         https = Post
