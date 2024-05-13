@@ -7,7 +7,7 @@ const sendEmail = require("../utils/sendEmails");
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
-router.get("/sendOTP", async (req, res) => {
+router.post("/sendOTP", async (req, res) => {
   const generateOtp = randomstring.generate({
     length: 6,
     charset: "numeric",
