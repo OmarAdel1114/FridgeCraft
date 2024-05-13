@@ -10,12 +10,7 @@ export default function UnAuthenticated({ isLoggedIn }) {
   const navigate = useNavigate();
   const { auth } = useSelector((state) => state.auth);
 
-  useLayoutEffect(() => {
-    if (auth) {
-      navigate("/");
-    }
-  }, [auth]);
-
+ 
   
   if (isLoggedIn) {
     return <Authenticated isLoggedIn={isLoggedIn} />;

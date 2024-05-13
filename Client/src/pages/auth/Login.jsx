@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 //import {Link} from 'react-router-dom'
 import CoverImage from "../../assets/cover_image.jpeg";
 import LoginLogo from "../../assets/login_logo.jpg";
@@ -14,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const { error} = useSelector((state) => state.auth);
+  const { error, success } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,7 +23,12 @@ const Login = () => {
 
     if (email && password) {
       dispatch(loginUser({ email, password }));
-    
+      if (success) {
+        navigate("/profile");
+      }
+      else{
+        return
+      }
     } else {
       toast.error("Please fill out all the fields", {
         position: "top-right",
@@ -35,7 +40,6 @@ const Login = () => {
       if (!password) {
         setPasswordError(true);
       }
-    
     }
   };
 
