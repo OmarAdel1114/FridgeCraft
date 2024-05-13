@@ -25,7 +25,7 @@ export default function Authenticated({ isLoggedIn }) {
 
   return (
     <Routes>
-      <Route exact path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="/add-a-recipe" element={<AddRecipe />} />
     </Routes>
   );

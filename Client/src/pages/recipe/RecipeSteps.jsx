@@ -2,17 +2,16 @@ import { useState } from "react";
 import RemoveItem from "../../assets/remove-item.svg";
 import ReOrderItem from "../../assets/reorder-item.svg";
 
-const RecipeSteps = () => {
-  const [count, setCount] = useState(1);
-
-  const handleCount = () => {
-    setCount((prev) => prev + 1);
-  };
-
+const RecipeSteps = ({
+  stepsInput,
+  handleChange,
+  handleAddInput,
+  deleteSteps,
+}) => {
   return (
     <div>
-      {Array.from({ length: count })?.map((arr, i) => (
-        <div className="flex justify-between items-center mt-8" key={i}>
+      {stepsInput?.map((step, index) => (
+        <div className="flex justify-between items-center mt-8" key={index}>
           <div className="flex">
             <img
               src={ReOrderItem}
@@ -22,11 +21,14 @@ const RecipeSteps = () => {
               className="mt-10"
             />
             <div>
-              <p className="text-[22px] p-3 ml-2">Step {i+1}</p>
+              <p className="text-[22px] p-3 ml-2">Step {index + 1}</p>
               <textarea
                 type="text"
+                value={step}
+                name="instructions"
                 className="w-[63.25rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5 h-28"
                 placeholder="Input Text"
+                onChange={(e) => handleChange(index, e.target.value)}
               />
             </div>
           </div>
@@ -36,11 +38,13 @@ const RecipeSteps = () => {
               width={45}
               height={45}
               alt="remove-item-img"
+              onClick={deleteSteps}
+
             />
           </div>
         </div>
       ))}
-      <button onClick={handleCount} type="button" className="mt-8">
+      <button onClick={handleAddInput} type="button" className="mt-8">
         <p className="text-[24px] font-medium">+ Add Step</p>
       </button>
     </div>

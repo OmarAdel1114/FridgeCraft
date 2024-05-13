@@ -1,22 +1,20 @@
-import { useState } from "react";
 import RemoveItem from "../../assets/remove-item.svg";
 import ReOrderItem from "../../assets/reorder-item.svg";
 
-const Ingredients = () => {
-  const [count, setCount] = useState(1);
-
-  const handleCount = () => {
-    setCount((prev) => prev + 1);
-  };
-
+const Ingredients = ({
+  ingredientInputs,
+  handleChange,
+  handleAddInput,
+  deleteIngredients,
+}) => {
   return (
     <div>
-      {Array.from({ length: count })?.map((arr, i) => (
-        <div className="flex justify-between items-center mt-8" key={i}>
+      {ingredientInputs?.map((ingredient, index) => (
+        <div className="flex justify-between items-center mt-8" key={index}>
           <div className="flex">
             <img
               src={ReOrderItem}
-              alt="reorde-item-img"
+              alt="reorder-item-img"
               width={35}
               height={35}
             />
@@ -24,6 +22,9 @@ const Ingredients = () => {
               type="text"
               className="w-[34.87rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5"
               placeholder="Item"
+              value={ingredient}
+              name="ingredients"
+              onChange={(e) => handleChange(index, e.target.value)}
             />
           </div>
           <div>
@@ -32,12 +33,13 @@ const Ingredients = () => {
               width={35}
               height={35}
               alt="remove-item-img"
+              onClick={deleteIngredients}
             />
           </div>
         </div>
       ))}
-      <button onClick={handleCount} type="button" className="mt-8">
-        <p className="text-[24px] font-medium" >+ Add Ingredient</p>
+      <button onClick={handleAddInput} type="button" className="mt-8">
+        <p className="text-[24px] font-medium">+ Add Ingredient</p>
       </button>
     </div>
   );
