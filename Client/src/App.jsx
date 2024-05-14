@@ -1,16 +1,18 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Authenticated from "./routes/Authenticated";
 import UnAuthenticated from "./routes/Unauthenticated";
 import { BrowserRouter } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const App = () => {
   const { auth } = useSelector((state) => state.auth);
   const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     if (auth) {
       setAuthenticated(true);
     } else {
@@ -18,20 +20,18 @@ const App = () => {
     }
   }, [auth]);
 
-  console.log(auth);
   return (
-    <div className="App">
-      {/* <Route path='/' exact element={<Login/>}/>
-        <Route path='/register' exact element={<Register/>}/> */}
-
-      <BrowserRouter>
-        {authenticated ? (
-          <Authenticated isLoggedIn={auth} />
-        ) : (
-          <UnAuthenticated isLoggedIn={auth} />
-        )}
-      </BrowserRouter>
-    </div>
+    <React.Suspense fallback={<CircularProgress />}>
+      <div className="App">
+        <BrowserRouter>
+          {authenticated ? (
+            <Authenticated isLoggedIn={auth} />
+          ) : (
+            <UnAuthenticated isLoggedIn={auth} />
+          )}
+        </BrowserRouter>
+      </div>
+    </React.Suspense>
   );
 };
 

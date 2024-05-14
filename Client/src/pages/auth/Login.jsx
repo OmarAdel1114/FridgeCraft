@@ -5,44 +5,31 @@ import LoginLogo from "../../assets/login_logo.jpg";
 import GOOGLE_ICON from "../../assets/google-icon-logo.svg";
 // import { AuthenticationContext } from "../../Components/AuthenticationProvider";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../api/services/auth.service";
+import { CircularProgress } from "@mui/material";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const { success } = useSelector((state) => state.auth);
+  const { auth, loading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      if (email && password) {
-        dispatch(loginUser({ email, password }));
+    //dispatch the loginUser functionality from the store, endpoint of login has been implemented in loginUser() function.
+    await dispatch(loginUser({ email, password }));
 
-        console.log("authented", success);
-        if (success) {
-          navigate("/profile");
-        }
-      } else {
-        toast.error("Please fill out all the fields", {
-          position: "top-right",
-          autoClose: 1500,
-        });
-        if (!email) {
-          setEmailError(true);
-        }
-        if (!password) {
-          setPasswordError(true);
-        }
-      }
-    } catch (e) {
-      navigate("/");
+    //if user get authenticated, the route will be changed to "dashboard"
+    if (auth) {
+      navigate("/profile");
+    } else {
+      return;
     }
   };
 
@@ -109,9 +96,9 @@ const Login = () => {
                   <p className="text-sm">Remember Me </p>
                 </div>
 
-                <p className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2  hover:text-white">
-                  Forget Password?
-                </p>
+                <Link to="/forgot-password" className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2  hover:text-white">
+                  Forgot Password?
+                </Link>
               </div>
 
               <div className="w-full flex flex-col my-4">
@@ -119,7 +106,7 @@ const Login = () => {
                   type="submit"
                   className="w-full text-white my-2 font-semibold bg-[#2E5834] rounded-md p-4 text-center justify-center cursor-pointer hover:bg-black hover:text-white"
                 >
-                  login
+                  {loading ? <CircularProgress color="success" /> : "Log In"}
                 </button>
 
                 <button

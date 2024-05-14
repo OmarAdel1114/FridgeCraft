@@ -7,12 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 
 const AddRecipe = () => {
   const [ingredientInputs, setIngredientInputs] = useState([""]);
-  const [stepsInput, setStepsInput] = useState([""]);
 
   const [formData, setFormData] = useState({
     recipeTitle: "",
     recipeOverview: "",
     photo: "",
+    instructions: "",
   });
 
   const handleInputChange = (e) => {
@@ -43,28 +43,11 @@ const AddRecipe = () => {
     setIngredientInputs(newInputs);
   };
 
-  const handleStepsChange = (index, value) => {
-    const newInputs = [...stepsInput];
-    newInputs[index] = value;
-    setStepsInput(newInputs);
-  };
-
-  const handleAddStepsInput = () => {
-    setStepsInput([...stepsInput, ""]);
-  };
-
-  const deleteSteps = (e) => {
-    const newInputs = [...stepsInput];
-    newInputs.splice(e, 1);
-    setStepsInput(newInputs);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const dataToSend = {
       ...formData,
       ingredients: ingredientInputs,
-      instructions: stepsInput,
     };
 
     try {
@@ -72,7 +55,7 @@ const AddRecipe = () => {
       const data = response.data;
       return data;
     } catch (e) {
-      console.log(e)
+      console.log(e);
       toast.error(e?.response?.data?.error, {
         position: "top-right",
         autoClose: 3000,
@@ -146,12 +129,14 @@ const AddRecipe = () => {
               <p className="mt-3 text-[22px]">
                 Break down your recipe into clear, step-by-step instructions.
               </p>
-
-              <RecipeSteps
-                stepsInput={stepsInput}
-                handleAddInput={handleAddStepsInput}
-                handleChange={handleStepsChange}
-                deleteSteps={deleteSteps}
+              <textarea
+                type="text"
+                className="w-full border mt-2 p-3 h-40 bg-[#FBFBFB] rounded-lg"
+                placeholder="Enter steps needed for your recipe"
+                // // required
+                value={formData.instructions}
+                name="instructions"
+                onChange={handleInputChange}
               />
             </div>
 

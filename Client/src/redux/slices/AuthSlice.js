@@ -36,7 +36,7 @@ const AuthSlice = createSlice({
       state.token = action.payload.data.token;
       state.status=action.payload.status;
      state.success=true;
-
+  
 
  
     });
