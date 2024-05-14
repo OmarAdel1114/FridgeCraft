@@ -3,37 +3,44 @@ import { useState } from "react";
 import CoverImage from "../../assets/cover_image.jpeg";
 import LoginLogo from "../../assets/login_logo.jpg";
 // import { AuthenticationContext } from "../../Components/AuthenticationProvider";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 import axiosInstance from "../../api/config";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const { loading } = useSelector((state) => state.auth);
+const RestPassword = () => {
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSendOTP = async (e) => {
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const userId = queryParams.get("userId");
+
+  const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post(`/otps/sendOTP?email=${email}`);
+      setLoading(true);
+      const response = await axiosInstance.post(
+        `/otps/resetPassword/${userId}`,
+        {newPassword:password}
+      );
       const data = response.data;
-      navigate(`/verify-otp?email=${email}`);
-      console.log("data", data);
+      navigate(`/login`);
+      setLoading(false);
+
+      return data;
     } catch (e) {
-      toast.error(e?.response?.data?.error, {
-        autoClose: 3000,
-        position: "top-right",
-      });
+      setLoading(false);
+      console.log("throw ", e);
     }
   };
 
   return (
     <>
       <ToastContainer />
-      <form onSubmit={handleSendOTP}>
+      <form onSubmit={handleResetPassword}>
         <div className="w-full h-screen  flex items-start">
           <div className="relative w-1/2 h-full flex flex-col">
             <img src={CoverImage} className="w-full h-full object-cover" />
@@ -47,26 +54,26 @@ const ForgotPassword = () => {
             <div className="w-full flex flex-col max-w-[500px] ">
               <div className="w-full flex flex-col mb-2">
                 <h3 className="text-3xl font-semibold mb-2 ">
-                  Forgot Password?
+                  Reset Password
                 </h3>
 
                 <p className="text-base mb-2 ">
                   {" "}
-                  No worries, we’ll send you reset instructions
+                  Enter a new password
                 </p>
               </div>
 
               <div className="w-full flex flex-col">
                 <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
+                  type="password"
+                  placeholder="Enter New Password"
+                  name="newPassword"
+                  value={password}
                   onChange={(e) => {
-                    setEmail(e.target.value);
-                    setEmailError(false);
+                    setPassword(e.target.value);
                   }}
                   className={`w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none 
-                    ${emailError && "border-b-2 border-red-600"}
+                   
                   `}
                 />
               </div>
@@ -101,4 +108,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default RestPassword;

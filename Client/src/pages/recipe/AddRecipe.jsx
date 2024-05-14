@@ -1,7 +1,6 @@
 import { useState } from "react";
 import DropzoneComponent from "./RecipeImageUpload";
 import Ingredients from "./Ingredients";
-import RecipeSteps from "./RecipeSteps";
 import axiosInstance from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 
