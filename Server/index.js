@@ -15,14 +15,25 @@ const otpsRoutes = require("./Routes/otpRouter");
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log(`MongoDB Server Started `);
 
-  // Create index on the 'recipeTitle' field of the 'recipes' collection
+  // Create index on the 'recipeTitle' field
   mongoose.connection.db
     .collection("recipes")
-    .createIndex({ recipeTitle: 1, ingredients: 1 }, (err, result) => {
+    .createIndex({ recipeTitle: 1 }, (err, result) => {
       if (err) {
-        console.error("Error creating index:", err);
+        console.error("Error creating index for recipeTitle:", err);
       } else {
-        console.log("Index created:", result);
+        console.log("Index created for recipeTitle:", result);
+      }
+    });
+
+  // Create index on the 'ingredients' field
+  mongoose.connection.db
+    .collection("recipes")
+    .createIndex({ ingredients: 1 }, (err, result) => {
+      if (err) {
+        console.error("Error creating index for ingredients:", err);
+      } else {
+        console.log("Index created for ingredients:", result);
       }
     });
 });
