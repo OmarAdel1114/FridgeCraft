@@ -158,7 +158,7 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
 
     // Upload Image to Cloudinary
     const data = await uploadToCloudinary(req.file.path, "recipe-images");
-    console.log(req.file.path);
+    console.log(req.file);
     // Create a new recipe document
     const recipe = new Recipe({
       recipeTitle,
