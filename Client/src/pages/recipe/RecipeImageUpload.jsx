@@ -51,8 +51,9 @@ const DropzoneComponent = ({ inputName, handleFileChange }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
       acceptedFiles.forEach((file) => {
+        console.log(file)
         // Pass the image name to the parent component
-        handleFileChange(file, file?.name);
+        handleFileChange(file);
       });
       setFiles(
         acceptedFiles.map((file) =>

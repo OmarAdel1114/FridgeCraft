@@ -1,8 +1,8 @@
 import { useState } from "react";
 import DropzoneComponent from "./RecipeImageUpload";
 import Ingredients from "./Ingredients";
-import axiosInstance from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const AddRecipe = () => {
   const [ingredientInputs, setIngredientInputs] = useState([""]);
@@ -10,8 +10,8 @@ const AddRecipe = () => {
   const [formData, setFormData] = useState({
     recipeTitle: "",
     recipeOverview: "",
-    recipeImage: "",
     instructions: "",
+    recipeImage: "",
   });
 
   const handleInputChange = (e) => {
@@ -25,7 +25,6 @@ const AddRecipe = () => {
       recipeImage: imageName,
     });
   };
-
 
   const handleIngredientsChange = (index, value) => {
     const newInputs = [...ingredientInputs];
@@ -41,23 +40,45 @@ const AddRecipe = () => {
     const newInputs = [...ingredientInputs];
     newInputs.splice(e, 1);
     setIngredientInputs(newInputs);
+    console.log(e);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dataToSend = {
-      ...formData,
-      ingredients: ingredientInputs,
-    };
+    const form = new FormData();
 
-    console.log(ingredientInputs)
+    form.append("recipeImage", formData.recipeImage);
+    form.append("recipeOverview", formData.recipeOverview);
+    form.append("recipeTitle", formData.recipeTitle);
+    form.append("instructions", formData.instructions);
+
+    ingredientInputs.forEach((ingredient, index) => {
+      form.append(`ingredients[${index}]`, ingredient);
+    });
+
+    const token = localStorage.getItem("token");
 
     try {
-      const response = await axiosInstance.post("/recipes/add", dataToSend);
+      const response = await axios.post(
+        "https://fridge-craft-server.vercel.app/api/recipes/add",
+        form,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = response.data;
+      console.log(data);
+      toast.success("Recipe added successfully", {
+        position: "top-right",
+      });
+
       return data;
     } catch (e) {
+      console.log(e);
       toast.error(e?.response?.data?.error, {
         position: "top-right",
         autoClose: 3000,

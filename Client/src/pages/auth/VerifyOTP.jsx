@@ -47,7 +47,7 @@ const VerifyOTP = () => {
       const decodedToken = jwtDecode(token);
       console.log(decodedToken);
 
-      const userId = decodedToken?.Id;
+      const userId = decodedToken?.userId;
       navigate(`/reset-password?userId=${userId}`);
     } catch (e) {
       toast.error(e?.response?.data?.error, {

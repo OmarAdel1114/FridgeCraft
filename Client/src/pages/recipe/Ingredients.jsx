@@ -23,7 +23,7 @@ const Ingredients = ({
               className="w-[34.87rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5"
               placeholder="Item"
               value={ingredient}
-              name={`ingredients[${index}]`}
+              name={`ingredients`}
               onChange={(e) => handleChange(index, e.target.value)}
             />
           </div>
@@ -33,7 +33,8 @@ const Ingredients = ({
               width={35}
               height={35}
               alt="remove-item-img"
-              onClick={deleteIngredients}
+              onClick={()=>deleteIngredients(index)}
+              className="cursor-pointer"
             />
           </div>
         </div>

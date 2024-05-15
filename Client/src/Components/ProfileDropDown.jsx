@@ -27,29 +27,33 @@ const ProfileDropDown = ({ id, anchorEl, handleClose, open }) => {
         className="mt-5"
       >
         <div className="w-full">
-          <Typography
-            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
-          >
-            <Link to="/profile">Settings</Link>
-          </Typography>
-          <Typography
-            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
-          >
-            <Link to="/email-preferences">Email Preferences</Link>
-          </Typography>
-          <Typography
-            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
-          >
-            <Link to="/my-recipes">My Recipes</Link>
-          </Typography>
-          <Typography
-            className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
-          >
-            <Link to="/favorites">My Favorites</Link>
-          </Typography>
+          <Link to="/profile">
+            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
+              Settings
+            </Typography>
+          </Link>
+
+          <Link to="/email-preferences">
+            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
+              Email Preferences
+            </Typography>
+          </Link>
+
+          <Link to="/my-recipes">
+            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
+              My Recipes
+            </Typography>
+          </Link>
+
+          <Link to="/favorites">
+            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
+              My Favorites
+            </Typography>
+          </Link>
+          
           <Typography
             onClick={signout}
-            sx={{cursor: "pointer" }}
+            sx={{ cursor: "pointer" }}
             className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
           >
             Sign Out
