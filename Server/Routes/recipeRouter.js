@@ -150,10 +150,11 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
       ? ingredients
       : ingredients.split(",");
 
-    // Check if any required attribute is missing or empty
-    if (!recipeTitle || !recipeOverview || !instructions || !req.file) {
-      throw new Error("All attributes must be provided.");
-    }
+    console.log(req.body);
+    // // Check if any required attribute is missing or empty
+    // if (!recipeTitle || !recipeOverview || !instructions || !req.file) {
+    //   throw new Error("All attributes must be provided.");
+    // }
 
     // Upload Image to Cloudinary
     const data = await uploadToCloudinary(req.file.path, "recipe-images");
