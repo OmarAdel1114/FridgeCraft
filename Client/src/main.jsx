@@ -11,7 +11,7 @@ let persist_store = persistStore(store);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <Provider store={store}>
-        <PersistGate persistor={persist_store}>
+        <PersistGate persistor={persist_store}> 
           <App />
         </PersistGate>
       </Provider>

@@ -1,22 +1,25 @@
 // import { Avatar } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import Camera from "../../assets/camera.svg";
 // import avatar from "../../assets/user-avatar.svg";
 import axiosInstance from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 import Main from "../../Components/Main";
+import Header from "../../Components/Navbar";
 
 const Profile = () => {
   //fetch the user details from the redux store
   const { data } = useSelector((state) => state?.auth);
 
+  const [user, setUser] = useState();
+
   //variables for updating formData
   const [formData, setFormData] = useState({
-    firstName: data?.data?.firstName,
-    lastName: data?.data?.lastName,
-    userName: data?.data?.userName,
-    email: data?.data?.email,
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
     password: "",
   });
 
@@ -26,16 +29,32 @@ const Profile = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  //variables for uploading Image
-  // const [file, setFile] = useState();
-  // const [image, setImage] = useState();
-
+  const getProfile = async () => {
+    try {
+      const response = await axiosInstance.get(`/users/${data?.data?._id}`);
+      const responseData = response.data;
+      setUser(responseData?.data);
+      setFormData({
+        firstName: responseData?.data?.firstName,
+        lastName: responseData?.data?.lastName,
+        userName: responseData?.data?.userName,
+        email: responseData?.data?.email,
+        password: "",
+      });
+      return responseData;
+    } catch (e) {
+      toast.error(e?.response?.data?.error, {
+        autoClose: 3000,
+        position: "top-right",
+      });
+    }
+  };
   //methodd for updating profile
   const handleProfileUpdate = async (e) => {
     e?.preventDefault();
     try {
       const response = await axiosInstance.patch(
-        `/users/profile/${data?.data?._id}`,
+        `/users/profile/${user?._id}`,
         formData
       );
       const responseData = response.data;
@@ -43,7 +62,7 @@ const Profile = () => {
         autoClose: 1500,
         position: "top-right",
       });
-   
+      getProfile();
       return responseData;
     } catch (e) {
       console.log("error", e);
@@ -54,8 +73,15 @@ const Profile = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <Main>
+      <div className="h-20  shadow-sticky bg-white backdrop-blur-sm top-0 w-full">
+        <Header firstname={user?.firstName} lastname={user?.lastName} />
+      </div>
       <div className="mt-16 ml-12">
         <ToastContainer />
         <p className="lg:text-2xl 2xl:text-[36px] font-semibold py-6 border-b-4 border-borderColor">
@@ -101,8 +127,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="firstName"
-                  value={formData.firstName}
-                  defaultValue={data?.data?.firstName}
+                  value={formData?.firstName}
+                  defaultValue={user?.firstName}
                   onChange={handleInputChange}
                   placeholder="Enter First Name"
                   className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
@@ -117,7 +143,7 @@ const Profile = () => {
                   type="text"
                   name="lastName"
                   value={formData.lastName}
-                  defaultValue={data?.data?.lastName}
+                  defaultValue={user?.lastName}
                   onChange={handleInputChange}
                   placeholder="Enter First Name"
                   className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
@@ -146,6 +172,7 @@ const Profile = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
+                  defaultValue={user?.email}
                   placeholder="Enter Email"
                   className="outline-none border-2 bg-secondary border-secondary50  2xl:w-[500px] lg:w-[28rem] xss:w-[19.75rem] xs:w-[22.8rem]  p-3 rounded-lg text-base font-normal"
                 />

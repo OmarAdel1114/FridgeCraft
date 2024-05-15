@@ -6,11 +6,21 @@ import Authenticated from "./routes/Authenticated";
 import UnAuthenticated from "./routes/Unauthenticated";
 import { BrowserRouter } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import axiosInstance from "./api/config";
 
 const App = () => {
-  const { auth } = useSelector((state) => state.auth);
+  const { auth, data } = useSelector((state) => state.auth);
   const [authenticated, setAuthenticated] = useState(false);
 
+  const getProfile = async () => {
+    try {
+      const response = await axiosInstance.get(`/users/${data?.data?._id}`);
+      const responseData = response.data;
+      return responseData;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useLayoutEffect(() => {
     if (auth) {
@@ -18,6 +28,7 @@ const App = () => {
     } else {
       setAuthenticated(false);
     }
+    getProfile();
   }, [auth]);
 
   return (

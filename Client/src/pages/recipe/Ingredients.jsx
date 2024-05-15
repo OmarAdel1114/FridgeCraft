@@ -23,7 +23,7 @@ const Ingredients = ({
               className="w-[34.87rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5"
               placeholder="Item"
               value={ingredient}
-              name="ingredients"
+              name={`ingredients[${index}]`}
               onChange={(e) => handleChange(index, e.target.value)}
             />
           </div>

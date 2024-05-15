@@ -30,7 +30,7 @@ const ProfileDropDown = ({ id, anchorEl, handleClose, open }) => {
           <Typography
             className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"
           >
-            <Link to="/settings">Settings</Link>
+            <Link to="/profile">Settings</Link>
           </Typography>
           <Typography
             className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer"

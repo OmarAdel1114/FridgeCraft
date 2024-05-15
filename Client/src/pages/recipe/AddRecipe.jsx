@@ -10,7 +10,7 @@ const AddRecipe = () => {
   const [formData, setFormData] = useState({
     recipeTitle: "",
     recipeOverview: "",
-    photo: "",
+    recipeImage: "",
     instructions: "",
   });
 
@@ -22,7 +22,7 @@ const AddRecipe = () => {
   const handleImageChange = (imageName) => {
     setFormData({
       ...formData,
-      photo: imageName,
+      recipeImage: imageName,
     });
   };
 
@@ -44,17 +44,19 @@ const AddRecipe = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const dataToSend = {
       ...formData,
       ingredients: ingredientInputs,
     };
+
+    console.log(ingredientInputs)
 
     try {
       const response = await axiosInstance.post("/recipes/add", dataToSend);
       const data = response.data;
       return data;
     } catch (e) {
-      console.log(e);
       toast.error(e?.response?.data?.error, {
         position: "top-right",
         autoClose: 3000,
