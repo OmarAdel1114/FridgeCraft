@@ -154,9 +154,9 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
     //   throw new Error("All attributes must be provided.");
     // }
 
+    console.log(req.file.path);
     // Upload Image to Cloudinary
     const data = await uploadToCloudinary(req.file.path, "recipe-images");
-    console.log(req.file.path);
     // Create a new recipe document
     const recipe = new Recipe({
       recipeTitle,
