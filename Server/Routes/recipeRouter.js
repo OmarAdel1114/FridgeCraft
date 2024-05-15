@@ -150,8 +150,9 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
       ? ingredients
       : ingredients.split(",");
 
+    console.log(req.body);
     // Check if any required attribute is missing or empty
-    if (!recipeTitle || !recipeOverview || !instructions || !req.file) {
+    if (!recipeTitle || !recipeOverview || !instructions) {
       throw new Error("All attributes must be provided.");
     }
 
