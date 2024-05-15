@@ -1,25 +1,26 @@
 // import { Avatar } from "@mui/material";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import {  useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // import Camera from "../../assets/camera.svg";
 // import avatar from "../../assets/user-avatar.svg";
 import axiosInstance from "../../api/config";
 import { ToastContainer, toast } from "react-toastify";
 import Main from "../../Components/Main";
 import Header from "../../Components/Navbar";
+import { getCurrentUser } from "../../api/services/auth.service";
 
 const Profile = () => {
   //fetch the user details from the redux store
-  const { data } = useSelector((state) => state?.auth);
-
-  const [user, setUser] = useState();
+  const { data, user } = useSelector((state) => state?.auth);
+  const dispatch = useDispatch();
+  // const [user, setUser] = useState();
 
   //variables for updating formData
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    userName: user?.userName,
+    email: user?.email,
     password: "",
   });
 
@@ -29,26 +30,6 @@ const Profile = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const getProfile = async () => {
-    try {
-      const response = await axiosInstance.get(`/users/${data?.data?._id}`);
-      const responseData = response.data;
-      setUser(responseData?.data);
-      setFormData({
-        firstName: responseData?.data?.firstName,
-        lastName: responseData?.data?.lastName,
-        userName: responseData?.data?.userName,
-        email: responseData?.data?.email,
-        password: "",
-      });
-      return responseData;
-    } catch (e) {
-      toast.error(e?.response?.data?.error, {
-        autoClose: 3000,
-        position: "top-right",
-      });
-    }
-  };
   //methodd for updating profile
   const handleProfileUpdate = async (e) => {
     e?.preventDefault();
@@ -62,7 +43,8 @@ const Profile = () => {
         autoClose: 1500,
         position: "top-right",
       });
-      getProfile();
+      // getProfile();
+      dispatch(getCurrentUser(data.data._id));
       return responseData;
     } catch (e) {
       console.log("error", e);
@@ -73,9 +55,7 @@ const Profile = () => {
     }
   };
 
-  useLayoutEffect(() => {
-    getProfile();
-  }, []);
+
 
   return (
     <Main>

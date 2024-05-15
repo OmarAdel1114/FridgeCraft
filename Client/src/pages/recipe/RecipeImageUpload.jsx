@@ -52,7 +52,7 @@ const DropzoneComponent = ({ inputName, handleFileChange }) => {
     (acceptedFiles) => {
       acceptedFiles.forEach((file) => {
         // Pass the image name to the parent component
-        handleFileChange(file?.name);
+        handleFileChange(file, file?.name);
       });
       setFiles(
         acceptedFiles.map((file) =>
@@ -73,7 +73,7 @@ const DropzoneComponent = ({ inputName, handleFileChange }) => {
   });
 
   const fileList = files.map((file) => (
-    <li key={file.name}>
+    <li key={file?.name}>
       <img style={ImagePreview} src={file.preview} alt={file.name} />
       <span style={FileName}>{file.name}</span>
     </li>

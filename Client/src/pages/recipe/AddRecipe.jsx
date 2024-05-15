@@ -26,6 +26,7 @@ const AddRecipe = () => {
     });
   };
 
+
   const handleIngredientsChange = (index, value) => {
     const newInputs = [...ingredientInputs];
     newInputs[index] = value;

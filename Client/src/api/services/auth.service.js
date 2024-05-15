@@ -17,3 +17,22 @@ export const loginUser = createAsyncThunk(
     return logindata;
   }
 );
+
+
+
+//get current user AAPI 
+
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (id, { rejectWithValue }) => {
+    const userData = await axiosInstance
+      .get(`/users/${id}`)
+      .then((response) => {
+        return response;
+      })
+
+      .catch((err) => rejectWithValue(err.response.data));
+
+    return userData;
+  }
+);

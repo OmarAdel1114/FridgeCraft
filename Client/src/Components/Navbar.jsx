@@ -4,12 +4,11 @@ import logo from "../assets/logo.png";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProfileDropDown from "./ProfileDropDown";
-import axiosInstance from "../api/config";
 
-const Header = ({ firstname, lastname }) => {
-  const { auth, data } = useSelector((state) => state.auth);
+const Header = () => {
+  const { auth, data, user } = useSelector((state) => state.auth);
   let Links = [
     { name: "Home", link: "/" },
     { name: "About", link: "/" },
@@ -18,6 +17,7 @@ const Header = ({ firstname, lastname }) => {
     { name: "Contact", link: "/" },
     { name: "Add a Recipe", link: "/add-a-recipe" },
   ];
+
   let [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(false);
@@ -95,15 +95,13 @@ const Header = ({ firstname, lastname }) => {
                       {data?.data?.firstName?.charAt(0)?.toUpperCase() +
                         " " +
                         data?.data?.lastName?.charAt(0)?.toUpperCase() || "U"}
-                  </Avatar>
+                    </Avatar>
                   </div>
                   <div>
                     <div>
-                      {firstname && lastname && (
-                        <p className="text-black text-sm font-medium">
-                          {firstname + " " + lastname}
-                        </p>
-                      )}
+                      <p className="text-black text-sm font-medium">
+                        {user?.firstName + " " + user?.lastName}
+                      </p>
                       {/* {route?.pathname !== "/profile" && (
                         <p className="text-black text-sm font-medium">
                           {user?.firstName + " " + user?.lastName}
@@ -111,7 +109,7 @@ const Header = ({ firstname, lastname }) => {
                       )} */}
                     </div>
                     <div>
-                      <p className="text-black text-xs">{data?.data?.email}</p>
+                      <p className="text-black text-xs">{user?.email}</p>
                     </div>
                   </div>
                   <span className="pr-2">
