@@ -30,7 +30,6 @@ const AuthSlice = createSlice({
       state.loading = true;
       state.error = null;
 
-      console.log("pending", state.loading);
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
@@ -61,6 +60,7 @@ const AuthSlice = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       console.log("user payload", action.payload)
       state.user = action.payload.data.data;
+      state.loading=true;
     });
 
     builder.addCase(getCurrentUser.rejected, (state, action) => {

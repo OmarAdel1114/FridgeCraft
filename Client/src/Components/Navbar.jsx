@@ -61,7 +61,7 @@ const Header = ({firstName, lastName}) => {
           </div>
 
           <ul
-            className={`shadow-md lg:shadow-none lg:flex lg:items-center lg:pb-0 pb-6 absolute lg:static bg-White 
+            className={`shadow-md lg:shadow-none lg:flex items-center lg:pb-0 pb-6 absolute lg:static bg-White 
             md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${
               open ? "top-20" : "top-[-490px]"
             }`}
