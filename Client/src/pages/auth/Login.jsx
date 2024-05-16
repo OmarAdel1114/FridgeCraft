@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 //import {Link} from 'react-router-dom'
 import CoverImage from "../../assets/cover_image.jpeg";
 import LoginLogo from "../../assets/login_logo.jpg";
@@ -25,7 +25,6 @@ const Login = () => {
     //dispatch the loginUser functionality from the store, endpoint of login has been implemented in loginUser() function.
     await dispatch(loginUser({ email, password }));
 
-   
     //if user get authenticated, the route will be changed to "dashboard"
     if (auth) {
       navigate("/profile");
@@ -34,6 +33,7 @@ const Login = () => {
     }
   };
 
+  console.log("loading", loading)
 
   //method to navigate to register page by pressing register button
   const navigateToRegister = () => {
@@ -98,7 +98,10 @@ const Login = () => {
                   <p className="text-sm">Remember Me </p>
                 </div>
 
-                <Link to="/forgot-password" className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2  hover:text-white">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2  hover:text-white"
+                >
                   Forgot Password?
                 </Link>
               </div>
@@ -108,7 +111,7 @@ const Login = () => {
                   type="submit"
                   className="w-full text-white my-2 font-semibold bg-[#2E5834] rounded-md p-4 text-center justify-center cursor-pointer hover:bg-black hover:text-white"
                 >
-                  {"Log In"}
+                 {loading ? <CircularProgress color={'success'} size={20}/>:'Login'}
                 </button>
 
                 <button

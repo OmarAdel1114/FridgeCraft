@@ -6,6 +6,7 @@ import GOOGLE_ICON from "../../assets/google-icon-logo.svg";
 // import { AuthenticationContext } from "../../Components/AuthenticationProvider";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await fetch(
         "https://fridge-craft-server.vercel.app/api/users/register",
         {
@@ -52,7 +55,6 @@ const Register = () => {
           });
           navigate("/");
         }, 1000);
-       
       }
       if (response.status == 400) {
         toast.error("Registeration Failed", {
@@ -60,6 +62,7 @@ const Register = () => {
           autoClose: 3000,
         });
       }
+      setLoading(false);
 
       return data;
 
@@ -152,7 +155,7 @@ const Register = () => {
                   className="w-full text-black my-2 font-semibold bg-white border-2
                  border-[#2E5834] rounded-md p-4 text-center justify-center cursor-pointer hover:bg-[#2E5834] hover:text-white"
                 >
-                  Register
+                  {loading ? <CircularProgress size={20} color="success"/> : "Register"}
                 </button>
               </div>
 
