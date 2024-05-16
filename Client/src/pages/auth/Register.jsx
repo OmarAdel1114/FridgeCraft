@@ -158,20 +158,7 @@ const Register = () => {
                   {loading ? <CircularProgress size={20} color="success"/> : "Register"}
                 </button>
               </div>
-
-              <div className="w-full flex items-center justify-center relative py-2">
-                <div className="w-full h-[1PX] bg-black "> </div>
-
-                <p className="text-lg absolute text-black/80 bg-[#f5f5f5]">
-                  {" "}
-                  or
-                </p>
-              </div>
-
-              <button className="w-full text-black my-2 font-semibold bg-white border-2 border-[#2E5834] rounded-md p-4 text-center flex items-center justify-center cursor-pointer hover:bg-black hover:text-white ">
-                <img src={GOOGLE_ICON} className="h-6 mr-2" />
-                Sign up With Google
-              </button>
+            
             </div>
 
             <div className="w-full flex items-center justify-center">
