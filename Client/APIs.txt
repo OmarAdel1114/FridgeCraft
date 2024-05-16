@@ -78,6 +78,7 @@
     Attributes {
         req.body (recipe(recipeTitle),user(userName))
     }
+    Headers = Authorization : Bearer token
 
     View saved recipes:
     https = Get
