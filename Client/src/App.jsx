@@ -13,16 +13,21 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
+  
+  useEffect(() => {
+    if (auth) {
+      dispatch(getCurrentUser(data?.data?._id));
+    }
+  }, [auth, data?.data?._id]);
+
   useLayoutEffect(() => {
     if (auth) {
       setAuthenticated(true);
+      console.log(data);
     } else {
       setAuthenticated(false);
     }
-    dispatch(getCurrentUser(data?.data?._id));
   }, [auth]);
-
-  
 
   return (
     <React.Suspense fallback={<CircularProgress />}>

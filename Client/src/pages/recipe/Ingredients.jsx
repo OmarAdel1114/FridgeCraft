@@ -20,7 +20,7 @@ const Ingredients = ({
             />
             <input
               type="text"
-              className="w-[34.87rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5"
+              className="lg:w-[34.87rem] w-[14rem] p-3 border bg-[#FBFBFB] rounded-lg ml-5"
               placeholder="Item"
               value={ingredient}
               name={`ingredients`}
@@ -34,13 +34,13 @@ const Ingredients = ({
               height={35}
               alt="remove-item-img"
               onClick={()=>deleteIngredients(index)}
-              className="cursor-pointer"
+              className="cursor-pointer ml-8 mr-2 lg:ml-0"
             />
           </div>
         </div>
       ))}
       <button onClick={handleAddInput} type="button" className="mt-8">
-        <p className="text-[24px] font-medium">+ Add Ingredient</p>
+        <p className="lg:text-[24px] text-[18px] font-medium">+ Add Ingredient</p>
       </button>
     </div>
   );

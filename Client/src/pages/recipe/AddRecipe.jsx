@@ -3,9 +3,13 @@ import DropzoneComponent from "./RecipeImageUpload";
 import Ingredients from "./Ingredients";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import Main from "../../Components/Main";
+import Header from "../../Components/Navbar";
+import { useSelector } from "react-redux";
 
 const AddRecipe = () => {
   const [ingredientInputs, setIngredientInputs] = useState([""]);
+  const { user } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     recipeTitle: "",
@@ -87,22 +91,22 @@ const AddRecipe = () => {
   };
 
   return (
-    <>
+    <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-16 lg:px-0 pb-20">
       <ToastContainer />
-      <div className="2xl:w-[80rem] lg:w-[60rem] m-auto overflow-auto mb-20">
+      <div>
         <div className="w-auto  h-auto py-10 px-10 bg-white border mt-20 shadow-lg">
-          <p className="text-[3rem] font-serif text-center">Add a Recipe</p>
-          <p className="text-[1.2rem] mt-8 w-[1140px] block">
+          <p className="lg:text-[3rem] text-[2rem] font-serif text-center">Add a Recipe</p>
+          <p className="lg:text-[1.2rem] mt-8 lg:w-[1140px] block">
             Feeling like a kitchen Picasso? We want to see your masterpiece! Add
             your recipe and show off your culinary creativity.
           </p>
-          <div className="w-[1140px] border mt-10"></div>
+          <div className="lg:w-[1140px] border mt-10"></div>
 
           <DropzoneComponent handleFileChange={handleImageChange} />
 
           <form className="mt-10" onSubmit={handleSubmit}>
             <div>
-              <label className="text-[24px] font-medium">Recipe Title</label>
+              <label className="lg:text-[24px] text-[18px] font-medium">Recipe Title</label>
               <input
                 type="text"
                 className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
@@ -115,7 +119,7 @@ const AddRecipe = () => {
             </div>
 
             <div className="mt-8">
-              <label className="text-[24px] font-medium"> Description</label>
+              <label className="lg:text-[24px] text-[18px] font-medium"> Description</label>
               <textarea
                 type="text"
                 className="w-full border mt-2 p-3 h-40 bg-[#FBFBFB] rounded-lg"
@@ -127,11 +131,11 @@ const AddRecipe = () => {
               />
             </div>
 
-            <div className="w-[1140px] border mt-10"></div>
+            <div className="lg:w-[1140px] border mt-10"></div>
 
             <div className="mt-8">
-              <label className="text-[24px] font-medium">Ingredients</label>
-              <p className="mt-3 text-[22px]">
+              <label className="lg:text-[24px] text-[18px] font-medium">Ingredients</label>
+              <p className="mt-3 lg:text-[22px]">
                 List one ingredient per line, specifying quantities (1, 2),
                 measurements (cups, spoons), and any prep details (chopped,
                 sifted) along with the item. Let your creativity flow in every
@@ -145,11 +149,11 @@ const AddRecipe = () => {
               />
             </div>
 
-            <div className="w-[1140px] border mt-10"></div>
+            <div className="lg:w-[1140px] border mt-10"></div>
 
             <div className="mt-8">
-              <label className="text-[24px] font-medium">Instructions</label>
-              <p className="mt-3 text-[22px]">
+              <label className="lg:text-[24px] text-[18px] font-medium">Instructions</label>
+              <p className="mt-3 lg:text-[22px]">
                 Break down your recipe into clear, step-by-step instructions.
               </p>
               <textarea
@@ -165,18 +169,18 @@ const AddRecipe = () => {
 
             <div className="w-[1140px] border mt-10"></div>
 
-            <div className="flex mt-10 mb-10">
-              <button className="w-auto px-8 border-DarkGreen border rounded-[2rem] mr-5">
+            <div className="flex flex-wrap justify-center lg:justify-start mt-10 mb-10">
+              <button className="w-[10rem] lg:w-auto px-8 py-3 lg:mb-0 mb-4 border-DarkGreen border rounded-[2rem] lg:mr-5">
                 Cancel
               </button>
-              <button className="w-auto px-10 py-4 bg-DarkGreen text-white rounded-[2rem] text-base">
+              <button className="w-[10rem] lg:w-auto lg:px-10 lg:py-4 p-3  bg-DarkGreen text-white rounded-[2rem] text-base">
                 Submit Recipe
               </button>
             </div>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

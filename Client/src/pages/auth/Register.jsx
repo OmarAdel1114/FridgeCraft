@@ -175,7 +175,7 @@ const Register = () => {
               <p className="text-sm font-normal text-[#060606] ">
                 Already have an account?{" "}
                 <span
-                  className="font-semibold underline underline-offset-2 cursor-pointer  hover:text-white"
+                  className="font-semibold underline underline-offset-2 cursor-pointer  hover:text-DarkGreen"
                   onClick={navigatetoLogin}
                 >
                   login

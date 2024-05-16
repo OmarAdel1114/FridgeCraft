@@ -25,6 +25,7 @@ export const loginUser = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
   async (id, { rejectWithValue }) => {
+    console.log("userid", id)
     const userData = await axiosInstance
       .get(`/users/${id}`)
       .then((response) => {

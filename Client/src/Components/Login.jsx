@@ -1,10 +1,8 @@
 
 import React, { useState} from 'react';
-import {Link} from 'react-router-dom'
 import CoverImage from '../assets/cover_image.jpeg'
 import LoginLogo from '../assets/login_logo.jpg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
-import { AuthenticationContext } from './AuthenticationProvider'
 
 
 const Login = () => {

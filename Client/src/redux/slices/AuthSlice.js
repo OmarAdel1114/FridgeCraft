@@ -10,7 +10,7 @@ const initialState = {
   token: "",
   status: "",
   success: false,
-  user:[]
+  user: [],
 };
 
 const AuthSlice = createSlice({
@@ -29,6 +29,8 @@ const AuthSlice = createSlice({
     builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
       state.error = null;
+
+      console.log("pending", state.loading);
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
@@ -38,7 +40,9 @@ const AuthSlice = createSlice({
       state.status = action.payload.status;
       state.success = true;
     });
+
     builder.addCase(loginUser.rejected, (state, action) => {
+      console.log("action payload", action.payload);
       state.error = action.payload;
       state.loading = false;
       state.data = [];
@@ -51,16 +55,15 @@ const AuthSlice = createSlice({
 
     // get Current User
     builder.addCase(getCurrentUser.pending, (state) => {
-      state.loading = true;
+      state.loading = false;
     });
 
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
-      state.loading = false;
+      console.log("user payload", action.payload)
       state.user = action.payload.data.data;
     });
 
     builder.addCase(getCurrentUser.rejected, (state, action) => {
-      state.loading = true;
       state.error = "No user found";
 
       state.user = action.payload;

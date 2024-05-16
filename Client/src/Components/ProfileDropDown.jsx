@@ -33,11 +33,7 @@ const ProfileDropDown = ({ id, anchorEl, handleClose, open }) => {
             </Typography>
           </Link>
 
-          <Link to="/email-preferences">
-            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
-              Email Preferences
-            </Typography>
-          </Link>
+    
 
           <Link to="/my-recipes">
             <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
