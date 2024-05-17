@@ -92,14 +92,19 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
 
     // checks if the email in the database
-    if (!user) {
-      return res.status(401).json("Wrong Email or Password");
-    }
+    // if (!user) {
+    //   return res.status(401).json("Wrong Email or Password");
+    // }
 
-    // compare the sent password with the password in the database
-    const matchedPassword = await bcrypt.compare(password, user.password);
+    // // compare the sent password with the password in the database
+    // const matchedPassword = await bcrypt.compare(password, user.password);
 
-    if (!matchedPassword) {
+    // if (!matchedPassword) {
+    //   return res.status(401).json("Wrong Email or Password");
+    // }
+
+    // Combine the two checks into a single if statement
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json("Wrong Email or Password");
     }
     //generate JWT token
