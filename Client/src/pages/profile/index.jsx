@@ -87,11 +87,11 @@ const Profile = () => {
 
       {profileLoading ? (
         <div className="flex justify-center  items-center h-screen">
-          <CircularProgress color="success" size={40}/>
+          <CircularProgress color="success" size={40} />
         </div>
       ) : (
         <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-16 lg:px-0">
-          <div className="mt-16 ml-12">
+          <div className="mt-16">
             <ToastContainer />
             <p className="lg:text-2xl 2xl:text-[36px] text-xl font-semibold py-6 border-b-4 border-borderColor">
               Edit Your Profile
@@ -170,7 +170,7 @@ const Profile = () => {
                     Password
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
@@ -178,6 +178,9 @@ const Profile = () => {
                     className="outline-none border-2 bg-secondary border-secondary50 2xl:w-[500px]
               lg:w-[28rem] w-[18rem]  p-3 rounded-lg text-base lg:font-normal mr-2"
                   />
+                  <p className="text-slate-400 mt-2">
+                    Please enter min 6 characters{" "}
+                  </p>
                 </div>
 
                 <div className="xl:w-80 lg:h-[3rem] block w-[8rem] 2xl:mt-20 lg:mt-10 mb-10 mt-5">

@@ -39,8 +39,8 @@ const Header = ({firstName, lastName}) => {
       <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
         <div className="flex items-center justify-between bg-white py-4">
           {/* logo section */}
-          <div className="cursor-pointer flex items-center gap-1">
-            <img src={logo} width="100px" />
+          <div className="cursor-pointer flex items-center">
+            <img src={logo} width="" className="w-20" />
           </div>
 
           {/* linke items */}
@@ -144,11 +144,11 @@ const Header = ({firstName, lastName}) => {
                 >
                   <div className="mr-2">
                     <Avatar
-                      sx={{ width: 56, height: 56, background: "#2E5834" }}
+                      sx={{ width: 36, height: 36, background: "#2E5834" }}
                     >
                       {user?.firstName?.charAt(0)?.toUpperCase() +
-                        " " +
-                        user?.lastName?.charAt(0)?.toUpperCase() || "U"}
+                        " " + ""
+                      }
                     </Avatar>
                   </div>
                   <div>
