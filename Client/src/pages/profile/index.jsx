@@ -90,7 +90,7 @@ const Profile = () => {
           <CircularProgress color="success" size={40} />
         </div>
       ) : (
-        <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-16 lg:px-0">
+        <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
           <div className="mt-16">
             <ToastContainer />
             <p className="lg:text-2xl 2xl:text-[36px] text-xl font-semibold py-6 border-b-4 border-borderColor">

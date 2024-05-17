@@ -40,7 +40,7 @@ const Header = ({firstName, lastName}) => {
         <div className="flex items-center justify-between bg-white py-4">
           {/* logo section */}
           <div className="cursor-pointer flex items-center">
-            <img src={logo} width="" className="w-20" />
+            <img src={logo} width="100" />
           </div>
 
           {/* linke items */}
