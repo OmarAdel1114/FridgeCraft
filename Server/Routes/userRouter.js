@@ -38,6 +38,10 @@ router.post("/register", async (req, res) => {
   try {
     // importing user model
     const { firstName, lastName, userName, email, password, role } = req.body;
+    if (password.length < 6) {
+      throw new Error("Password should be At least 6 characters");
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdAt = new Date(); //This let the server create the timestamp
 
