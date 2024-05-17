@@ -93,14 +93,14 @@ router.post("/login", async (req, res) => {
 
     // checks if the email in the database
     if (!user) {
-      return res.status(401).json("Wrong email");
+      return res.status(401).json("Wrong Email or Password");
     }
 
     // compare the sent password with the password in the database
     const matchedPassword = await bcrypt.compare(password, user.password);
 
     if (!matchedPassword) {
-      return res.status(401).json("Wrong Password");
+      return res.status(401).json("Wrong Email or Password");
     }
     //generate JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
