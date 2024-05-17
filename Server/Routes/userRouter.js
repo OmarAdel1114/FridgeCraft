@@ -160,15 +160,14 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
     }
 
     // Update only the specified fields using object destructuring
-    const updatedFields = {
-      ...(firstName && { firstName }),
-      ...(lastName && { lastName }),
-      ...(userName && { userName }),
-      ...(email && { email }),
-      ...(password && { password }),
-    };
-    // Apply the updated fields to the user object
-    Object.assign(user, updatedFields);
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (userName) user.userName = userName;
+    if (email) user.email = email;
+    if (password) {
+      // Hash the new password
+      user.password = await bcrypt.hash(password, 10);
+    }
 
     // Save the updated user
     await user.save();
@@ -180,7 +179,7 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
 });
 
 // Find By Id
-router.get("/:userId" , async (req, res) => {
+router.get("/:userId", async (req, res) => {
   const requestUserId = req.params.userId;
 
   try {
