@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Authenticated from "./routes/Authenticated";
 import UnAuthenticated from "./routes/Unauthenticated";
 import { BrowserRouter } from "react-router-dom";
+import SearchPage from "./Components/SearchPage"
 
 const App = () => {
   const { auth } = useSelector((state) => state.auth);
@@ -20,18 +21,9 @@ const App = () => {
 
   console.log(auth);
   return (
-    <div className="App">
-      {/* <Route path='/' exact element={<Login/>}/>
-        <Route path='/register' exact element={<Register/>}/> */}
-
-      <BrowserRouter>
-        {authenticated ? (
-          <Authenticated isLoggedIn={auth} />
-        ) : (
-          <UnAuthenticated isLoggedIn={auth} />
-        )}
-      </BrowserRouter>
-    </div>
+   <>
+   
+   </>
   );
 };
 
