@@ -67,7 +67,6 @@ router.get("/findById/:recipeId", async (req, res) => {
 
   try {
     const recipe = await Recipe.findById(reqRecipeId, {
-      recipeOverview: 0,
       publicId: 0,
       updatedAt: 0,
       __v: 0,
