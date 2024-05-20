@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
       {},
       "recipeTitle imageUrl recipeOverview"
     );
-    res.status(200).json({ recipes });
+    res.status(200).json({ data: recipes });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
