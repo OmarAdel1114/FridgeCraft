@@ -59,7 +59,7 @@ router.get("/", async (req, res) => {
     });
 
     // returning the recipe summaries as the response
-    res.status(200).json({ data: recipeSummaries });
+    res.status(200).json({ data: recipes });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
