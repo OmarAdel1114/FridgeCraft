@@ -47,18 +47,6 @@ router.get("/", async (req, res) => {
       {},
       "recipeTitle imageUrl recipeOverview"
     );
-
-    // mapping over recipes to create a summary object
-    const recipeSummaries = recipes.map((recipe) => {
-      return {
-        id: recipe._id,
-        title: recipe.recipeTitle,
-        image: recipe.imageUrl,
-        description: recipe.recipeOverview.substring(0, 100) + "...",
-      };
-    });
-
-    // returning the recipe summaries as the response
     res.status(200).json({ recipes });
   } catch (error) {
     res.status(500).json({ error: error.message });
