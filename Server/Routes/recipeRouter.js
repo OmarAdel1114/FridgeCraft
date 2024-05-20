@@ -45,20 +45,23 @@ router.get("/", async (req, res) => {
     // getting all recipes
     const recipes = await Recipe.find(
       {},
-      {
-        ingredients: 0,
-        instructions: 0,
-        updatedAt: 0,
-        __v: 0,
-      }
+      "recipeTitle imageUrl recipeOverview"
     );
 
-    res.status(200).json({ Status: "Success" , recipes });
+    // mapping over recipes to create a summary object
+    const recipeSummaries = recipes.map((recipe) => {
+      return {
+        id: recipe._id,
+        title: recipe.recipeTitle,
+        image: recipe.imageUrl,
+        description: recipe.recipeOverview.substring(0, 100) + "...",
+      };
+    });
+
+    // returning the recipe summaries as the response
+    res.status(200).json({ data: recipeSummaries });
   } catch (error) {
-    console.error("Error fetching recipes:", error);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error", message: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 
