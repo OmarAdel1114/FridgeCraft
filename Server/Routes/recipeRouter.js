@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
       }
     );
 
-    res.status(200).json({ Status: "Success", data: { recipes } });
+    res.status(200).json({ Status: "Success" , recipes });
   } catch (error) {
     console.error("Error fetching recipes:", error);
     res
