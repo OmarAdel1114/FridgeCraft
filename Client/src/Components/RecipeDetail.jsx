@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import SearchBar from './SearchBar';
 
-const RecipeDetail = ({ handleSearch, setQuery }) => {
+const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
-  const [query, setLocalQuery] = useState('');
 
   useEffect(() => {
     fetchRecipeDetails();
@@ -21,19 +19,20 @@ const RecipeDetail = ({ handleSearch, setQuery }) => {
     }
   };
 
+  const extractVideoId = (url) => {
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+
   if (!recipe) {
     return <p>Loading...</p>;
   }
 
+  const videoId = recipe.youtubeUrl ? extractVideoId(recipe.youtubeUrl) : null;
+
   return (
     <div>
-      <div className="bg-DarkGreen py-20 gap-10 flex flex-col">
-        <h2 className="lg:text-5xl md:text-4xl text-2xl font-semibold text-white text-center">
-          Recipe Search
-        </h2>
-        <SearchBar query={query} setQuery={setLocalQuery} handleSearch={handleSearch} />
-      </div>
-
       <div className="lg:max-w-[1240px] mx-auto bg-white rounded shadow-md p-10 my-20 flex flex-col gap-10">
         <h2 className="lg:text-5xl md:text-4xl text-2xl font-semibold">{recipe.recipeTitle}</h2>
         <img src={recipe.imageUrl} alt={recipe.recipeTitle} className="w-full h-[550px] object-cover rounded" />
@@ -53,10 +52,24 @@ const RecipeDetail = ({ handleSearch, setQuery }) => {
           <h3 className="lg:text-4xl md:text-3xl text-2xl font-semibold">Instructions</h3>
           <p className="text-lg">{recipe.instructions}</p>
         </div>
+        {videoId && (
+          <div className="flex flex-col gap-5">
+            <h3 className="lg:text-4xl md:text-3xl text-2xl font-semibold">Video Tutorial</h3>
+            <div className="relative pb-[56.25%] h-0">
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full rounded"
+              ></iframe>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default RecipeDetail;
-
