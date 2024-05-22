@@ -201,4 +201,44 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.patch(
+  "/editRecipe/:recipeId",
+  upload.single("recipeImage"),
+  async (req, res) => {
+    const recipeId = req.params.recipeId;
+    try {
+      const {
+        recipeTitle,
+        recipeOverview,
+        ingredients,
+        instructions,
+        youtubeUrl,
+      } = req.body;
+
+      const recipe = await Recipe.findById(recipeId);
+      if (!recipe) {
+        return res.status(404).json({ message: "Recipe not found" });
+      }
+
+      if (recipeTitle) recipe.recipeTitle = recipeTitle;
+      if (recipeOverview) recipe.recipeOverview = recipeOverview;
+      if (ingredients) recipe.ingredients = ingredients;
+      if (instructions) recipe.instructions = instructions;
+      if (youtubeUrl) recipe.youtubeUrl = youtubeUrl;
+      if (req.file) {
+        // Upload Image to Cloudinary
+        const data = await uploadToCloudinary(req.file.path, "recipe-images");
+        recipe.imageUrl = data.url;
+        recipe.publicId = data.public_id;
+      }
+
+      await recipe.save();
+      res.json({ message: "Recipe updated successfully", data: { recipe } });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json(error.message);
+    }
+  }
+);
+
 module.exports = router;
