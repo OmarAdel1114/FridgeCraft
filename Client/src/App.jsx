@@ -30,11 +30,6 @@ const App = () => {
   }, [auth]);
 
   return (
-<<<<<<< HEAD
-   <>
-   
-   </>
-=======
     <React.Suspense fallback={<CircularProgress />}>
       <div className="App">
         <BrowserRouter>
@@ -46,7 +41,6 @@ const App = () => {
         </BrowserRouter>
       </div>
     </React.Suspense>
->>>>>>> 0d0f9a497122dba988d03ca0f5fa27e645642fbe
   );
 };
 
