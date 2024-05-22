@@ -132,7 +132,13 @@ router.get("/findById/:recipeId", async (req, res) => {
 router.post("/add", upload.single("recipeImage"), async (req, res) => {
   try {
     // Extract data from the request body
-    const { recipeTitle, recipeOverview, instructions, ingredients } = req.body;
+    const {
+      recipeTitle,
+      recipeOverview,
+      instructions,
+      ingredients,
+      youtubeUrl,
+    } = req.body;
 
     // Split ingredients string into an array
     const ingredientsArray = Array.isArray(ingredients)
@@ -152,6 +158,7 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
       recipeOverview,
       ingredients,
       instructions,
+      youtubeUrl,
       imageUrl: data.url,
       publicId: data.public_id,
     });
