@@ -1,4 +1,4 @@
-import{ useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const dropzoneStyle = {
@@ -13,11 +13,12 @@ const dropzoneStyle = {
   borderRadius: "2px",
   borderColor: "#eeeeee",
   borderStyle: "dashed",
-  backgroundColor: "#fafafa",
+  backgroundColor: "#D7E0D8",
   color: "#bdbdbd",
   outline: "none",
   transition: "border 0.24s ease-in-out",
   cursor: "pointer",
+  height: "auto",
 };
 
 const activeDropzoneStyle = {
@@ -26,7 +27,7 @@ const activeDropzoneStyle = {
 
 const DropzoneText = {
   margin: "0",
-  fontSize: "16px",
+  fontSize: "20px",
   fontWeight: "600",
   textAlign: "center",
 };
@@ -45,17 +46,25 @@ const FileName = {
   marginTop: "8px",
 };
 
-const DropzoneComponent = () => {
+const DropzoneComponent = ({ inputName, handleFileChange }) => {
   const [files, setFiles] = useState([]);
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-    );
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      acceptedFiles.forEach((file) => {
+        console.log(file)
+        // Pass the image name to the parent component
+        handleFileChange(file);
+      });
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+    [handleFileChange]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -65,7 +74,7 @@ const DropzoneComponent = () => {
   });
 
   const fileList = files.map((file) => (
-    <li key={file.name}>
+    <li key={file?.name}>
       <img style={ImagePreview} src={file.preview} alt={file.name} />
       <span style={FileName}>{file.name}</span>
     </li>
@@ -80,7 +89,7 @@ const DropzoneComponent = () => {
       }
       {...getRootProps()}
     >
-      <input {...getInputProps()} />
+      <input {...getInputProps()} onChange={handleFileChange} />
       <p style={DropzoneText}>
         Drag and drop your recipe photo here, or click to select an image
       </p>

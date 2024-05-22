@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bars3BottomRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import logo from "../assets/logo.png";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProfileDropDown from "./ProfileDropDown";
 
-const Header = () => {
-  const { auth, data } = useSelector((state) => state.auth);
+const Header = ({firstName, lastName}) => {
+  const { auth, data, user } = useSelector((state) => state.auth);
+  const route= useLocation();
 
   let Links = [
     { name: "Home", link: "/" },
     { name: "About", link: "/" },
     { name: "Generate", link: "/" },
-    { name: "Recipes", link: "/" },
+    { name: "Recipes", link: "/Search" },
     { name: "Contact", link: "/" },
-    {name:"Add a Recipe", link:"/add-a-recipe"}
+    { name: "Add a Recipe", link: "/add-a-recipe" },
   ];
+
   let [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(false);
@@ -37,8 +39,8 @@ const Header = () => {
       <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
         <div className="flex items-center justify-between bg-white py-4">
           {/* logo section */}
-          <div className="cursor-pointer flex items-center gap-1">
-            <img src={logo} width="100px" />
+          <div className="cursor-pointer flex items-center">
+            <img src={logo} width="100" />
           </div>
 
           {/* linke items */}
@@ -59,10 +61,61 @@ const Header = () => {
           </div>
 
           <ul
-            className={`shadow-md lg:shadow-none lg:flex lg:items-center lg:pb-0 pb-6 absolute lg:static bg-White md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${
+            className={`shadow-md lg:shadow-none lg:flex items-center lg:pb-0 pb-6 absolute lg:static bg-White 
+            md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${
               open ? "top-20" : "top-[-490px]"
             }`}
           >
+            {auth && (
+              <div className="bg-DarkGreen p-2 lg:hidden block">
+                <div
+                  className="flex w-[10rem] items-center mr-2 cursor-pointer lg:hidden"
+                  onClick={handleClick}
+                  aria-describedby={id}
+                >
+                  <div className="mr-2">
+                    <Avatar
+                      sx={{ width: 56, height: 56, background: "white", color:"black"}}
+                    >
+                      {user?.firstName?.charAt(0)?.toUpperCase() +
+                        " " +
+                        user?.lastName?.charAt(0)?.toUpperCase() || "U"}
+                    </Avatar>
+                  </div>
+                  <div>
+                    <div>
+                      <p className="text-white text-sm font-medium">
+                        {user?.firstName + " " + user?.lastName}
+                      </p>
+                    
+                    </div>
+                    <div>
+                      <p className="text-white text-xs">{user?.email}</p>
+                    </div>
+                  </div>
+                  <span className="pr-2">
+                    <svg
+                      width="10"
+                      height="8"
+                      viewBox="0 0 10 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.99529 7.99023L0.669544 0.497818L9.32104 0.497818L4.99529 7.99023Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <ProfileDropDown
+                  open={anchorOpen}
+                  handleClose={handleClose}
+                  anchorEl={anchorEl}
+                  id={id}
+                />
+              </div>
+            )}
             {Links.map((link, index) => (
               <li
                 className="lg:ml-5 lg:py-0 py-4 text-base font-medium border-b lg:border-0"
@@ -71,6 +124,7 @@ const Header = () => {
                 <Link
                   to={link.link}
                   className="text-LightBlack hover:text-DarkGreen duration-500"
+                  onClick={()=>setOpen(false)}
                 >
                   {link.name}
                 </Link>
@@ -90,21 +144,22 @@ const Header = () => {
                 >
                   <div className="mr-2">
                     <Avatar
-                      sx={{ width: 56, height: 56, background: "#2E5834" }}
+                      sx={{ width: 36, height: 36, background: "#2E5834" }}
                     >
-                      {data?.data?.firstName?.charAt(0)?.toUpperCase() +
-                        " " +
-                        data?.data?.lastName?.charAt(0)?.toUpperCase() || "U"}
+                      {user?.firstName?.charAt(0)?.toUpperCase() +
+                        " " + ""
+                      }
                     </Avatar>
                   </div>
                   <div>
                     <div>
-                      <p className="text-black text-sm font-medium">
-                        {data?.data?.firstName + " " + data?.data?.lastName}
-                      </p>
+                   
+                        <p className="text-black text-sm font-medium">
+                          {user?.firstName + " " + user?.lastName}
+                        </p>
                     </div>
                     <div>
-                      <p className="text-black text-xs">{data?.data?.email}</p>
+                      <p className="text-black text-xs">{user?.email}</p>
                     </div>
                   </div>
                   <span className="pr-2">
