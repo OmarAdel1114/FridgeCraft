@@ -6,6 +6,8 @@ import Profile from "../pages/profile";
 import AddRecipe from "../pages/recipe/AddRecipe";
 import { useEffect, useLayoutEffect } from "react";
 import Main from "../Components/Main";
+import Search from "../pages/Search/Search";
+import RecipeDetail from "../Components/RecipeDetail";
 
 export default function Authenticated({ isLoggedIn }) {
   const { data, auth, token } = useSelector((state) => state.auth);
@@ -32,6 +34,8 @@ export default function Authenticated({ isLoggedIn }) {
       <Routes>
         <Route path="/profile" element={<Profile />} />
         <Route path="/add-a-recipe" element={<AddRecipe />} />
+        <Route exact path="/search" element={<Search />} />
+      <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
       </Routes>
     </Main>
   );

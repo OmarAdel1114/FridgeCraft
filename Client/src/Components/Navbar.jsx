@@ -15,7 +15,7 @@ const Header = ({firstName, lastName}) => {
     { name: "Home", link: "/" },
     { name: "About", link: "/" },
     { name: "Generate", link: "/" },
-    { name: "Recipes", link: "/" },
+    { name: "Recipes", link: "/Search" },
     { name: "Contact", link: "/" },
     { name: "Add a Recipe", link: "/add-a-recipe" },
   ];

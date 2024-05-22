@@ -11,7 +11,7 @@ import { PiUserCircleLight } from "react-icons/pi";
 
 const Header = () => {
     let Links =[
-        {name:"Recipes",link:"/"},
+        {name:"Recipes",link:"/Search"},
         {name:"Generate",link:"/"},
         {name:"Contact",link:"/"},
       ];

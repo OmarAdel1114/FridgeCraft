@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import VerifyOTP from "../pages/auth/VerifyOTP";
 import RestPassword from "../pages/auth/RestPassword";
+import Search from "../pages/Search/Search";
+import RecipeDetail from "../Components/RecipeDetail";
 
 export default function UnAuthenticated({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ export default function UnAuthenticated({ isLoggedIn }) {
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
       <Route exact path="/verify-otp" element={<VerifyOTP />} />
       <Route exact path="/reset-password" element={<RestPassword />} />
+      <Route exact path="/search" element={<Search />} />
+      <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
     </Routes>
   );
 }
