@@ -156,16 +156,15 @@ router.patch("/profile/:userId", verifyToken, async (req, res) => {
         .json({ error: "Unauthorized: You are not allowed to edit this user" });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json("Password should be At least 6 characters");
-    }
-
     // Update only the specified fields using object destructuring
     if (firstName) user.firstName = firstName;
     if (lastName) user.lastName = lastName;
     if (userName) user.userName = userName;
     if (email) user.email = email;
     if (password) {
+      if (password.length < 6) {
+        return res.status(400).json("Password should be At least 6 characters");
+      }
       // Hash the new password
       user.password = await bcrypt.hash(password, 10);
     }
