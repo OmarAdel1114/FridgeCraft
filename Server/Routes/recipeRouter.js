@@ -201,6 +201,7 @@ router.get("/search", async (req, res) => {
   }
 });
 
+// Edit Recipe Info
 router.patch(
   "/editRecipe/:recipeId",
   upload.single("recipeImage"),
