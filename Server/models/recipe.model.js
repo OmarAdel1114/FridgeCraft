@@ -49,6 +49,24 @@ const recipeSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    PreparationTime: {
+      type: String,
+      required: false,
+    },
+    NutritionInfo: {
+      Protein: {
+        type: String,
+      },
+      Carbs: {
+        type: String,
+      },
+      Calories: {
+        type: String,
+      },
+      Fats: {
+        type: String,
+      }
+    },
   },
   {
     timestamps: true,
