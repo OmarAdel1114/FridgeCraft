@@ -53,10 +53,10 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //Route for viewing saved Recipes that show the userName & all recipe attributes
-router.get("/:user", async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
     // const id = req.params.id;
-    const savedRecipe = await SavedRecipe.find({ user: req.params.user })
+    const savedRecipe = await SavedRecipe.find({ user: req.params.userId })
       .populate({
         path: "recipe",
         select: "recipeTitle recipeOverview ingredients imageUrl",
