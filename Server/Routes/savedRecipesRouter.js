@@ -53,7 +53,7 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //Route for viewing saved Recipes that show the userName & all recipe attributes
-router.get("/:userId", async (req, res) => {
+router.get("/:userId",verifyToken, async (req, res) => {
   try {
     // const id = req.params.id;
     const savedRecipe = await SavedRecipe.find({ user: req.params.userId })
