@@ -4,6 +4,17 @@ app.use(express.json());
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+const helmet = require('helmet')
+
+app.use(helmet());
+
+app.use((req, res, next) => {
+  res.setHeader(
+      'Permissions-Policy',
+      'geolocation=(self), microphone=()' // Example policy, modify as needed
+  );
+  next();
+});
 
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
