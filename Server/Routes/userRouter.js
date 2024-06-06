@@ -88,6 +88,12 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+    if (email == null) {
+      return res.status(401).json("Email is required");
+    }
+    if (password == null) {
+      return res.status(401).json("Password is required");
+    }
 
     // Check if the Email or password are wrong
     if (!user || !(await bcrypt.compare(password, user.password))) {
