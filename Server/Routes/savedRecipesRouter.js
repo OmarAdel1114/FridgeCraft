@@ -53,7 +53,7 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //Route for viewing saved Recipes that show the userName & all recipe attributes
-router.get("/:userId",verifyToken, async (req, res) => {
+router.get("/:userId", verifyToken, async (req, res) => {
   try {
     // const id = req.params.id;
     const savedRecipe = await SavedRecipe.find({ user: req.params.userId })
@@ -63,7 +63,7 @@ router.get("/:userId",verifyToken, async (req, res) => {
       })
       .populate({ path: "user", select: "userName" });
 
-    res.status(200).json(savedRecipe);
+    res.status(200).json({ savedRecipe });
   } catch (error) {
     console.log("Cannot find Saved Recipes", error);
     res.status(500).json({
