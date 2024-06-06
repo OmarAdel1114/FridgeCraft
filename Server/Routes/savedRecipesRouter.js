@@ -56,14 +56,13 @@ router.post("/", verifyToken, async (req, res) => {
 router.get("/:userId", verifyToken, async (req, res) => {
   try {
     // const id = req.params.id;
-    const savedRecipe = await SavedRecipe.find({ user: req.params.userId })
+    const savRecipe = await SavedRecipe.find({ user: req.params.userId })
       .populate({
         path: "recipe",
         select: "recipeTitle recipeOverview ingredients imageUrl",
       })
       .populate({ path: "user", select: "userName" });
-
-    res.status(200).json({ savedRecipe });
+    res.status(200).json(savRecipe);
   } catch (error) {
     console.log("Cannot find Saved Recipes", error);
     res.status(500).json({
