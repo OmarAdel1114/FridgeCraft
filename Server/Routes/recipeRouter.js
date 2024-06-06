@@ -139,7 +139,10 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
       ingredients,
       youtubeUrl,
       PreparationTime,
-      NutritionInfo,
+      Protein,
+      Carbs,
+      Calories,
+      Fats,
     } = req.body;
 
     // Split ingredients string into an array
@@ -162,7 +165,10 @@ router.post("/add", upload.single("recipeImage"), async (req, res) => {
       instructions,
       youtubeUrl,
       PreparationTime,
-      NutritionInfo,
+      Protein,
+      Carbs,
+      Calories,
+      Fats,
       imageUrl: data.url,
       publicId: data.public_id,
     });
@@ -219,7 +225,10 @@ router.patch(
         instructions,
         youtubeUrl,
         PreparationTime,
-        NutritionInfo,
+        Protein,
+        Carbs,
+        Calories,
+        Fats,
       } = req.body;
 
       const recipe = await Recipe.findById(recipeId);
@@ -233,7 +242,10 @@ router.patch(
       if (instructions) recipe.instructions = instructions;
       if (youtubeUrl) recipe.youtubeUrl = youtubeUrl;
       if (PreparationTime) recipe.PreparationTime = PreparationTime;
-      if (NutritionInfo) recipe.NutritionInfo = NutritionInfo;
+      if (Protein) recipe.Protein = Protein;
+      if (Carbs) recipe.Carbs = Carbs;
+      if (Fats) recipe.Fats = Fats;
+      if (Calories) recipe.Calories = Calories;
       if (req.file) {
         // Upload Image to Cloudinary
         const data = await uploadToCloudinary(req.file.path, "recipe-images");
