@@ -71,18 +71,23 @@
         params = "recipeTitle" or "ingredients"  
 
 
-#Saved Recipes 
-    Add a recipe to saved:
+Add a recipe to saved:
     https = Post
     ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes'
     Attributes {
-        req.body (recipe(recipeTitle),user(userName))
+        req.body (recipe,user)
+        recipe = recipeId,
+        user = userId
     }
-    Headers = Authorization : Bearer token
+    Headers = Authorization : Bearer token
+
 
     View saved recipes:
     https = Get
-    ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes/id'
+    ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes//:userId'
     Attributes {
-       savedRecipe Id
+       params : userId
+    }
+      Headers = Authorization : Bearer token
+    }
     }

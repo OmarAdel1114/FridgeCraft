@@ -45,7 +45,7 @@ const Search = () => {
         </h2>
         <SearchBar query={query} setQuery={setQuery} handleSearch={handleSearch} />
       </div>
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes}  />
     </div>
   );
 };

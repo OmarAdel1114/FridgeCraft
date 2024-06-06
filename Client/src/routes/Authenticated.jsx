@@ -9,13 +9,18 @@ import Main from "../Components/Main";
 import Search from "../pages/Search/Search";
 import RecipeDetail from "../Components/RecipeDetail";
 import Favorites from "../Components/FavoritesPage"
+import LandingPage from "../pages/landing/LandingPage";
 
 export default function Authenticated({ isLoggedIn }) {
   const { data, auth, token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const authTOKEN = localStorage.getItem("token");
 
-  useEffect(() => {
+ console.log(`data ===>`,data)
+
+
+  useEffect(() => 
+    {
     if (!auth || !authTOKEN) {
       console.log("not logged in on auth page");
       navigate("/");
@@ -33,10 +38,11 @@ export default function Authenticated({ isLoggedIn }) {
   return (
     <Main>
       <Routes>
+      <Route path="/landing" element={<LandingPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/add-a-recipe" element={<AddRecipe />} />
         <Route exact path="/search" element={<Search />} />
-        <Route exact path="/favorites" element={<Favorites />} />
+        <Route exact path="/favorites" element={<Favorites user={data.user} />} />
       <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
       </Routes>
     </Main>

@@ -1,71 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import Favorites from './FavoritesPage'
+import { addRecipeToFavorites } from '../api/recipes';
+import { useSelector } from 'react-redux';
 
-import { useAppContext } from './context/appContext';
-
-
-
-const RecipeItem = ({ recipe }) => {
-
-  
-  const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
-
-  console.log("the favorites are ", favorites);
-
-  const favoritesChecker =(id) => {
-    const boolean = favorites.some((recipe) => recipe._id ===id);
-
-    return boolean;
-  }
-
- 
-
-
+const RecipeItem = ({ recipe  , token  }) => { 
+  const { data } = useSelector((state) => state.auth);  
+  const userId = data.data._id
   const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
     if (words.length > wordLimit) {
       return words.slice(0, wordLimit).join(' ') + '...';
     }
-    return text;
+    return text;  
   };
 
-
+  console.log(`=>`,recipe["_id"] , `user  `,data.data._id);
+ 
   
+    const handleAddToFavorites = async () => {   
+        try {
+            await addRecipeToFavorites(recipe["_id"], userId, token);
+            alert('Recipe added to favorites');
+        } catch (error) {
+            alert(error.message); 
+            
+        }
+    };
+
+
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden h-full">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden h-full ">
       <img src={recipe.imageUrl} alt={recipe.recipeTitle} className="w-full h-56 object-cover" />
       <div className="p-6 flex flex-col gap-5 justify-between">
         <h5 className="lg:text-2xl md:text-xl text-lg font-semibold">{recipe.recipeTitle}</h5>
         <p>{truncateText(recipe.recipeOverview, 14)}</p>
         <Link key={recipe._id} to={`/recipes/${recipe._id}`}>
-          <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
+          <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
             View Recipe
           </button>
+        </Link> 
+         <Link>
+        <button onClick={() => handleAddToFavorites} className='mt-3 bg-slate-300'>Add to Favorites</button>
         </Link>
-        <Link to={Favorites}>
-        <div>
-            {favoritesChecker(recipe._id) ? (
-            
-            <button onClick={() => removeFromFavorites(recipe._id)} className='p-[10px] bg-LightGreen text-black w-full rounded-md'>
-              Remove From Favorites
-              </button>
+        
 
-            )
-            
-           : (<button onClick={() => addToFavorites(recipe)} className='p-[10px] bg-DarkGreen text-white w-full rounded-md'>
-           Add to favorites
-           </button>
-         ) }
-            
-          </div>
-          </Link>
       </div>
-      
-
-      
-
     </div>
   );
 };

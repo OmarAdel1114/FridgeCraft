@@ -7,7 +7,8 @@ import UnAuthenticated from "./routes/Unauthenticated";
 import { BrowserRouter } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { getCurrentUser } from "./api/services/auth.service";
-import { AppProvider } from "./Components/context/appContext";
+//import { AppProvider } from "./Components/context/appContext";
+
 
 const App = () => {
   const { auth, data } = useSelector((state) => state.auth);
@@ -31,7 +32,7 @@ const App = () => {
   }, [auth]);
 
   return (
-    <AppProvider>
+    
     <React.Suspense fallback={<CircularProgress />}>
       <div className="App">
         <BrowserRouter>
@@ -43,7 +44,7 @@ const App = () => {
         </BrowserRouter>
       </div>
     </React.Suspense>
-    </AppProvider>
+    
   );
 };
 

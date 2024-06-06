@@ -8,7 +8,7 @@ const RecipeList = ({ recipes }) => {
       {recipes.length > 0 ? (
         recipes.map(recipe => (
           <Link key={recipe._id} to={`/recipes/${recipe._id}`}>
-            <RecipeItem recipe={recipe} />
+            <RecipeItem recipe={recipe}  />
           </Link>
         ))
       ) : (

@@ -1,49 +1,38 @@
+import React, { useEffect, useState } from 'react';
+import { getSavedRecipes } from '../api/recipes';
+import { useSelector } from 'react-redux';
 
-import React from 'react'
+function FavoritesPage({   }) {
+    const [savedRecipes, setSavedRecipes] = useState([]);
+    const { data } = useSelector((state) => state.auth);  
+    const userId = data.data._id;
 
-import { useAppContext } from './context/appContext';
+  console.log(`Sr`,savedRecipes) 
 
-const Favorites = () => {
+  async  function fetchSavedRecipes() {
+    try {
+        const recipes = await getSavedRecipes(userId); 
+        console.log(`rrr`,recipes)
+        setSavedRecipes(recipes);
+    } catch (error) {
+        console.error('Failed to fetch saved recipes', error);
+    }
+};  
 
-  const { favorites, addToFavorites, removeFromFavorites } = useAppContext();
+useEffect(() => {
+        fetchSavedRecipes();
+    }, []);
 
-  console.log("the favorites are ", favorites);
-
-  const favoritesChecker =(id) => {
-    const boolean = favorites.some((recipe) => recipe._id ===id);
-
-    return boolean;
-  }
-
-  return (
-    
-    <div className='min-h-[80vh] w-full grid grid-cols-3 justify-items-center'>
-      
-      {favorites.length > 0 ? favorites.map((recipe) => (
-        <div key={recipe._id} className='text-center flex flex-col items-center justify-center'>
-          <div><h4>{recipe.recipeTitle}</h4></div>
-          <div>
-            <img src={recipe.imageUrl} alt={recipe.recipeTitle} className='w-[300px] h-[300px] transition-all duration-300 ease-in-out hover:scale-110' />
-          </div>
-          <div>
-            {favoritesChecker(recipe._id) ? (
-            
-            <button onClick={() => removeFromFavorites(recipe._id)} className='p-[10px] bg-black text-white w-full rounded-md'>
-              Remove From Favorites
-              </button>
-
-            )
-            
-           : (<button onClick={() => addToFavorites(recipe)} className='p-[10px] bg-black text-white w-full rounded-md'>
-           Add to favorites
-           </button>
-         ) }
-            
-          </div>
+    return (
+        <div>
+            <h1>Your Favorite Recipes</h1>
+            <ul>
+                {savedRecipes.map((recipe) => (
+                    <li key={recipe.id}>{recipe.title}</li>
+                ))}
+            </ul>
         </div>
-      )) : <h1>you don't have any favorites</h1>}
-      </div>
-  )
+    );
 }
 
-export default Favorites
+export default FavoritesPage;
