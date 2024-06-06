@@ -76,7 +76,9 @@
     https = Post
     ApiLink = 'https://fridge-craft-server.vercel.app/api/savedRecipes'
     Attributes {
-        req.body (recipe(recipeTitle),user(userName))
+        req.body (recipe,user)
+        recipe = recipeId,
+        user = userId
     }
     Headers = Authorization : Bearer token
 
