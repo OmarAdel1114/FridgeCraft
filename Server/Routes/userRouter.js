@@ -45,6 +45,22 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdAt = new Date(); //This let the server create the timestamp
 
+    if (firstName == null) {
+      return res.status(401).json("First name is required");
+    }
+    if (lastName == null) {
+      return res.status(401).json("Last name is required");
+    }
+    if (userName == null) {
+      return res.status(401).json("UserName is required");
+    }
+    if (email == null) {
+      return res.status(401).json("Email is required");
+    }
+    if (password == null) {
+      return res.status(401).json("Password is required");
+    }
+
     // Check if any required attribute is missing or empty
     if (!firstName || !lastName || !userName || !email || !password) {
       throw new Error("All attributes must be provided.");
