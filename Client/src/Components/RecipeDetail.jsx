@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import SearchBar from './SearchBar';
 
-const RecipeDetail = ({ handleSearch, setQuery }) => {
+const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
-  const [query, setLocalQuery] = useState('');
 
   useEffect(() => {
     fetchRecipeDetails();
@@ -20,6 +18,7 @@ const RecipeDetail = ({ handleSearch, setQuery }) => {
       console.error('Error fetching recipe details:', error);
     }
   };
+
 
   if (!recipe) {
     return <p>Loading...</p>;
@@ -118,4 +117,3 @@ const RecipeDetail = ({ handleSearch, setQuery }) => {
 };
 
 export default RecipeDetail;
-
