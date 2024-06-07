@@ -1,15 +1,24 @@
+// Search.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from '../../Components/SearchBar';
 import RecipeList from '../../Components/RecipeList';
+import { useLocation } from 'react-router-dom';
 
 const Search = () => {
   const [recipes, setRecipes] = useState([]);
   const [query, setQuery] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
-    fetchRecipes();
-  }, []);
+    const params = new URLSearchParams(location.search);
+    const searchQuery = params.get('query');
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      fetchRecipes();
+    }
+  }, [location.search]);
 
   const fetchRecipes = async () => {
     try {

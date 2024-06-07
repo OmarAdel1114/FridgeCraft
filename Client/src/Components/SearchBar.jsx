@@ -1,13 +1,17 @@
+// SearchBar.js
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = ({ query, setQuery, handleSearch }) => {
+const SearchBar = ({ query, setQuery }) => {
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
   const handleSearchClick = () => {
-    handleSearch(query);
+    navigate(`/search?query=${query}`);
   };
 
   return (
@@ -30,3 +34,4 @@ const SearchBar = ({ query, setQuery, handleSearch }) => {
 };
 
 export default SearchBar;
+
