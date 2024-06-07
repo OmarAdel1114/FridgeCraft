@@ -15,7 +15,6 @@ const Header = ({firstName, lastName}) => {
     { name: "Home", link: "/" },
     { name: "Generate", link: "/aigeneration" },
     { name: "Recipes", link: "/Search" },
-    { name: "Contact", link: "/" },
     { name: "Add a Recipe", link: "/add-a-recipe" },
   ];
 
@@ -43,14 +42,7 @@ const Header = ({firstName, lastName}) => {
           </div>
 
           {/* linke items */}
-          <div className="flex border rounded-full items-center flex-row py-2 px-3.5 border-LightBlack ml-0 lg:ml-5">
-            <input
-              type="text"
-              className="min-w-[80%] md:min-w-[300px] outline-0 text-LightBlack text-base"
-              placeholder="Search"
-            />
-            <FaSearch className="cursor-pointer" />
-          </div>
+          
           {/* Menu icon */}
           <div
             onClick={() => setOpen(!open)}

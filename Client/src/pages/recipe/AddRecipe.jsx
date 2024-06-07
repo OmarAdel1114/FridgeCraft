@@ -202,7 +202,7 @@ const AddRecipe = () => {
               <input
                 type="text"
                 className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
-                placeholder="Enter The Preparation Time"
+                placeholder="Enter YouTube URL"
                 // required
                 name="youtubeUrl"
                 value={formData.youtubeUrl}
@@ -214,7 +214,7 @@ const AddRecipe = () => {
               <textarea
                 type="text"
                 className="w-full border mt-2 p-3 h-40 bg-[#FBFBFB] rounded-lg"
-                placeholder="Enter your recipe title"
+                placeholder="Enter the recipe description"
                 // // required
                 value={formData.recipeOverview}
                 name="recipeOverview"
