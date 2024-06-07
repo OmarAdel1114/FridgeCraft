@@ -35,11 +35,12 @@ useEffect(() => {
     }, []);
 
     return (
-      <div>
-      <h1 className='mt-5 text-2xl ml-5 font-semibold'>Your Favorite Recipes</h1>
-      <ul className='flex gap-5 ml-5 flex-wrap w-[100]'>
+      <div className='w-full lg:max-w-[1240px] lg:mx-auto py-20 px-6 lg:px-0'>
+      <h1 className='mt-8 text-2xl font-semibold'>Your Favorite Recipes</h1>
+      
+      <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-stretch '>
           {savedRecipes.map((recipe) => (
-               <div className="bg-white rounded-lg mt-3 shadow-md overflow-hidden h-full w-[25%] mb-5" key={recipe.recipe.recipeTitle}>
+               <div className="bg-white rounded-lg mt-3 shadow-md overflow-hidden h-full  " key={recipe.recipe.recipeTitle}>
                <img src={recipe.recipe.imageUrl} alt={recipe.recipe.recipeTitle} className="w-full h-56 object-cover" />
                <div className="p-6 flex flex-col gap-5 justify-between">
                  <h5 className="lg:text-2xl md:text-xl text-lg font-semibold">{recipe.recipe.recipeTitle}</h5>
@@ -48,7 +49,14 @@ useEffect(() => {
                    <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
                      View Recipe
                    </button>
-                 </Link>         */}
+                 </Link> 
+                         */}
+                         <div className=' flex gap-4'>
+                         <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
+            View Recipe
+          </button>
+         
+          </div>
                </div>
              </div>
           ))}

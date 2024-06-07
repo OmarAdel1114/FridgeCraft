@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addRecipeToFavorites } from '../api/recipes';
 import { useSelector } from 'react-redux';
+import { FaHeart } from "react-icons/fa6";
 
 const RecipeItem = ({ recipe }) => {
   const { data } = useSelector((state) => state.auth);
@@ -31,14 +32,23 @@ const RecipeItem = ({ recipe }) => {
       <div className="p-6 flex flex-col gap-5 justify-between">
         <h5 className="lg:text-2xl md:text-xl text-lg font-semibold">{recipe.recipeTitle}</h5>
         <p>{truncateText(recipe.recipeOverview, 14)}</p>
+        <div className='flex flex-row justify-between items-center  '>
         <Link key={recipe._id} to={`/recipes/${recipe._id}`}>
           <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
             View Recipe
           </button>
         </Link>
         <Link>
-        <button onClick={handleAddToFavourite} className='mt-3 bg-slate-300'>Add to Favorites</button>
+        <button onClick={handleAddToFavourite} className='text-DarkGreen text-2xl'>
+        <FaHeart />
+          </button>
         </Link>
+
+        </div>
+
+        
+
+
       </div>
       
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -33,21 +34,7 @@ const RecipeDetail = () => {
 
   return (
     <div>
-      <div className="bg-DarkGreen py-20 gap-10 flex flex-col">
-        
-        <h2 className="lg:text-5xl md:text-4xl text-2xl font-semibold text-white text-center">
-          Recipe Search
-        </h2>
-        <SearchBar query={query} setQuery={setLocalQuery} handleSearch={handleSearch} />
-        <div className='flex justify-center'>
-          <Link to="/Search">
-        <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
-        Back
-      </button>
-      </Link>
-        </div>
-        
-      </div>
+     
 
       <div className="lg:max-w-[1240px] mx-auto bg-white rounded shadow-md p-10 my-20 flex flex-col gap-10">
         <h2 className="lg:text-5xl md:text-4xl text-2xl font-semibold">{recipe.recipeTitle}</h2>
