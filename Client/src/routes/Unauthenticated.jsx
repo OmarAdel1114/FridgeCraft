@@ -14,7 +14,7 @@ export default function UnAuthenticated({ isLoggedIn }) {
   const navigate = useNavigate();
   if (isLoggedIn) {
     console.log("authenticated is logged in ");
-    navigate("/profile");
+    navigate("/Search");
   }
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebook,
   FaGithub,
@@ -10,7 +11,7 @@ import {
 const sections = [
     {
         title: "Quick Links",
-        items: ["Log in", "Signup", "Generate", "Recipes"],
+        items: ["Recipes", "Generate", "Add Recipe"],
       },  
     {
         title: "Company",
@@ -34,20 +35,15 @@ const Footer = () => {
     <div className="w-full bg-DarkGreen text-White py-10 lg:pt-20 lg:pb-10">
       <div className="max-w-[1240px] mx-auto px-6 md:px-8 lg:px-0 grid justify-between grid-cols-3 gap-5 md:gap-x-8 lg:gap-x-16 md:grid-cols-5 border-b border-White pb-5 md:pb-10">
       <div className="md:col-span-2 col-span-3">
-          <p className="font-bold uppercase">Subscribe to our newsletter</p>
+          <p className="font-bold uppercase">Try out our AI Recipe Generation</p>
           <p className="py-4">
-            Receive the latest hot recipes sent to your inbox weekly.
+            Running out of ideas for what to cook? Let our AI Recipe Generator help you out by recommending hundreds of recipes based on the ingredients you have at home.
           </p>
-          <form className="flex flex-col sm:flex-row">
-            <input
-              className="w-full p-2 rounded-md sm:rounded-r-none text-LightBlack"
-              type="email"
-              placeholder="Enter email.."
-            />
-            <button className="rounded-md mt-5 sm:mt-0 sm:rounded-l-none border border-White py-2 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
-        Submit
-      </button> {/*White Border Button*/}
-          </form>
+          <Link to="/aigeneration">
+          <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+        Generate Recipes
+      </button>
+      </Link>
         </div>
 
         {sections.map((section, index) => (

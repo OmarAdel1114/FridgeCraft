@@ -33,14 +33,6 @@ const ProfileDropDown = ({ id, anchorEl, handleClose, open }) => {
             </Typography>
           </Link>
 
-    
-
-          <Link to="/my-recipes">
-            <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
-              My Recipes
-            </Typography>
-          </Link>
-
           <Link to="/favorites">
             <Typography className="px-10 py-3 hover:bg-DarkGreen hover:text-white cursor-pointer">
               My Favorites

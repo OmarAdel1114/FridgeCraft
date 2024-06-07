@@ -11,13 +11,13 @@ const SearchBar = ({ query, setQuery, handleSearch }) => {
   };
 
   return (
-    <div className="flex justify-center mb-8">
+    <div className="flex justify-center px-6 lg:px-0">
       <input
         type="text"
         value={query}
         onChange={handleInputChange}
         placeholder="Search by recipe title or ingredients"
-        className="min-w-[600px] py-4 rounded-l-full px-6"
+        className="max-w-[600px] flex-grow py-4 rounded-l-full px-6 focus:outline-none"
       />
       <button
         onClick={handleSearchClick}

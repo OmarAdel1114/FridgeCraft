@@ -13,8 +13,7 @@ const Header = ({firstName, lastName}) => {
 
   let Links = [
     { name: "Home", link: "/" },
-    { name: "About", link: "/" },
-    { name: "Generate", link: "/" },
+    { name: "Generate", link: "/aigeneration" },
     { name: "Recipes", link: "/Search" },
     { name: "Contact", link: "/" },
     { name: "Add a Recipe", link: "/add-a-recipe" },
@@ -35,7 +34,7 @@ const Header = ({firstName, lastName}) => {
   };
 
   return (
-    <container className="shadow-md flex flex-col items-center">
+    <container className="shadow-md bg-white flex flex-col items-center">
       <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
         <div className="flex items-center justify-between bg-white py-4">
           {/* logo section */}

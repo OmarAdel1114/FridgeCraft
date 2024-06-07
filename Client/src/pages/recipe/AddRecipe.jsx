@@ -6,6 +6,7 @@ import axios from "axios";
 import Main from "../../Components/Main";
 import Header from "../../Components/Navbar";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const AddRecipe = () => {
   const [ingredientInputs, setIngredientInputs] = useState([""]);
@@ -16,6 +17,12 @@ const AddRecipe = () => {
     recipeOverview: "",
     instructions: "",
     recipeImage: "",
+    youtubeUrl:"",
+    PreparationTime:"",
+    Calories:"",
+    Protein:"",
+    Carbs:"",
+    Fats:"",
   });
 
   const handleInputChange = (e) => {
@@ -56,6 +63,13 @@ const AddRecipe = () => {
     form.append("recipeOverview", formData.recipeOverview);
     form.append("recipeTitle", formData.recipeTitle);
     form.append("instructions", formData.instructions);
+    form.append("PreparationTime", formData.PreparationTime);
+    form.append("youtubeUrl", formData.youtubeUrl);
+    form.append("Calories", formData.Calories);
+    form.append("Protein", formData.Protein);
+    form.append("Carbs", formData.Carbs);
+    form.append("Fats", formData.Fats);
+    
 
     ingredientInputs.forEach((ingredient, index) => {
       form.append(`ingredients[${index}]`, ingredient);
@@ -91,16 +105,16 @@ const AddRecipe = () => {
   };
 
   return (
-    <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-16 lg:px-0 pb-20">
+    <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 lg:px-0 pb-20">
       <ToastContainer />
       <div>
-        <div className="w-auto  h-auto py-10 px-10 bg-white border mt-20 shadow-lg">
-          <p className="lg:text-[3rem] text-[2rem] font-serif text-center">Add a Recipe</p>
-          <p className="lg:text-[1.2rem] mt-8 lg:w-[1140px] block">
+        <div className="w-auto  h-auto py-10 px-10 bg-white border mt-20 shadow-lg ">
+          <p className="lg:text-[3rem] text-[2rem] text-center">Add a Recipe</p>
+          <p className="lg:text-[1.2rem] mt-8 lg:w-full text-center block">
             Feeling like a kitchen Picasso? We want to see your masterpiece! Add
             your recipe and show off your culinary creativity.
           </p>
-          <div className="lg:w-[1140px] border mt-10"></div>
+          <div className="w-full border mt-10"></div>
 
           <DropzoneComponent handleFileChange={handleImageChange} />
 
@@ -117,7 +131,84 @@ const AddRecipe = () => {
                 onChange={handleInputChange}
               />
             </div>
+            <div className="mt-8">
+            <label className="lg:text-[24px] text-[18px] font-medium">Preparation Time</label>
+            <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Enter The Preparation Time"
+                // required
+                name="PreparationTime"
+                value={formData.PreparationTime}
+                onChange={handleInputChange}
+              />
+              </div>
+              
+              <div className="mt-8">
+              <label className="lg:text-[24px] text-[18px] font-medium">Nutrition Info</label>
+              <div className="flex items-center">
+              <label className="lg:text-[19px] text-[16x] font-medium w-[100px]">Calories</label>
+            <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Calories"
+                // required
+                name="Calories"
+                value={formData.Calories}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className="flex items-center">
+              <label className="lg:text-[19px] text-[16px] font-medium w-[100px]">Protein</label>
+            <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Protein"
+                // required
+                name="Protein"
+                value={formData.Protein}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className="flex items-center">
+              <label className="lg:text-[19px] text-[16px] font-medium w-[100px]">Carbs</label>
+            <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Carbs"
+                // required
+                name="Carbs"
+                value={formData.Carbs}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className="flex items-center">
+              <label className="lg:text-[19px] text-[16px] font-medium w-[100px]">Fats</label>
+            <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Fats"
+                // required
+                name="Fats"
+                value={formData.Fats}
+                onChange={handleInputChange}
+              />
+              </div>
+            
+              </div>
 
+              <div className="mt-8">
+              <label className="lg:text-[24px] text-[18px] font-medium">Youtube Video</label>
+              <input
+                type="text"
+                className="w-full border p-3 mt-2 bg-[#FBFBFB] rounded-lg"
+                placeholder="Enter The Preparation Time"
+                // required
+                name="youtubeUrl"
+                value={formData.youtubeUrl}
+                onChange={handleInputChange}
+              />
+              </div>
             <div className="mt-8">
               <label className="lg:text-[24px] text-[18px] font-medium"> Description</label>
               <textarea
@@ -131,7 +222,7 @@ const AddRecipe = () => {
               />
             </div>
 
-            <div className="lg:w-[1140px] border mt-10"></div>
+            <div className="w-full border mt-10"></div>
 
             <div className="mt-8">
               <label className="lg:text-[24px] text-[18px] font-medium">Ingredients</label>
@@ -149,7 +240,7 @@ const AddRecipe = () => {
               />
             </div>
 
-            <div className="lg:w-[1140px] border mt-10"></div>
+            <div className="w-full border mt-10"></div>
 
             <div className="mt-8">
               <label className="lg:text-[24px] text-[18px] font-medium">Instructions</label>
@@ -167,13 +258,15 @@ const AddRecipe = () => {
               />
             </div>
 
-            <div className="w-[1140px] border mt-10"></div>
+            <div className="w-full border mt-10"></div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start mt-10 mb-10">
-              <button className="w-[10rem] lg:w-auto px-8 py-3 lg:mb-0 mb-4 border-DarkGreen border rounded-[2rem] lg:mr-5">
+            <div className="flex flex-wrap justify-start mt-10 mb-10 gap-x-6">
+              <Link to="/Search">
+              <button className="rounded border border-DarkGreen py-3 px-8 text-base font-medium leading-normal text-DarkGreen transition duration-150 ease-in-out hover:border-DarkGreen hover:bg-DarkGreen hover:text-White">
                 Cancel
               </button>
-              <button className="w-[10rem] lg:w-auto lg:px-10 lg:py-4 p-3  bg-DarkGreen text-white rounded-[2rem] text-base">
+              </Link>
+              <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
                 Submit Recipe
               </button>
             </div>

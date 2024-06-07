@@ -63,17 +63,17 @@ const VerifyOTP = () => {
       <ToastContainer />
       <form onSubmit={handleVerifyOTP}>
         <div className="w-full h-screen  flex items-start">
-          <div className="relative w-1/2 h-full flex flex-col">
+          <div className="relative w-1/2 h-full flex flex-col lg:block md:block hidden">
             <img src={CoverImage} className="w-full h-full object-cover" />
           </div>
 
-          <div className="w-1/2 h-full bg-[#F7F7F7] flex flex-col p-20 justify-between items-center">
+          <div className="lg:w-1/2 md:w-1/2 w-full h-full bg-[#F7F7F7] flex flex-col p-20 justify-between items-center">
             <div className="w-151 h-90 mr-auto   ">
-              <img src={LoginLogo} className="absolute top-[-10px]" />
             </div>
 
             <div className="w-full flex flex-col max-w-[500px] ">
               <div className="w-full flex flex-col mb-2">
+              <img src={LoginLogo} width="100px" className="mb-16"/>
                 <h3 className="text-3xl font-semibold mb-2 ">
                   Email Verification Code
                 </h3>
