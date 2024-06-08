@@ -44,12 +44,7 @@ const Header = ({firstName, lastName}) => {
           {/* linke items */}
           
           {/* Menu icon */}
-          <div
-            onClick={() => setOpen(!open)}
-            className=" cursor-pointer lg:hidden w-7 h-7"
-          >
-            {open ? <XMarkIcon /> : <Bars3BottomRightIcon />}
-          </div>
+          
 
           <ul
             className={`shadow-md lg:shadow-none lg:flex items-center lg:pb-0 pb-6 absolute lg:static bg-White 

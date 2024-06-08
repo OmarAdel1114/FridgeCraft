@@ -9,6 +9,7 @@ import VerifyOTP from "../pages/auth/VerifyOTP";
 import RestPassword from "../pages/auth/RestPassword";
 import Search from "../pages/Search/Search";
 import RecipeDetail from "../Components/RecipeDetail";
+import Index from "../pages/Index";
 
 export default function UnAuthenticated({ isLoggedIn }) {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function UnAuthenticated({ isLoggedIn }) {
 
   return (
     <Routes>
-      <Route exact path="/" element={<Login />} />
+      <Route exact path="/" element={<Index />} />
 
       <Route exact path="/login" element={<Login />} />
 
