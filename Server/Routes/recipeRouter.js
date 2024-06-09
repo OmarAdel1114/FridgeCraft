@@ -75,60 +75,6 @@ router.get("/findById/:recipeId", async (req, res) => {
   }
 });
 
-// router.post("/add", async (req, res) => {
-//   try {
-//     const { recipeTitle, recipeOverview, instructions, ingredients } = req.body;
-//     const ingredientsArray = Array.isArray(ingredients)
-//       ? ingredients
-//       : ingredients.split(","); // Split ingredients string into an array
-
-//     // Check if any required attribute is missing or empty
-//     if (!recipeTitle || !recipeOverview || !ingredients || !instructions) {
-//       console.log(req.body);
-//       throw new Error("All attributes must be provided.");
-//     }
-//     const recipe = new Recipe({
-//       recipeTitle,
-//       recipeOverview,
-//       ingredients,
-//       instructions,
-//     });
-//     const newRecipe = await recipe.save();
-
-//     res.status(200).json({
-//       status: "Recipe Added successfully",
-//       data: { newRecipe },
-//     });
-//   } catch (error) {
-//     console.error("Adding Recipe Failed", error);
-//     res
-//       .status(400)
-//       .json({ error: "Adding Recipe Failed", message: error.message });
-//   }
-// });
-
-// router.post("/image/:id", upload.single("recipeImage"), async (req, res) => {
-//   try {
-//     // Upload Image to Cloudinary
-//     const data = await uploadToCloudinary(req.file.path, "recipe-images");
-//     // Save Image Url and publicId to the database
-//     const savedImg = await Recipe.updateOne(
-//       { _id: req.params.id },
-//       {
-//         $set: {
-//           imageUrl: data.url,
-//           publicId: data.public_id,
-//         },
-//       }
-//     );
-//     console.log(data);
-//     res.status(200).send("Recipe image uploaded successfully!");
-//   } catch (error) {
-//     console.error("Error uploading image:", error);
-//     res.status(400).send("Error uploading image: " + error.message);
-//   }
-// });
-
 router.post("/add", upload.single("recipeImage"), async (req, res) => {
   try {
     // Extract data from the request body
