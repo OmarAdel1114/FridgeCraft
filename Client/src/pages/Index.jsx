@@ -69,12 +69,12 @@ const Index = () => {
                 className="mb-10 flex flex-wrap items-center justify-center gap-5"
               >
                 <Link to="/Register">
-                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-DarkGreen transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-gray-900Green transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-gray-900Green">
                  Start Now
               </button>
               </Link>
               <Link to="/Login">
-                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-gray-900Green">
                  Login
               </button>
                 </Link>
@@ -159,11 +159,11 @@ const Index = () => {
           <div className="w-full px-4">
             <div className="mx-auto mb-12 max-w-[485px] text-center lg:mb-[70px]">
               <h2
-                className="mb-3 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]"
+                className="mb-3 text-3xl font-bold text-gray-900  sm:text-4xl md:text-[40px] md:leading-[1.2]"
               >
                 Main Features
               </h2>
-              <p className="text-base text-body-color dark:text-dark-6">
+              <p className="text-base text-body-color dark:text-gray-900-6">
               Discover our application’s main features designed to transform your culinary journey.
               </p>
             </div>
@@ -178,10 +178,10 @@ const Index = () => {
                 <PiBowlFoodFill className='text-3xl text-white'/>
 
               </div>
-              <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
+              <h4 className="mb-3 text-xl font-bold text-gray-900">
               Create Unique Recipes
               </h4>
-              <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
+              <p className="mb-8 text-body-color dark:text-gray-900-6 lg:mb-9">
               Our advanced AI technology crafts personalized recipes based on your available ingredients.
               </p>
               
@@ -195,10 +195,10 @@ const Index = () => {
           
                 <PiCookingPotFill className='text-3xl text-white'/>
               </div>
-              <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
+              <h4 className="mb-3 text-xl font-bold text-gray-900 ">
               Cook Like a Pro
               </h4>
-              <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
+              <p className="mb-8 text-body-color dark:text-gray-900-6 lg:mb-9">
               Our detailed, step-by-step cooking instructions guide you through each recipe with ease.
               </p>
             </div>
@@ -211,10 +211,10 @@ const Index = () => {
                 <FaSearch className='text-3xl text-white'/>
 
               </div>
-              <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
+              <h4 className="mb-3 text-xl font-bold text-gray-900 ">
               Find Exactly What You Need
               </h4>
-              <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
+              <p className="mb-8 text-body-color dark:text-gray-900-6 lg:mb-9">
               Use our advanced search to find recipes that meet specific criteria
               </p>
               
@@ -228,10 +228,10 @@ const Index = () => {
                 <FaShare className='text-3xl text-white'/>
 
               </div>
-              <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
+              <h4 className="mb-3 text-xl font-bold text-gray-900 ">
               Share Your Culinary Creations
               </h4>
-              <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
+              <p className="mb-8 text-body-color dark:text-gray-900-6 lg:mb-9">
               Easily upload and share your own recipes with the community.
               </p>
               
@@ -253,12 +253,12 @@ const Index = () => {
             <div className="w-full px-4 lg:w-1/2">
               <div className="mb-12 max-w-[540px] lg:mb-0">
                 <h2
-                  className="mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]"
+                  className="mb-5 text-3xl font-bold leading-tight text-gray-900 sm:text-[40px] sm:leading-[1.2]"
                 >
                   Welcome to Your Ultimate Recipe Hub
                 </h2>
                 <p
-                  className="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6"
+                  className="mb-10 text-base leading-relaxed text-body-color dark:text-gray-900-6"
                 >
                   At RecipeCraft, we're redefining the way you cook and share recipes. Built with the latest technologies like React and TailwindCSS, our platform is designed to offer a seamless and intuitive user experience. Whether you're a culinary novice or a seasoned chef, our innovative features will enhance your cooking journey.
                   <br />
@@ -267,7 +267,7 @@ const Index = () => {
                 </p>
 
                 <Link to="/Register">
-                <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
+                <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-gray-900Green hover:border-LightGreen">
                   Get Started Today
                 </button> {/*Primary Button*/}
                 </Link>
@@ -329,7 +329,7 @@ const Index = () => {
                   Discover personalized recipes tailored to your kitchen ingredients with our cutting-edge AI technology. Get started now and elevate your cooking experience to new heights!
                 </p>
                 <Link to="/Register">
-                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-gray-900Green">
                    Sign Up Now
                 </button>
                 </Link>
@@ -415,7 +415,7 @@ const Index = () => {
             <div className="mx-auto mb-[60px] max-w-[600px] text-center">
     
               <h2
-                className="mb-3 text-3xl font-bold leading-[1.2] text-dark dark:text-white sm:text-4xl md:text-[40px]"
+                className="mb-3 text-3xl font-bold leading-[1.2] text-gray-900 dark:text-white sm:text-4xl md:text-[40px]"
               >
                 Browse Some of our Recipes
               </h2>
@@ -460,12 +460,12 @@ const Index = () => {
                 className="mb-10 flex flex-wrap items-center justify-center gap-5"
               >
                 <Link to="/Register">
-                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-DarkGreen transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-gray-900Green transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-gray-900Green">
                  Start Now
               </button>
               </Link>
               <Link to="/Login">
-                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-gray-900Green">
                  Login
               </button>
                 </Link>
