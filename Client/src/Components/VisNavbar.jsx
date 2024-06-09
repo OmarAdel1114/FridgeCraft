@@ -12,9 +12,7 @@ const Header = ({firstName, lastName}) => {
   const route= useLocation();
 
   let Links = [
-    { name: "Generate", link: "/aigeneration" },
-    { name: "Recipes", link: "/Search" },
-    { name: "Add a Recipe", link: "/add-a-recipe" },
+    
   ];
 
   let [open, setOpen] = useState(false);
@@ -33,8 +31,8 @@ const Header = ({firstName, lastName}) => {
 
   return (
     <container className="shadow-md flex flex-col items-center bg-white">
-      <div className="w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
-        <div className="flex items-center justify-between bg-white py-4">
+      <div className=" z-10 w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
+        <div className="z-10 flex items-center justify-between bg-white py-4">
           {/* logo section */}
           <div className="cursor-pointer flex items-center">
             <img src={logo} width="100" />
@@ -51,7 +49,7 @@ const Header = ({firstName, lastName}) => {
           </div>
 
           <ul
-            className={`shadow-md lg:shadow-none lg:flex items-center lg:pb-0 pb-6 absolute lg:static bg-White 
+            className={`z-10 shadow-md lg:shadow-none lg:flex items-center lg:pb-0 pb-6 absolute lg:static bg-White 
             md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${
               open ? "top-20" : "top-[-490px]"
             }`}
@@ -63,7 +61,7 @@ const Header = ({firstName, lastName}) => {
                   onClick={handleClick}
                   aria-describedby={id}
                 >
-                  <div className="mr-2">
+                  <div className=" z-10 mr-2">
                     <Avatar
                       sx={{ width: 56, height: 56, background: "white", color:"black"}}
                     >
@@ -121,7 +119,7 @@ const Header = ({firstName, lastName}) => {
               </li>
             ))}
             {!auth && (
-              <Link to="">
+              <Link to="/Login">
               <button className="mt-6 lg:mt-0 rounded border border-DarkGreen bg-DarkGreen lg:ml-5 py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
                 Login/Signup
               </button>

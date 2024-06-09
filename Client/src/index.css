@@ -11,6 +11,24 @@
   100% { transform: rotate(360deg); }
 }
 
+.css-a5rdam-MuiGrid-root>.MuiGrid-item {
+  background-color: #f3f4f6;
+}
+
+.custombg2 {
+
+  background: linear-gradient(0deg, rgb(46 88 52 / 90%), rgb(46 88 52 / 90%)), url(/src/assets/cta-img.jpg);
+ background-size: cover;
+
+}
+
+
+.custombg {
+
+  background: linear-gradient(0deg, rgb(46 88 52 / 90%), rgb(46 88 52 / 90%)), url(/src/assets/hero_back.jpg);
+ background-size: cover;
+
+}
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-left-color: #000;

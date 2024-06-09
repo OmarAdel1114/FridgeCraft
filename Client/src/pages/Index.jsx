@@ -1,23 +1,54 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import CoverImage from '../assets/cover_image.jpeg'
 import GOOGLE_ICON from '../assets/google-icon-logo.svg'
 import logo from "../assets/logo.png";
 import '../index.css';
-import '../assets/tailwind.css';
-import Navbar from "../Components/Navbar";
+import VisNavbar from "../Components/VisNavbar";
 import Footer from "../Components/Footer";
+import { PiBowlFoodFill } from "react-icons/pi";
+import { PiCookingPotFill } from "react-icons/pi";
+import { FaSearch } from "react-icons/fa";
+import { FaShare } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Aboutimg from '../assets/about-img.jpg';
+import Aboutimg2 from '../assets/about-img2.jpg';
+import RecipeItem from '../Components/RecipeItem';
+import { FaNodeJs } from "react-icons/fa";
+import { SiMongodb } from "react-icons/si";
+import { SiExpress } from "react-icons/si";
 
 
 const Index = () => {
+  const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
+  const fetchRecipes = async () => {
+    try {
+      const response = await fetch('https://fridge-craft-server.vercel.app/api/recipes');
+      const data = await response.json();
+      setRecipes(getRandomRecipes(data, 6)); // Select 3 random recipes
+    } catch (err) {
+      console.error('Failed to fetch recipes:', err);
+    }
+  };
+
+  const getRandomRecipes = (recipes, count) => {
+    let shuffled = recipes.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
   
   return (
     <>  
-    <Navbar/>
+    <VisNavbar/>
     <div
       id="home"
-      className="relative overflow-hidden bg-primary pt-[120px] md:pt-[130px] lg:pt-[160px]"
-    >
+      className="custombg bgoverlay relative overflow-hidden bg-primary p-[120px] md:p-[130px] lg:p-[160px]"
+    >   
       <div className="container">
+        <div className=''>
+        
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4">
             <div
@@ -27,53 +58,26 @@ const Index = () => {
               <h1
                 className="mb-6 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]"
               >
-                Open-Source Web Template for SaaS, Startup, Apps, and More
+                Unleash Flavor with AI: Unique Recipes Created for Your Tastes
               </h1>
               <p
                 className="mx-auto mb-9 max-w-[600px] text-base font-medium text-white sm:text-lg sm:leading-[1.44]"
               >
-                Multidisciplinary Web Template Built with Your Favourite
-                Technology - HTML Bootstrap, Tailwind and React NextJS.
+                Experience a new way of cooking with our AI-powered recipe generator.
               </p>
               <ul
                 className="mb-10 flex flex-wrap items-center justify-center gap-5"
               >
-                <li>
-                  <a
-                    href="https://links.tailgrids.com/play-download"
-                    className="inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color"
-                  >
-                    Download Now
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/tailgrids/play-tailwind"
-                    target="_blank"
-                    className="flex items-center gap-4 rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark"
-                  >
-                    <svg
-                      className="fill-current"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_2005_10818)">
-                        <path
-                          d="M12 0.674805C5.625 0.674805 0.375 5.8498 0.375 12.2998C0.375 17.3998 3.7125 21.7498 8.3625 23.3248C8.9625 23.4373 9.15 23.0623 9.15 22.7998C9.15 22.5373 9.15 21.7873 9.1125 20.7748C5.8875 21.5248 5.2125 19.1998 5.2125 19.1998C4.6875 17.8873 3.9 17.5123 3.9 17.5123C2.85 16.7623 3.9375 16.7623 3.9375 16.7623C5.1 16.7998 5.7375 17.9623 5.7375 17.9623C6.75 19.7623 8.475 19.2373 9.1125 18.8998C9.225 18.1498 9.525 17.6248 9.8625 17.3248C7.3125 17.0623 4.575 16.0498 4.575 11.6248C4.575 10.3498 5.0625 9.3373 5.775 8.5498C5.6625 8.2873 5.25 7.0873 5.8875 5.4748C5.8875 5.4748 6.9 5.1748 9.1125 6.6748C10.05 6.4123 11.025 6.2623 12.0375 6.2623C13.05 6.2623 14.0625 6.3748 14.9625 6.6748C17.175 5.2123 18.15 5.4748 18.15 5.4748C18.7875 7.0498 18.4125 8.2873 18.2625 8.5498C19.0125 9.3373 19.4625 10.3873 19.4625 11.6248C19.4625 16.0498 16.725 17.0623 14.175 17.3248C14.5875 17.6998 14.9625 18.4498 14.9625 19.4998C14.9625 21.0748 14.925 22.3123 14.925 22.6873C14.925 22.9873 15.15 23.3248 15.7125 23.2123C20.2875 21.6748 23.625 17.3623 23.625 12.2248C23.5875 5.8498 18.375 0.674805 12 0.674805Z"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2005_10818">
-                          <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    Star on Github
-                  </a>
-                </li>
+                <Link to="/Register">
+                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-DarkGreen transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                 Start Now
+              </button>
+              </Link>
+              <Link to="/Login">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                 Login
+              </button>
+                </Link>
               </ul>
               <div>
                 <p className="mb-4 text-center text-base font-medium text-white">
@@ -83,44 +87,11 @@ const Index = () => {
                   className="wow fadeInUp flex items-center justify-center gap-4 text-center"
                   data-wow-delay=".3s"
                 >
-                  <a
-                    href="https://github.com/uideck/play-bootstrap/"
-                    className="text-white/60 duration-300 ease-in-out hover:text-white"
-                    target="_blank"
-                  >
-                    <svg
-                      className="fill-current"
-                      width="41"
-                      height="32"
-                      viewBox="0 0 41 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <mask
-                        id="mask0_2005_10788"
-                        
-                        maskUnits="userSpaceOnUse"
-                        x="0"
-                        y="0"
-                        width="41"
-                        height="32"
-                      >
-                        <path
-                          d="M0.521393 0.0454102H40.5214V31.9174H0.521393V0.0454102Z"
-                        />
-                      </mask>
-                      <g mask="url(#mask0_2005_10788)">
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M8.82951 0.048584C6.54719 0.048584 4.85835 2.04626 4.93395 4.21266C5.00655 6.29398 4.91223 8.98962 4.23366 11.1879C3.55264 13.3923 2.4017 14.7893 0.521393 14.9686V16.993C2.4017 17.1727 3.55264 18.5689 4.23358 20.7737C4.91223 22.9719 5.00647 25.6676 4.93387 27.7489C4.85827 29.915 6.54711 31.913 8.82983 31.913H32.2163C34.4987 31.913 36.1872 29.9153 36.1116 27.7489C36.039 25.6676 36.1333 22.9719 36.8119 20.7737C37.4929 18.5689 38.641 17.1721 40.5214 16.993V14.9686C38.6411 14.7889 37.493 13.3927 36.8119 11.1879C36.1332 8.9899 36.039 6.29398 36.1116 4.21266C36.1872 2.04654 34.4987 0.048584 32.2163 0.048584H8.82951ZM27.6401 19.6632C27.6401 22.6463 25.415 24.4554 21.7224 24.4554H15.4366C15.2568 24.4554 15.0844 24.3839 14.9572 24.2568C14.8301 24.1297 14.7587 23.9572 14.7587 23.7774V8.18422C14.7587 8.00442 14.8301 7.83194 14.9572 7.70482C15.0844 7.57766 15.2568 7.50626 15.4366 7.50626H21.6866C24.7656 7.50626 26.7863 9.17406 26.7863 11.7347C26.7863 13.5319 25.427 15.1409 23.6952 15.4228V15.5165C26.0526 15.7751 27.6401 17.408 27.6401 19.6632ZM21.037 9.65538H17.453V14.7179H20.4716C22.8052 14.7179 24.092 13.7782 24.092 12.0986C24.0917 10.5245 22.9855 9.65538 21.037 9.65538ZM17.453 16.7265V22.3055H21.1689C23.5986 22.3055 24.8856 21.3306 24.8856 19.4984C24.8856 17.6663 23.5625 16.7263 21.0126 16.7263L17.453 16.7265Z"
-                        />
-                      </g>
-                    </svg>
-                  </a>
+                   <FaNodeJs className='text-4xl text-[#abb9ac]' />
+                  
 
                   <a
-                    href="https://github.com/TailGrids/play-tailwind/"
+                    
                     className="text-white/60 duration-300 ease-in-out hover:text-white"
                     target="_blank"
                   >
@@ -132,19 +103,7 @@ const Index = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <mask
-                        id="mask0_2005_10783"
-                        
-                        maskUnits="userSpaceOnUse"
-                        x="0"
-                        y="0"
-                        width="41"
-                        height="26"
-                      >
-                        <path
-                          d="M0.521393 0.949463H40.5214V25.0135H0.521393V0.949463Z"
-                        />
-                      </mask>
+                      
                       <g mask="url(#mask0_2005_10783)">
                         <path
                           d="M20.5214 0.980713C15.1882 0.980713 11.8546 3.64743 10.5214 8.98071C12.5214 6.31399 14.8546 5.31399 17.5214 5.98071C19.043 6.36103 20.1302 7.46495 21.3342 8.68667C23.295 10.6771 25.5642 12.9807 30.5214 12.9807C35.8546 12.9807 39.1882 10.314 40.5214 4.98071C38.5214 7.64743 36.1882 8.64743 33.5214 7.98071C31.9998 7.60039 30.9126 6.49651 29.7086 5.27479C27.7478 3.28431 25.4786 0.980713 20.5214 0.980713ZM10.5214 12.9807C5.18819 12.9807 1.85459 15.6474 0.521393 20.9807C2.52139 18.314 4.85459 17.314 7.52139 17.9807C9.04299 18.361 10.1302 19.465 11.3342 20.6867C13.295 22.6771 15.5642 24.9807 20.5214 24.9807C25.8546 24.9807 29.1882 22.314 30.5214 16.9807C28.5214 19.6474 26.1882 20.6474 23.5214 19.9807C21.9998 19.6004 20.9126 18.4965 19.7086 17.2748C17.7478 15.2843 15.4786 12.9807 10.5214 12.9807Z"
@@ -154,7 +113,7 @@ const Index = () => {
                   </a>
 
                   <a
-                    href="https://github.com/NextJSTemplates/play-nextjs"
+                   
                     className="text-white/60 duration-300 ease-in-out hover:text-white"
                     target="_blank"
                   >
@@ -175,98 +134,37 @@ const Index = () => {
                     </svg>
                   </a>
 
-                  <a
-                    href="https://github.com/TailGrids/play-astro/"
-                    className="text-white/60 duration-300 ease-in-out hover:text-white"
-                    target="_blank"
-                  >
-                    <svg
-                      className="mt-0.5 fill-current"
-                      width="30"
-                      height="38"
-                      viewBox="0 0 30 38"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_2412_2096)">
-                        <path
-                          d="M9.54022 32.0145C7.86872 30.4866 7.38074 27.2761 8.07717 24.9502C9.28468 26.4166 10.9578 26.8812 12.6908 27.1434C15.3662 27.548 17.9937 27.3967 20.479 26.1739C20.7633 26.0338 21.0261 25.8477 21.3368 25.6591C21.57 26.3357 21.6306 27.0187 21.5492 27.7139C21.3511 29.407 20.5086 30.7148 19.1685 31.7062C18.6326 32.1027 18.0656 32.4572 17.5121 32.8311C15.8119 33.9803 15.3519 35.3278 15.9907 37.2877C16.0059 37.3358 16.0195 37.3835 16.0538 37.5C15.1857 37.1114 14.5516 36.5456 14.0684 35.8018C13.5581 35.017 13.3153 34.1486 13.3026 33.209C13.2962 32.7518 13.2962 32.2905 13.2347 31.8397C13.0845 30.7407 12.5686 30.2486 11.5967 30.2203C10.5992 30.1912 9.81018 30.8078 9.60094 31.779C9.58497 31.8535 9.5618 31.9271 9.53863 32.0137L9.54022 32.0145Z"
-                        />
-                        <path
-                          d="M0 24.5627C0 24.5627 4.94967 22.1515 9.91317 22.1515L13.6555 10.5697C13.7956 10.0096 14.2046 9.62894 14.6665 9.62894C15.1283 9.62894 15.5374 10.0096 15.6775 10.5697L19.4198 22.1515C25.2984 22.1515 29.333 24.5627 29.333 24.5627C29.333 24.5627 20.9256 1.65922 20.9092 1.61326C20.6679 0.936116 20.2605 0.5 19.7113 0.5H9.62256C9.07337 0.5 8.68245 0.936116 8.42473 1.61326C8.40654 1.65835 0 24.5627 0 24.5627Z"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2412_2096">
-                          <rect
-                            width="29.3925"
-                            height="37"
-                            transform="translate(0 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </a>
+                  <SiMongodb className='text-4xl text-[#abb9ac]' />
 
-                  <a
-                    href="https://github.com/NextJSTemplates/play-nextjs"
-                    className="text-white/60 duration-300 ease-in-out hover:text-white"
-                    target="_blank"
-                  >
-                    <svg
-                      className="fill-current"
-                      width="41"
-                      height="40"
-                      viewBox="0 0 41 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M19.1914 0.0107542C19.1054 0.0185659 18.8322 0.0459068 18.5862 0.0654364C12.911 0.577104 7.59499 3.63931 4.22819 8.34588C2.35339 10.9628 1.15419 13.9313 0.700995 17.0755C0.540995 18.173 0.521393 18.4972 0.521393 19.9854C0.521393 21.4735 0.540995 21.7977 0.700995 22.8952C1.78699 30.3984 7.12619 36.7025 14.3678 39.0382C15.6646 39.4561 17.0314 39.7412 18.5862 39.9131C19.1914 39.9795 21.8082 39.9795 22.4138 39.9131C25.097 39.6163 27.3702 38.9523 29.6122 37.8078C29.9562 37.6321 30.0226 37.5852 29.9754 37.5462C29.9442 37.5227 28.4798 35.5581 26.7218 33.1833L23.527 28.8673L19.5234 22.9421C17.3206 19.6846 15.5082 17.0208 15.4926 17.0208C15.477 17.0169 15.4614 19.6495 15.4534 22.864C15.4418 28.4924 15.4378 28.7189 15.3678 28.8517C15.2662 29.0431 15.1878 29.1212 15.0238 29.2071C14.899 29.2696 14.7894 29.2813 14.1998 29.2813H13.5242L13.3442 29.1681C13.227 29.0938 13.1414 28.9962 13.0826 28.8829L13.0006 28.7072L13.0086 20.8759L13.0202 13.0407L13.1414 12.8884C13.2038 12.8064 13.3366 12.7009 13.4302 12.6502C13.5906 12.572 13.653 12.5642 14.3286 12.5642C15.1254 12.5642 15.2582 12.5955 15.4654 12.822C15.5238 12.8845 17.6914 16.1498 20.285 20.083C22.8786 24.0162 26.425 29.3868 28.167 32.0232L31.331 36.8158L31.491 36.7103C32.909 35.7885 34.4086 34.4761 35.5962 33.1091C38.123 30.207 39.7518 26.6683 40.2986 22.8952C40.459 21.7977 40.4786 21.4735 40.4786 19.9854C40.4786 18.4972 40.459 18.173 40.2986 17.0755C39.213 9.57232 33.8738 3.26825 26.6322 0.93254C25.355 0.518516 23.9958 0.233389 22.4722 0.0615304C22.0974 0.0224718 19.5158 -0.0204928 19.1914 0.0107542ZM27.3702 12.0955C27.5578 12.1892 27.7102 12.3689 27.765 12.5564C27.7962 12.658 27.8038 14.8296 27.7962 19.7237L27.7842 26.7464L26.5462 24.8482L25.3042 22.9499V17.845C25.3042 14.5445 25.3198 12.6892 25.343 12.5994C25.4058 12.3806 25.5422 12.2088 25.7298 12.1072C25.8902 12.0252 25.9486 12.0174 26.5618 12.0174C27.1398 12.0174 27.2414 12.0252 27.3702 12.0955Z"
-                      />
-                    </svg>
-                  </a>
+
+                 
+                  <SiExpress className='text-4xl text-[#abb9ac]' />
+
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-full px-4">
-            <div
-              className="wow fadeInUp relative z-10 mx-auto max-w-[845px]"
-              data-wow-delay=".25s"
-            >
-              <div className="mt-16">
-                <img
-                  src="assets/images/hero/hero-image.jpg"
-                  alt="hero"
-                  className="mx-auto max-w-full rounded-t-xl rounded-tr-xl"
-                />
-              </div>
-            </div>
-          </div>
+          
         </div>
+      </div>
       </div>
     </div>
     {/* <!-- ====== Hero Section End -->
 
     <!-- ====== Features Section Start --> */}
-    <section className="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px]">
+    <section className="pb-8 pt-20 dark:bg-dark lg:pb-[70px] lg:pt-[120px] flex justify-center w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0">
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
             <div className="mx-auto mb-12 max-w-[485px] text-center lg:mb-[70px]">
-              <span className="mb-2 block text-lg font-semibold text-primary">
-                Features
-              </span>
               <h2
                 className="mb-3 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.2]"
               >
-                Main Features Of Play
+                Main Features
               </h2>
               <p className="text-base text-body-color dark:text-dark-6">
-                There are many variations of passages of Lorem Ipsum available
-                but the majority have suffered alteration in some form.
+              Discover our application’s main features designed to transform your culinary journey.
               </p>
             </div>
           </div>
@@ -275,185 +173,68 @@ const Index = () => {
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <div className="wow fadeInUp group mb-12" data-wow-delay=".1s">
               <div
-                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
+                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-DarkGreen"
               >
-                <span
-                  className="absolute left-0 top-0 -z-[1] mb-8 flex h-[70px] w-[70px] rotate-[25deg] items-center justify-center rounded-[14px] bg-primary bg-opacity-20 duration-300 group-hover:rotate-45"
-                ></span>
-                <svg
-                  width="37"
-                  height="37"
-                  viewBox="0 0 37 37"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M30.5801 8.30514H27.9926C28.6113 7.85514 29.1176 7.34889 29.3426 6.73014C29.6801 5.88639 29.6801 4.48014 27.9363 2.84889C26.0801 1.04889 24.3926 1.04889 23.3238 1.33014C20.9051 1.94889 19.2738 4.76139 18.3738 6.78639C17.4738 4.76139 15.8426 2.00514 13.4238 1.33014C12.3551 1.04889 10.6676 1.10514 8.81133 2.84889C7.06758 4.53639 7.12383 5.88639 7.40508 6.73014C7.63008 7.34889 8.13633 7.85514 8.75508 8.30514H5.71758C4.08633 8.30514 2.73633 9.65514 2.73633 11.2864V14.9989C2.73633 16.5739 4.03008 17.8676 5.60508 17.9239V31.6489C5.60508 33.5614 7.18008 35.1926 9.14883 35.1926H27.5426C29.4551 35.1926 31.0863 33.6176 31.0863 31.6489V17.8676C32.4926 17.6426 33.5613 16.4051 33.5613 14.9426V11.2301C33.5613 9.59889 32.2113 8.30514 30.5801 8.30514ZM23.9426 3.69264C23.9988 3.69264 24.1676 3.63639 24.3363 3.63639C24.7301 3.63639 25.3488 3.80514 26.1926 4.59264C26.8676 5.21139 27.0363 5.66139 26.9801 5.77389C26.6988 6.56139 23.8863 7.40514 20.6801 7.74264C21.4676 5.99889 22.6488 4.03014 23.9426 3.69264ZM10.4988 4.64889C11.3426 3.86139 11.9613 3.69264 12.3551 3.69264C12.5238 3.69264 12.6363 3.74889 12.7488 3.74889C14.0426 4.08639 15.2801 5.99889 16.0676 7.79889C12.8613 7.46139 10.0488 6.61764 9.76758 5.83014C9.71133 5.66139 9.88008 5.26764 10.4988 4.64889ZM5.26758 14.9426V11.2301C5.26758 11.0051 5.43633 10.7801 5.71758 10.7801H30.5801C30.8051 10.7801 31.0301 10.9489 31.0301 11.2301V14.9426C31.0301 15.1676 30.8613 15.3926 30.5801 15.3926H5.71758C5.49258 15.3926 5.26758 15.2239 5.26758 14.9426ZM27.5426 32.6614H9.14883C8.58633 32.6614 8.13633 32.2114 8.13633 31.6489V17.9239H28.4988V31.6489C28.5551 32.2114 28.1051 32.6614 27.5426 32.6614Z"
-                    fill="white"
-                  />
-                </svg>
+                <PiBowlFoodFill className='text-3xl text-white'/>
+
               </div>
               <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
-                Free and Open-Source
+              Create Unique Recipes
               </h4>
               <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
-                Lorem Ipsum is simply dummy text of the printing and industry.
+              Our advanced AI technology crafts personalized recipes based on your available ingredients.
               </p>
-              <a
-                href="javascript:void(0)"
-                className="text-base font-medium text-dark hover:text-primary dark:text-white dark:hover:text-primary"
-              >
-                Learn More
-              </a>
+              
             </div>
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <div className="wow fadeInUp group mb-12" data-wow-delay=".15s">
               <div
-                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
+                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-DarkGreen"
               >
-                <span
-                  className="absolute left-0 top-0 -z-[1] mb-8 flex h-[70px] w-[70px] rotate-[25deg] items-center justify-center rounded-[14px] bg-primary bg-opacity-20 duration-300 group-hover:rotate-45"
-                ></span>
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M30.5998 1.01245H5.39981C2.98105 1.01245 0.956055 2.9812 0.956055 5.4562V30.6562C0.956055 33.075 2.9248 35.0437 5.39981 35.0437H30.5998C33.0186 35.0437 34.9873 33.075 34.9873 30.6562V5.39995C34.9873 2.9812 33.0186 1.01245 30.5998 1.01245ZM5.39981 3.48745H30.5998C31.6123 3.48745 32.4561 4.3312 32.4561 5.39995V11.1937H3.4873V5.39995C3.4873 4.38745 4.38731 3.48745 5.39981 3.48745ZM3.4873 30.6V13.725H23.0623V32.5125H5.39981C4.38731 32.5125 3.4873 31.6125 3.4873 30.6ZM30.5998 32.5125H25.5373V13.725H32.4561V30.6C32.5123 31.6125 31.6123 32.5125 30.5998 32.5125Z"
-                    fill="white"
-                  />
-                </svg>
+          
+                <PiCookingPotFill className='text-3xl text-white'/>
               </div>
               <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
-                Multipurpose Template
+              Cook Like a Pro
               </h4>
               <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
-                Lorem Ipsum is simply dummy text of the printing and industry.
+              Our detailed, step-by-step cooking instructions guide you through each recipe with ease.
               </p>
-              <a
-                href="javascript:void(0)"
-                className="text-base font-medium text-dark hover:text-primary dark:text-white dark:hover:text-primary"
-              >
-                Learn More
-              </a>
             </div>
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <div className="wow fadeInUp group mb-12" data-wow-delay=".2s">
               <div
-                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
+                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-DarkGreen"
               >
-                <span
-                  className="absolute left-0 top-0 -z-[1] mb-8 flex h-[70px] w-[70px] rotate-[25deg] items-center justify-center rounded-[14px] bg-primary bg-opacity-20 duration-300 group-hover:rotate-45"
-                ></span>
-                <svg
-                  width="37"
-                  height="37"
-                  viewBox="0 0 37 37"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M33.5613 21.4677L31.3675 20.1177C30.805 19.7239 30.0175 19.9489 29.6238 20.5114C29.23 21.1302 29.455 21.8614 30.0175 22.2552L31.48 23.2114L18.1488 31.5927L4.76127 23.2114L6.22377 22.2552C6.84252 21.8614 7.01127 21.0739 6.61752 20.5114C6.22377 19.8927 5.43627 19.7239 4.87377 20.1177L2.68002 21.4677C2.11752 21.8614 1.72377 22.4802 1.72377 23.1552C1.72377 23.8302 2.06127 24.5052 2.68002 24.8427L17.08 33.8989C17.4175 34.1239 17.755 34.1802 18.1488 34.1802C18.5425 34.1802 18.88 34.0677 19.2175 33.8989L33.5613 24.8989C34.1238 24.5052 34.5175 23.8864 34.5175 23.2114C34.5175 22.5364 34.18 21.8614 33.5613 21.4677Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M20.1175 20.4552L18.1488 21.6364L16.18 20.3989C15.5613 20.0052 14.83 20.2302 14.4363 20.7927C14.0425 21.4114 14.2675 22.1427 14.83 22.5364L17.4738 24.1677C17.6988 24.2802 17.9238 24.3364 18.1488 24.3364C18.3738 24.3364 18.5988 24.2802 18.8238 24.1677L21.4675 22.5364C22.0863 22.1427 22.255 21.3552 21.8613 20.7927C21.4675 20.2302 20.68 20.0614 20.1175 20.4552Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M7.74252 18.0927L11.455 20.4552C11.68 20.5677 11.905 20.6239 12.13 20.6239C12.5238 20.6239 12.9738 20.3989 13.1988 20.0052C13.5925 19.3864 13.3675 18.6552 12.805 18.2614L9.09252 15.8989C8.47377 15.5052 7.74252 15.7302 7.34877 16.2927C6.95502 16.9677 7.12377 17.7552 7.74252 18.0927Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M5.04252 16.1802C5.43627 16.1802 5.88627 15.9552 6.11127 15.5614C6.50502 14.9427 6.28002 14.2114 5.71752 13.8177L4.81752 13.2552L5.71752 12.6927C6.33627 12.2989 6.50502 11.5114 6.11127 10.9489C5.71752 10.3302 4.93002 10.1614 4.36752 10.5552L1.72377 12.1864C1.33002 12.4114 1.10502 12.8052 1.10502 13.2552C1.10502 13.7052 1.33002 14.0989 1.72377 14.3239L4.36752 15.9552C4.53627 16.1239 4.76127 16.1802 5.04252 16.1802Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M8.41752 10.7239C8.64252 10.7239 8.86752 10.6677 9.09252 10.5552L12.805 8.1927C13.4238 7.79895 13.5925 7.01145 13.1988 6.44895C12.805 5.8302 12.0175 5.66145 11.455 6.0552L7.74252 8.4177C7.12377 8.81145 6.95502 9.59895 7.34877 10.1614C7.57377 10.4989 7.96752 10.7239 8.41752 10.7239Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M16.18 6.05522L18.1488 4.81772L20.1175 6.05522C20.3425 6.16772 20.5675 6.22397 20.7925 6.22397C21.1863 6.22397 21.6363 5.99897 21.8613 5.60522C22.255 4.98647 22.03 4.25522 21.4675 3.86147L18.8238 2.23022C18.43 1.94897 17.8675 1.94897 17.4738 2.23022L14.83 3.86147C14.2113 4.25522 14.0425 5.04272 14.4363 5.60522C14.83 6.16772 15.6175 6.44897 16.18 6.05522Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M23.4925 8.19267L27.205 10.5552C27.43 10.6677 27.655 10.7239 27.88 10.7239C28.2738 10.7239 28.7238 10.4989 28.9488 10.1052C29.3425 9.48642 29.1175 8.75517 28.555 8.36142L24.8425 5.99892C24.28 5.60517 23.4925 5.83017 23.0988 6.39267C22.705 7.01142 22.8738 7.79892 23.4925 8.19267Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M34.5738 12.1864L31.93 10.5552C31.3675 10.1614 30.58 10.3864 30.1863 10.9489C29.7925 11.5677 30.0175 12.2989 30.58 12.6927L31.48 13.2552L30.58 13.8177C29.9613 14.2114 29.7925 14.9989 30.1863 15.5614C30.4113 15.9552 30.8613 16.1802 31.255 16.1802C31.48 16.1802 31.705 16.1239 31.93 16.0114L34.5738 14.3802C34.9675 14.1552 35.1925 13.7614 35.1925 13.3114C35.1925 12.8614 34.9675 12.4114 34.5738 12.1864Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M24.1675 20.624C24.3925 20.624 24.6175 20.5677 24.8425 20.4552L28.555 18.0927C29.1738 17.699 29.3425 16.9115 28.9488 16.349C28.555 15.7302 27.7675 15.5615 27.205 15.9552L23.4925 18.3177C22.8738 18.7115 22.705 19.499 23.0988 20.0615C23.3238 20.4552 23.7175 20.624 24.1675 20.624Z"
-                    fill="white"
-                  />
-                </svg>
+                <FaSearch className='text-3xl text-white'/>
+
               </div>
               <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
-                High-quality Design
+              Find Exactly What You Need
               </h4>
               <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
-                Lorem Ipsum is simply dummy text of the printing and industry.
+              Use our advanced search to find recipes that meet specific criteria
               </p>
-              <a
-                href="javascript:void(0)"
-                className="text-base font-medium text-dark hover:text-primary dark:text-white dark:hover:text-primary"
-              >
-                Learn More
-              </a>
+              
             </div>
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <div className="wow fadeInUp group mb-12" data-wow-delay=".25s">
               <div
-                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-primary"
+                className="relative z-10 mb-10 flex h-[70px] w-[70px] items-center justify-center rounded-[14px] bg-DarkGreen"
               >
-                <span
-                  className="absolute left-0 top-0 -z-[1] mb-8 flex h-[70px] w-[70px] rotate-[25deg] items-center justify-center rounded-[14px] bg-primary bg-opacity-20 duration-300 group-hover:rotate-45"
-                ></span>
-                <svg
-                  width="37"
-                  height="37"
-                  viewBox="0 0 37 37"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12.355 2.0614H5.21129C3.29879 2.0614 1.72379 3.6364 1.72379 5.5489V12.6927C1.72379 14.6052 3.29879 16.1802 5.21129 16.1802H12.355C14.2675 16.1802 15.8425 14.6052 15.8425 12.6927V5.60515C15.8988 3.6364 14.3238 2.0614 12.355 2.0614ZM13.3675 12.7489C13.3675 13.3114 12.9175 13.7614 12.355 13.7614H5.21129C4.64879 13.7614 4.19879 13.3114 4.19879 12.7489V5.60515C4.19879 5.04265 4.64879 4.59265 5.21129 4.59265H12.355C12.9175 4.59265 13.3675 5.04265 13.3675 5.60515V12.7489Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M31.0863 2.0614H23.9425C22.03 2.0614 20.455 3.6364 20.455 5.5489V12.6927C20.455 14.6052 22.03 16.1802 23.9425 16.1802H31.0863C32.9988 16.1802 34.5738 14.6052 34.5738 12.6927V5.60515C34.5738 3.6364 32.9988 2.0614 31.0863 2.0614ZM32.0988 12.7489C32.0988 13.3114 31.6488 13.7614 31.0863 13.7614H23.9425C23.38 13.7614 22.93 13.3114 22.93 12.7489V5.60515C22.93 5.04265 23.38 4.59265 23.9425 4.59265H31.0863C31.6488 4.59265 32.0988 5.04265 32.0988 5.60515V12.7489Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M12.355 20.0051H5.21129C3.29879 20.0051 1.72379 21.5801 1.72379 23.4926V30.6364C1.72379 32.5489 3.29879 34.1239 5.21129 34.1239H12.355C14.2675 34.1239 15.8425 32.5489 15.8425 30.6364V23.5489C15.8988 21.5801 14.3238 20.0051 12.355 20.0051ZM13.3675 30.6926C13.3675 31.2551 12.9175 31.7051 12.355 31.7051H5.21129C4.64879 31.7051 4.19879 31.2551 4.19879 30.6926V23.5489C4.19879 22.9864 4.64879 22.5364 5.21129 22.5364H12.355C12.9175 22.5364 13.3675 22.9864 13.3675 23.5489V30.6926Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M31.0863 20.0051H23.9425C22.03 20.0051 20.455 21.5801 20.455 23.4926V30.6364C20.455 32.5489 22.03 34.1239 23.9425 34.1239H31.0863C32.9988 34.1239 34.5738 32.5489 34.5738 30.6364V23.5489C34.5738 21.5801 32.9988 20.0051 31.0863 20.0051ZM32.0988 30.6926C32.0988 31.2551 31.6488 31.7051 31.0863 31.7051H23.9425C23.38 31.7051 22.93 31.2551 22.93 30.6926V23.5489C22.93 22.9864 23.38 22.5364 23.9425 22.5364H31.0863C31.6488 22.5364 32.0988 22.9864 32.0988 23.5489V30.6926Z"
-                    fill="white"
-                  />
-                </svg>
+                <FaShare className='text-3xl text-white'/>
+
               </div>
               <h4 className="mb-3 text-xl font-bold text-dark dark:text-white">
-                All Essential Elements
+              Share Your Culinary Creations
               </h4>
               <p className="mb-8 text-body-color dark:text-dark-6 lg:mb-9">
-                Lorem Ipsum is simply dummy text of the printing and industry.
+              Easily upload and share your own recipes with the community.
               </p>
-              <a
-                href="javascript:void(0)"
-                className="text-base font-medium text-dark hover:text-primary dark:text-white dark:hover:text-primary"
-              >
-                Learn More
-              </a>
+              
             </div>
           </div>
         </div>
@@ -464,9 +245,9 @@ const Index = () => {
     <!-- ====== About Section Start --> */}
     <section
       id="about"
-      className="bg-gray-1 pb-8 pt-20 dark:bg-dark-2 lg:pb-[70px] lg:pt-[120px]"
+      className=" pb-8 pt-20 dark:bg-dark-2 lg:pb-[70px] lg:pt-[120px] flex justify-center w-full lg:mx-auto px-6 md:px-8 lg:px-0 bg-[#f9fafb]"
     >
-      <div className="container">
+      <div className="container w-full lg:max-w-[1240px]">
         <div className="wow fadeInUp" data-wow-delay=".2s">
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-1/2">
@@ -474,28 +255,22 @@ const Index = () => {
                 <h2
                   className="mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]"
                 >
-                  Brilliant Toolkit to Build Nextgen Website Faster.
+                  Welcome to Your Ultimate Recipe Hub
                 </h2>
                 <p
                   className="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6"
                 >
-                  The main ‘thrust' is to focus on educating attendees on how to
-                  best protect highly vulnerable business applications with
-                  interactive panel discussions and roundtables led by subject
-                  matter experts.
+                  At RecipeCraft, we're redefining the way you cook and share recipes. Built with the latest technologies like React and TailwindCSS, our platform is designed to offer a seamless and intuitive user experience. Whether you're a culinary novice or a seasoned chef, our innovative features will enhance your cooking journey.
                   <br />
                   <br />
-                  The main ‘thrust' is to focus on educating attendees on how to
-                  best protect highly vulnerable business applications with
-                  interactive panel.
+                  Join us and transform your kitchen into a hub of creativity and inspiration. At RecipeCraft, we believe that cooking should be a fun, interactive, and personalized experience. Dive in and start your culinary adventure today!
                 </p>
 
-                <a
-                  href="javascript:void(0)"
-                  className="inline-flex items-center justify-center rounded-md border border-primary bg-primary px-7 py-3 text-center text-base font-medium text-white hover:border-blue-dark hover:bg-blue-dark"
-                >
-                  Know More
-                </a>
+                <Link to="/Register">
+                <button className="rounded border border-DarkGreen bg-DarkGreen py-3 px-8 text-base font-medium  leading-normal text-White transition duration-150 ease-in-out hover:bg-LightGreen hover:text-DarkGreen hover:border-LightGreen">
+                  Get Started Today
+                </button> {/*Primary Button*/}
+                </Link>
               </div>
             </div>
 
@@ -506,7 +281,7 @@ const Index = () => {
                     className="mb-4 sm:mb-8 sm:h-[400px] md:h-[540px] lg:h-[400px] xl:h-[500px]"
                   >
                     <img
-                      src="./assets/images/about/about-image-01.jpg"
+                      src={Aboutimg}
                       alt="about image"
                       className="h-full w-full object-cover object-center"
                     />
@@ -515,143 +290,17 @@ const Index = () => {
 
                 <div className="w-full px-2 sm:w-1/2 sm:px-4 lg:px-2 xl:px-4">
                   <div
-                    className="mb-4 sm:mb-8 sm:h-[220px] md:h-[346px] lg:mb-4 lg:h-[225px] xl:mb-8 xl:h-[310px]"
+                    className="mb-4 sm:mb-8 sm:h-[400px] md:h-[540px] lg:h-[400px] xl:h-[500px]"
                   >
                     <img
-                      src="./assets/images/about/about-image-02.jpg"
+                      src={Aboutimg2}
                       alt="about image"
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
-
-                  <div
-                    className="relative z-10 mb-4 flex items-center justify-center overflow-hidden bg-primary px-6 py-12 sm:mb-8 sm:h-[160px] sm:p-5 lg:mb-4 xl:mb-8"
-                  >
-                    <div>
-                      <span className="block text-5xl font-extrabold text-white">
-                        09
-                      </span>
-                      <span className="block text-base font-semibold text-white">
-                        We have
-                      </span>
-                      <span
-                        className="block text-base font-medium text-white text-opacity-70"
-                      >
-                        Years of experience
-                      </span>
-                    </div>
-                    <div>
-                      <span className="absolute left-0 top-0 -z-10">
-                        <svg
-                          width="106"
-                          height="144"
-                          viewBox="0 0 106 144"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            opacity="0.1"
-                            x="-67"
-                            y="47.127"
-                            width="113.378"
-                            height="131.304"
-                            transform="rotate(-42.8643 -67 47.127)"
-                            fill="url(#paint0_linear_1416_214)"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1416_214"
-                              x1="-10.3111"
-                              y1="47.127"
-                              x2="-10.3111"
-                              y2="178.431"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="white" />
-                              <stop
-                                offset="1"
-                                stop-color="white"
-                                stop-opacity="0"
-                              />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </span>
-                      <span className="absolute right-0 top-0 -z-10">
-                        <svg
-                          width="130"
-                          height="97"
-                          viewBox="0 0 130 97"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            opacity="0.1"
-                            x="0.86792"
-                            y="-6.67725"
-                            width="155.563"
-                            height="140.614"
-                            transform="rotate(-42.8643 0.86792 -6.67725)"
-                            fill="url(#paint0_linear_1416_215)"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1416_215"
-                              x1="78.6495"
-                              y1="-6.67725"
-                              x2="78.6495"
-                              y2="133.937"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="white" />
-                              <stop
-                                offset="1"
-                                stop-color="white"
-                                stop-opacity="0"
-                              />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </span>
-                      <span className="absolute bottom-0 right-0 -z-10">
-                        <svg
-                          width="175"
-                          height="104"
-                          viewBox="0 0 175 104"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            opacity="0.1"
-                            x="175.011"
-                            y="108.611"
-                            width="101.246"
-                            height="148.179"
-                            transform="rotate(137.136 175.011 108.611)"
-                            fill="url(#paint0_linear_1416_216)"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_1416_216"
-                              x1="225.634"
-                              y1="108.611"
-                              x2="225.634"
-                              y2="256.79"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="white" />
-                              <stop
-                                offset="1"
-                                stop-color="white"
-                                stop-opacity="0"
-                              />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
                 </div>
+
+                
               </div>
             </div>
           </div>
@@ -662,33 +311,28 @@ const Index = () => {
 
     <!-- ====== CTA Section Start --> */}
     <section
-      className="relative z-10 overflow-hidden bg-primary py-20 lg:py-[115px]"
+      className="relative z-10 overflow-hidden bg-DarkGreen py-20 lg:py-[115px]"
     >
       <div className="container mx-auto">
         <div className="relative overflow-hidden">
           <div className="-mx-4 flex flex-wrap items-stretch">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[570px] text-center">
+              <div className="mx-auto max-w-[600px] text-center">
                 <h2
                   className="mb-2.5 text-3xl font-bold text-white md:text-[38px] md:leading-[1.44]"
                 >
-                  <span>What Are You Looking For?</span>
-                  <span className="text-3xl font-normal md:text-[40px]">
-                    Get Started Now
-                  </span>
+                  Try Our AI-Powered Recipe Generation
                 </h2>
                 <p
-                  className="mx-auto mb-6 max-w-[515px] text-base leading-[1.5] text-white"
+                  className="mx-auto mb-6 max-w-[600px] text-base leading-[1.5] text-white"
                 >
-                  There are many variations of passages of Lorem Ipsum but the
-                  majority have suffered in some form.
+                  Discover personalized recipes tailored to your kitchen ingredients with our cutting-edge AI technology. Get started now and elevate your cooking experience to new heights!
                 </p>
-                <a
-                  href="javascript:void(0)"
-                  className="inline-block rounded-md border border-transparent bg-secondary px-7 py-3 text-base font-medium text-white transition hover:bg-[#0BB489]"
-                >
-                  Start using Play
-                </a>
+                <Link to="/Register">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                   Sign Up Now
+                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -762,183 +406,79 @@ const Index = () => {
     </section>
     {/* <!-- ====== CTA Section End --> */}
 
-
-    {/* <!-- ====== FAQ Section Start --> */}
-    <section
-      className="relative z-20 overflow-hidden bg-white pb-8 pt-20 dark:bg-dark lg:pb-[50px] lg:pt-[120px]"
+<section
+      className="relative z-20 overflow-hidden bg-white pb-20 pt-20 dark:bg-dark lg:pb-[120px] lg:pt-[120px] lg:max-w-[1240px] w-full lg:mx-auto px-6 md:px-8 lg:px-0"
     >
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
-            <div className="mx-auto mb-[60px] max-w-[520px] text-center">
-              <span className="mb-2 block text-lg font-semibold text-primary">
-                FAQ
-              </span>
+            <div className="mx-auto mb-[60px] max-w-[600px] text-center">
+    
               <h2
                 className="mb-3 text-3xl font-bold leading-[1.2] text-dark dark:text-white sm:text-4xl md:text-[40px]"
               >
-                Any Questions? Look Here
+                Browse Some of our Recipes
               </h2>
-              <p
-                className="mx-auto max-w-[485px] text-base text-body-color dark:text-dark-6"
-              >
-                There are many variations of passages of Lorem Ipsum available
-                but the majority have suffered alteration in some form.
-              </p>
+              
             </div>
           </div>
         </div>
-        <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4 lg:w-1/2">
-            <div className="mb-12 flex lg:mb-[70px]">
-              <div
-                className="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 34 34"
-                  className="fill-current"
-                >
-                  <path
-                    d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z"
-                  />
-                  <path
-                    d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z"
-                  />
-                  <path
-                    d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z"
-                  />
-                </svg>
-              </div>
-              <div className="w-full">
-                <h3
-                  className="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl"
-                >
-                  Is TailGrids Well-documented?
-                </h3>
-                <p className="text-base text-body-color dark:text-dark-6">
-                  It takes 2-3 weeks to get your first blog post ready. That
-                  includes the in-depth research & creation of your monthly
-                  content ui/ux strategy that we do writing your first blog
-                  post.
-                </p>
-              </div>
-            </div>
-            <div className="mb-12 flex lg:mb-[70px]">
-              <div
-                className="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 34 34"
-                  className="fill-current"
-                >
-                  <path
-                    d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z"
-                  />
-                  <path
-                    d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z"
-                  />
-                  <path
-                    d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z"
-                  />
-                </svg>
-              </div>
-              <div className="w-full">
-                <h3
-                  className="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl"
-                >
-                  Is TailGrids Well-documented?
-                </h3>
-                <p className="text-base text-body-color dark:text-dark-6">
-                  It takes 2-3 weeks to get your first blog post ready. That
-                  includes the in-depth research & creation of your monthly
-                  content ui/ux strategy that we do writing your first blog
-                  post.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="w-full px-4 lg:w-1/2">
-            <div className="mb-12 flex lg:mb-[70px]">
-              <div
-                className="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 34 34"
-                  className="fill-current"
-                >
-                  <path
-                    d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z"
-                  />
-                  <path
-                    d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z"
-                  />
-                  <path
-                    d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z"
-                  />
-                </svg>
-              </div>
-              <div className="w-full">
-                <h3
-                  className="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl"
-                >
-                  Is TailGrids Well-documented?
-                </h3>
-                <p className="text-base text-body-color dark:text-dark-6">
-                  It takes 2-3 weeks to get your first blog post ready. That
-                  includes the in-depth research & creation of your monthly
-                  content ui/ux strategy that we do writing your first blog
-                  post.
-                </p>
-              </div>
-            </div>
-            <div className="mb-12 flex lg:mb-[70px]">
-              <div
-                className="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
-              >
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 34 34"
-                  className="fill-current"
-                >
-                  <path
-                    d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z"
-                  />
-                  <path
-                    d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z"
-                  />
-                  <path
-                    d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z"
-                  />
-                </svg>
-              </div>
-              <div className="w-full">
-                <h3
-                  className="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl"
-                >
-                  Is TailGrids Well-documented?
-                </h3>
-                <p className="text-base text-body-color dark:text-dark-6">
-                  It takes 2-3 weeks to get your first blog post ready. That
-                  includes the in-depth research & creation of your monthly
-                  content ui/ux strategy that we do writing your first blog
-                  post.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-stretch">
+        {recipes.map(recipe => (
+            <RecipeItem key={recipe.id} recipe={recipe} />
+          ))}
         </div>
       </div>
       <div>
 
       </div>
     </section>
+
+    <div
+      className="custombg2 bgoverlay relative overflow-hidden bg-primary p-[80px] md:p-[80px] lg:p-[80px] w-full lg:mx-auto px-6 md:px-8 lg:px-0 flex justify-center"
+    >   
+      <div className="container lg:max-w-[1240px]">
+        <div className=''>
+        
+        <div className="-mx-4 flex flex-wrap items-center">
+          <div className="w-full px-4">
+            <div
+              className="hero-content wow fadeInUp mx-auto max-w-[780px] text-center"
+              data-wow-delay=".2s"
+            >
+              <h1
+                className="mb-6 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]"
+              >
+                Unleash Flavor with AI: Unique Recipes Created for Your Tastes
+              </h1>
+              <p
+                className="mx-auto mb-9 max-w-[600px] text-base font-medium text-white sm:text-lg sm:leading-[1.44]"
+              >
+                Experience a new way of cooking with our AI-powered recipe generator.
+              </p>
+              <ul
+                className="mb-10 flex flex-wrap items-center justify-center gap-5"
+              >
+                <Link to="/Register">
+                <button className="rounded border bg-white border-White py-3 px-8 text-base font-medium leading-normal text-DarkGreen transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                 Start Now
+              </button>
+              </Link>
+              <Link to="/Login">
+                <button className="rounded border border-White py-3 px-8 text-base font-medium leading-normal text-White transition duration-150 ease-in-out hover:border-White hover:bg-White hover:text-DarkGreen">
+                 Login
+              </button>
+                </Link>
+              </ul>
+              
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+      </div>
+    </div>
         <Footer />
   </>
   )

@@ -12,7 +12,7 @@ const RecipeItem = ({ recipe }) => {
 
   function handleAddToFavourite() { 
     addRecipeToFavorites(recipeId,userId,token) 
-    alert('item added successfully to favourites 😊')
+    alert('item added successfully to favourites')
   }
 
   const truncateText = (text, wordLimit) => {

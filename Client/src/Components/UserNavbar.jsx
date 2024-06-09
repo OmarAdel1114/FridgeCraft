@@ -6,9 +6,6 @@ import { CiBookmark } from "react-icons/ci";
 import { PiUserCircleLight } from "react-icons/pi";
 
 
-
-
-
 const Header = () => {
     let Links =[
         {name:"Recipes",link:"/Search"},
@@ -18,7 +15,7 @@ const Header = () => {
       let [open, setOpen] =useState(false);
 
     return (
-        <container className='shadow-md bg-white flex flex-col items-center'>
+        <container className='shadow-md bg-white flex flex-col items-center '>
         <div className='w-full lg:max-w-[1240px] lg:mx-auto px-6 md:px-8 lg:px-0'>
            <div className='flex items-center justify-between bg-white py-4'>
             {/* logo section */}
@@ -39,7 +36,7 @@ const Header = () => {
                 }
             </div>
 
-            <ul className={`shadow-md lg:shadow-none lg:flex lg:items-center lg:pb-0 absolute lg:static bg-White md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${open ? 'top-20' : 'top-[-490px]'}`}>
+            <ul className={`shadow-md lg:shadow-none justify-end flex lg:items-center lg:pb-0 absolute lg:static bg-White md:z-auto z-[1] left-0 w-full lg:w-auto  px-6 md:px-8 lg:px-0 transition-all duration-500 ease-in ${open ? 'top-20' : 'top-[-490px]'}`}>
                 {
                     Links.map((link) => (
                     <li className='lg:ml-5 lg:py-0 py-4 text-base font-medium border-b lg:border-0'>

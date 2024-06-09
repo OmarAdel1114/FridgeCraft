@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindc ss').Config} */
+
 export default {
   content: [
     "./index.html",
