@@ -6,11 +6,12 @@ import axios from "axios";
 import Main from "../../Components/Main";
 import Header from "../../Components/Navbar";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddRecipe = () => {
   const [ingredientInputs, setIngredientInputs] = useState([""]);
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     recipeTitle: "",
@@ -94,6 +95,8 @@ const AddRecipe = () => {
         position: "top-right",
       });
 
+      navigate("/Search");
+      
       return data;
     } catch (e) {
       console.log(e);
